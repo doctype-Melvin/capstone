@@ -37,6 +37,7 @@ export default function CreatePlan(){
         event.preventDefault()
         const formData = new FormData(event.target)
         const inputData = Object.fromEntries(formData)
+        inputData.days = Number(inputData.days)
         console.log(inputData)
     }
 
