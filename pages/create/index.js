@@ -29,7 +29,6 @@ export default function CreatePlan(){
                 id: nanoid(5)
             })
         }
-        console.log('Routine containers:', store)
         return store
     }
 

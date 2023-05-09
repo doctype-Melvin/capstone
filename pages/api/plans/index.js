@@ -1,4 +1,4 @@
-import dbConnect from "../../../db";
+import dbConnect from "../../../db/dbConnect.js";
 import Plan from "../../../db/models/Plan.js";
 
 export default async function handler(req, res) {
