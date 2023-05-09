@@ -5,6 +5,7 @@ import Link from "next/link"
 
 export default function CreatePlan(){
 
+    // Toggle shows workout details view
     const [ toggleDays, setToggleDays ] = useState(false)
 
     // This object stores the plan
@@ -16,9 +17,6 @@ export default function CreatePlan(){
 
     // This sets the above object as immer state
     const [ planData, updatePlanData ] = useImmer(workoutObject)
-
-    // This state is used to toggle between general form and workout schedule
-    const [ toggleForm, setToggleForm ] = useState(false)
 
     // This function populates the routine array
     // in the workoutObject. Depending on the number of days
@@ -41,8 +39,9 @@ export default function CreatePlan(){
         const inputData = Object.fromEntries(formData)
         
         inputData.days = Number(inputData.days)
-        inputData.rotine = populateRoutine(inputData.days)
+        inputData.routine = populateRoutine(inputData.days)
         
+        updatePlanData(inputData)
         setToggleDays(true)
         console.log(inputData)
     }
@@ -60,7 +59,12 @@ export default function CreatePlan(){
                     <button type="submit">Save</button>
                 </form>
                 ) : (
-                    <section>List workout details here</section>
+                    <section>
+                        <h2>{planData.name}</h2>
+                        {planData.routine.map(day => (
+                            <div key={day.id}>Day {day.day}</div>
+                        ))}
+                    </section>
                 )
             }
             <Link href="/">
