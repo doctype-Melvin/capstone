@@ -1,8 +1,11 @@
 import { useImmer } from "use-immer"
 import { useState } from "react"
 import { nanoid } from "nanoid"
+import Link from "next/link"
 
 export default function CreatePlan(){
+
+    const [ toggleDays, setToggleDays ] = useState(false)
 
     // This object stores the plan
     const workoutObject = {
@@ -36,21 +39,33 @@ export default function CreatePlan(){
         event.preventDefault()
         const formData = new FormData(event.target)
         const inputData = Object.fromEntries(formData)
+        
         inputData.days = Number(inputData.days)
         inputData.rotine = populateRoutine(inputData.days)
+        
+        setToggleDays(true)
         console.log(inputData)
     }
 
     return (
         <div>
             <div>Create a workout plan</div>
-            <form onSubmit={handleFormSubmit}>
-                <label htmlFor="name">Name</label>
-                <input type="text" min={2} max={30} name="name" required />
-                <label htmlFor="days">Days</label>
-                <input type="number" min={1} max={6} name="days" required />
-                <button type="submit">Save</button>
-            </form>
+            { !toggleDays ? 
+                (
+                <form onSubmit={handleFormSubmit}>
+                    <label htmlFor="name">Name</label>
+                    <input type="text" min={2} max={30} name="name" required />
+                    <label htmlFor="days">Days</label>
+                    <input type="number" min={1} max={6} name="days" required />
+                    <button type="submit">Save</button>
+                </form>
+                ) : (
+                    <section>List workout details here</section>
+                )
+            }
+            <Link href="/">
+                Back
+            </Link>
         </div>
     )
 }
