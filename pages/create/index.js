@@ -38,6 +38,7 @@ export default function CreatePlan(){
         const formData = new FormData(event.target)
         const inputData = Object.fromEntries(formData)
         inputData.days = Number(inputData.days)
+        inputData.rotine = populateRoutine(inputData.days)
         console.log(inputData)
     }
 
