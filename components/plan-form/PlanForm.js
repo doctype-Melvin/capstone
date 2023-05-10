@@ -2,11 +2,31 @@ import Link from "next/link"
 // import { useState } from "react"
 // import { GlobalContext } from "@/components/GlobalProvider";
 // import { useContext } from "react";
+import styled from "styled-components"
+import { useRouter } from "next/router"
 
+const FormContainer = styled.section`
+width: 100vw;
+`
+
+const FormCreatePlan = styled.form`
+width: 100%;
+display: flex;
+flex-direction: column;
+padding: 20px;
+
+& > button {
+    width: fit-content;
+    margin-top: 25px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+`
 
 export default function PlanForm() {
     // const [planData, updatePlanData] = useContext(GlobalContext)
-    
+    const router = useRouter()
     const handleSave = (event) => {
         event.preventDefault()
 
@@ -24,8 +44,8 @@ export default function PlanForm() {
     }
 
     return (
-        <section>
-            <form onSubmit={(event) => handleSave(event)}>
+        <FormContainer>
+            <FormCreatePlan onSubmit={(event) => handleSave(event)}>
                 <label htmlFor="name">Name</label>
                 <input 
                 type="text" 
@@ -41,8 +61,8 @@ export default function PlanForm() {
                 max={7}
                 required />
                 <button type="submit">Save</button>
-            </form>
-            <Link href="/">Back</Link>
-        </section>
+                <button type="button" onClick={() => router.push('/')}>Back</button>
+            </FormCreatePlan>
+        </FormContainer>
     )
 }

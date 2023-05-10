@@ -7,8 +7,9 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
-  body {
+  body, html {
     margin: 0;
     font-family: system-ui;
+    min-height: 100vh
   }
 `;
