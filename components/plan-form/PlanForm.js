@@ -1,11 +1,11 @@
 import Link from "next/link"
-import { useState } from "react"
-import { GlobalContext } from "@/components/GlobalProvider";
-import { useContext } from "react";
-import { addWorkoutDays } from "@/utils/helpers";
+// import { useState } from "react"
+// import { GlobalContext } from "@/components/GlobalProvider";
+// import { useContext } from "react";
+
 
 export default function PlanForm() {
-    const [planData, updatePlanData] = useContext(GlobalContext)
+    // const [planData, updatePlanData] = useContext(GlobalContext)
     
     const handleSave = (event) => {
         event.preventDefault()
