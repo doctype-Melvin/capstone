@@ -33,6 +33,7 @@ export default function CreatePlan(){
         return store
     }
 
+    // Writes input data to workoutObject
     const handleFormSubmit = (event) => {
         event.preventDefault()
         const formData = new FormData(event.target)
@@ -59,6 +60,7 @@ export default function CreatePlan(){
                     <button type="submit">Save</button>
                 </form>
                 ) : (
+                    // Component WorkoutDay goes here
                     <section>
                         <h2>{planData.name}</h2>
                         {planData.routine.map(day => (
