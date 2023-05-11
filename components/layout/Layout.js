@@ -16,10 +16,10 @@ height: 100vh;
 export default function Layout({children}) {
     return (
     <StyledSection>
-    <Header />
+    {/* <Header /> */}
     <StyledMain>
         {children}
     </StyledMain>
-    <Navigation />
+    {/* <Navigation /> */}
     </StyledSection>)
 }
