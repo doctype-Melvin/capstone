@@ -4,22 +4,28 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import WorkoutDay from "@/components/workoutDay/WorkoutDay"
 
-
-const PlanContainer = styled.section`
-    border: 1px solid red;
-`
-
 const sharedStyleRules = `
     width: 100vw;
 `
 
+const PlanContainer = styled.section`
+    border: 1px solid red;
+    height: 100vh;
+`
+
 const PlanHead = styled.section`
     ${sharedStyleRules}
-    
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;    
 `
 
 const PlanBody = styled.section`
     ${sharedStyleRules}
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem
 `
 
 const fetcher = (...args) => fetch(...args).then((response) => response.json())
@@ -38,10 +44,10 @@ export default function SinglePlanView() {
     return (
         <PlanContainer>
             <PlanHead>
-                <div>{data.name}</div>
+            {data.name}
             </PlanHead>
             <PlanBody>
-                {data.routine.map(day => <WorkoutDay key={day.id} day={day.day} />)}
+                {data.routine.map(day => <WorkoutDay key={day.id} number={day.day} />)}
             </PlanBody>
         </PlanContainer>
     )
