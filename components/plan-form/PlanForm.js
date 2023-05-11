@@ -5,10 +5,6 @@ import Link from "next/link"
 import styled from "styled-components"
 import { useRouter } from "next/router"
 
-const FormContainer = styled.section`
-width: 100vw;
-`
-
 const FormCreatePlan = styled.form`
 width: 100%;
 display: flex;
@@ -27,25 +23,10 @@ padding: 20px;
 export default function PlanForm() {
     // const [planData, updatePlanData] = useContext(GlobalContext)
     const router = useRouter()
-    const handleSave = (event) => {
-        event.preventDefault()
-
-        // const formData = new FormData(event.target)
-        // const nameAndDays = Object.fromEntries(formData)
-        // const routineArray = addWorkoutDays(Number(nameAndDays.days))
-        
-        // updatePlanData(draft => {
-        //     draft.name = nameAndDays.name
-        //     draft.days = nameAndDays.days
-        //     draft.routine = routineArray
-        // })
-
-
-    }
+  
 
     return (
-        <FormContainer>
-            <FormCreatePlan onSubmit={(event) => handleSave(event)}>
+            <FormCreatePlan>
                 <label htmlFor="name">Name</label>
                 <input 
                 type="text" 
@@ -63,6 +44,5 @@ export default function PlanForm() {
                 <button type="submit">Save</button>
                 <button type="button" onClick={() => router.push('/')}>Back</button>
             </FormCreatePlan>
-        </FormContainer>
     )
 }
