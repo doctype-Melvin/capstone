@@ -5,8 +5,8 @@ export default async function handler(request, response) {
     // Try to connect to database
     await dbConnect()
     
-    // Request methods POST and GET as 
-    // per US 2
+    // Request methods POST 
+    // and GET as per US 2
     if (request.method === "POST") {
         try {
             const planData = req.body
