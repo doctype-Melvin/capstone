@@ -1,6 +1,4 @@
 import Link from "next/link";
-import { GlobalContext } from "@/components/GlobalProvider";
-import { useContext } from "react";
 
 export default function HomePage() {
 
