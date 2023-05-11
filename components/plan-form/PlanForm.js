@@ -17,7 +17,6 @@ padding: 20px;
 `
 
 export default function PlanForm() {
-    // const [planData, updatePlanData] = useContext(GlobalContext)
     const router = useRouter()
   
 
