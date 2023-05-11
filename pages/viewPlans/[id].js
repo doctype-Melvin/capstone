@@ -2,7 +2,7 @@ import styled from "styled-components"
 import useSWR from "swr"
 import { useRouter } from "next/router"
 import Link from "next/link"
-import WorkoutDay from "@/components/workout-day/WorkoutDay"
+import WorkoutDay from "@/components/workoutDay/WorkoutDay"
 
 
 const PlanContainer = styled.section`
@@ -11,9 +11,6 @@ const PlanContainer = styled.section`
 
 const sharedStyleRules = `
     width: 100vw;
-    display: flex;
-    flexDirection: column;
-    alignItems: center;
 `
 
 const PlanHead = styled.section`
@@ -25,14 +22,14 @@ const PlanBody = styled.section`
     ${sharedStyleRules}
 `
 
-const fetcher = (url) => fetch(url).then((response) => response.json())
+const fetcher = (...args) => fetch(...args).then((response) => response.json())
 
 export default function SinglePlanView() {
 
-    const router = useRouter()
-    const { id } = router.query
+        const router = useRouter()
+        const { id } = router.query
 
-    const { data, error } = useSWR(`/api/plans/${id}`)
+        const { data, error } = useSWR(`/api/plans/${id}`, fetcher)
 
     if (!data) return <p>Loading...</p>
     if (error) return <p>Something went wrong</p>
@@ -42,7 +39,6 @@ export default function SinglePlanView() {
         <PlanContainer>
             <PlanHead>
                 <div>{data.name}</div>
-                <div>{data.days}</div>
             </PlanHead>
             <PlanBody>
                 {data.routine.map(day => <WorkoutDay key={day.id} day={day.day} />)}

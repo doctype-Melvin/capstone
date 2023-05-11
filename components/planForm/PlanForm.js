@@ -20,10 +20,11 @@ padding: 20px;
 `
 
 export default function PlanForm() {
+
     const router = useRouter()
     
-    const { trigger } = useSWRMutation('/api/plans', sendPostRequest, {
-        onSuccess: (id) => router.push(`plans/${id}`)
+    const { trigger } = useSWRMutation("/api/plans", sendPostRequest, {
+        onSuccess: (id) => router.push(`viewPlans/${id}`)
     })
 
     const handleFormSubmit = (event) => {
@@ -34,7 +35,8 @@ export default function PlanForm() {
         inputData.days = Number(inputData.days)
         inputData.routine = addWorkoutDays(inputData.days)
 
-        console.log(inputData)
+        trigger(inputData)
+    
     }
 
 

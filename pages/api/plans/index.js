@@ -9,12 +9,11 @@ export default async function handler(request, response) {
     // and GET as per US 2
     if (request.method === "POST") {
         try {
-            const planData = req.body
+            const planData = request.body
             const newPlan = await Plan.create(planData)
-
             // Successful response sets the
             // plan's id to mongoDB document id
-            response.status(200).json({
+            return response.status(200).json({
                 status: "Plan created successfully", 
                 id: newPlan._id
             })
@@ -25,6 +24,7 @@ export default async function handler(request, response) {
         }
     } else if (request.method === "GET") {
         try {
+            // Get all plans from DB
             const plans = await Plan.find()
             response.status(200).json(plans)
         } catch (error) {
