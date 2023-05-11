@@ -1,31 +1,27 @@
-import Link from "next/link"
-import { useState } from "react"
-import { GlobalContext } from "@/components/GlobalProvider";
-import { useContext } from "react";
-import { addWorkoutDays } from "@/utils/helpers";
+import styled from "styled-components"
+import { useRouter } from "next/router"
+
+const FormCreatePlan = styled.form`
+width: 100%;
+display: flex;
+flex-direction: column;
+padding: 20px;
+
+& > button {
+    width: fit-content;
+    margin-top: 25px;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+`
 
 export default function PlanForm() {
-    const [planData, updatePlanData] = useContext(GlobalContext)
-    
-    const handleSave = (event) => {
-        event.preventDefault()
-
-        // const formData = new FormData(event.target)
-        // const nameAndDays = Object.fromEntries(formData)
-        // const routineArray = addWorkoutDays(Number(nameAndDays.days))
-        
-        // updatePlanData(draft => {
-        //     draft.name = nameAndDays.name
-        //     draft.days = nameAndDays.days
-        //     draft.routine = routineArray
-        // })
-
-
-    }
+    const router = useRouter()
+  
 
     return (
-        <section>
-            <form onSubmit={(event) => handleSave(event)}>
+            <FormCreatePlan>
                 <label htmlFor="name">Name</label>
                 <input 
                 type="text" 
@@ -41,8 +37,7 @@ export default function PlanForm() {
                 max={7}
                 required />
                 <button type="submit">Save</button>
-            </form>
-            <Link href="/">Back</Link>
-        </section>
+                <button type="button" onClick={() => router.push('/')}>Back</button>
+            </FormCreatePlan>
     )
 }
