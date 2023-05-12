@@ -19,7 +19,7 @@ font-size: .9rem;
 const StyledButton = styled.button`
     border: none;
     fontSize: 1rem;
-    max-width: fit-content;
+    width: fit-content;
 `
 
 export default function WorkoutDay({number}){
