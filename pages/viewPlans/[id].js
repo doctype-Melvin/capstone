@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import useSWR from "swr"
 import { useRouter } from "next/router"
-import WorkoutDay from "@/components/workoutDay/WorkoutDay"
+import WorkoutDay from "@/components/WorkoutDay/WorkoutDay"
 
 const sharedStyleRules = `
     width: 100vw;
