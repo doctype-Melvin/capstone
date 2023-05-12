@@ -1,7 +1,6 @@
 import styled from "styled-components"
 import useSWR from "swr"
 import { useRouter } from "next/router"
-import Link from "next/link"
 import WorkoutDay from "@/components/workoutDay/WorkoutDay"
 
 const sharedStyleRules = `
@@ -13,7 +12,7 @@ const PlanContainer = styled.section`
     height: 100vh;
 `
 
-const PlanHead = styled.section`
+const PlanHead = styled.p`
     ${sharedStyleRules}
     text-align: center;
     margin-bottom: 1rem;

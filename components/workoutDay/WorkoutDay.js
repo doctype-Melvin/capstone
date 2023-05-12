@@ -10,7 +10,7 @@ const StyledSection = styled.section`
     border-radius: 3px;
 `
 
-const StyledTitel = styled.h1`
+const StyledTitle = styled.h1`
 padding: .5rem 0 0 0;
 margin: 0 0 .7rem 0;
 font-size: .9rem;
@@ -25,10 +25,10 @@ const StyledButton = styled.button`
 export default function WorkoutDay({number}){
     return (
         <StyledSection>
-            <StyledTitel>
+            <StyledTitle>
                 Day {number}
-            </StyledTitel>
-            <StyledButton>
+            </StyledTitle>
+            <StyledButton type="button">
                 Add Exercise
             </StyledButton>
         </StyledSection>

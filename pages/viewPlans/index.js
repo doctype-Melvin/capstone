@@ -1,7 +1,5 @@
 export default function ViewAllPlans() {
     return (
-        <>
-        <div>Here Will Be All Plans</div>
-        </>
+        <div>List of all workout plans</div>
     )
 }
