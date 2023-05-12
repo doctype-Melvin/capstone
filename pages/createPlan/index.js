@@ -1,4 +1,4 @@
-import PlanForm from "@/components/plan-form/PlanForm";
+import PlanForm from "@/components/planForm/PlanForm";
 
 export default function CreatePlanView() {
    

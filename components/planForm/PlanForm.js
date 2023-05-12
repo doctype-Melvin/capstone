@@ -1,5 +1,8 @@
 import styled from "styled-components"
 import { useRouter } from "next/router"
+import { sendPostRequest } from "@/utils/helpers"
+import { addWorkoutDays } from "@/utils/helpers"
+import useSWRMutation from "swr/mutation"
 
 const FormCreatePlan = styled.form`
 width: 100%;
@@ -17,11 +20,28 @@ padding: 20px;
 `
 
 export default function PlanForm() {
+
     const router = useRouter()
-  
+    
+    const { trigger } = useSWRMutation("/api/plans", sendPostRequest, {
+        onSuccess: (id) => router.push(`viewPlans/${id}`)
+    })
+
+    const handleFormSubmit = (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(event.target)
+        const inputData = Object.fromEntries(formData)
+        inputData.days = Number(inputData.days)
+        inputData.routine = addWorkoutDays(inputData.days)
+
+        trigger(inputData)
+    
+    }
+
 
     return (
-            <FormCreatePlan>
+            <FormCreatePlan onSubmit={handleFormSubmit}> 
                 <label htmlFor="name">Name</label>
                 <input 
                 type="text" 
