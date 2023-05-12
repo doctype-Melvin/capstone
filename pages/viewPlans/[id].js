@@ -1,14 +1,13 @@
 import styled from "styled-components"
 import useSWR from "swr"
 import { useRouter } from "next/router"
-import WorkoutDay from "@/components/workoutDay/WorkoutDay"
+import WorkoutDay from "@/components/WorkoutDay/WorkoutDay"
 
 const sharedStyleRules = `
     width: 100vw;
 `
 
 const PlanContainer = styled.section`
-    border: 1px solid red;
     height: 100vh;
 `
 
