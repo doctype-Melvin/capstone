@@ -1,4 +1,6 @@
 import styled from "styled-components"
+import ExerciseForm from "../ExerciseForm/ExerciseForm"
+import { useState } from "react"
 
 const StyledSection = styled.section`
     display: flex;
@@ -11,9 +13,9 @@ const StyledSection = styled.section`
 `
 
 const StyledTitle = styled.h1`
-padding: .5rem 0 0 0;
-margin: 0 0 .7rem 0;
-font-size: .9rem;
+    padding: .5rem 0 0 0;
+    margin: 0 0 .7rem 0;
+    font-size: .9rem;
 `
 
 const StyledButton = styled.button`
@@ -23,14 +25,23 @@ const StyledButton = styled.button`
 `
 
 export default function WorkoutDay({number}){
+    const [ toggleForm, setToggleForm ] = useState(false)
+
+    const handleToggle = () => setToggleForm(prevState => !prevState)
+
     return (
         <StyledSection>
             <StyledTitle>
                 Day {number}
             </StyledTitle>
-            <StyledButton type="button">
+            { !toggleForm ? (
+            <StyledButton type="button" onClick={handleToggle}>
                 Add Exercise
-            </StyledButton>
+            </StyledButton> 
+            ) : (
+                <ExerciseForm onToggle={handleToggle}/>
+            )
+            }
         </StyledSection>
     )
 }

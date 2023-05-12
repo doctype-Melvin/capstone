@@ -8,7 +8,6 @@ const sharedStyleRules = `
 `
 
 const PlanContainer = styled.section`
-    border: 1px solid red;
     height: 100vh;
 `
 
