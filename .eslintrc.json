@@ -1,15 +1,24 @@
 {
   "env": {
+    "browser": true,
+    "es2021": true,
     "jest": true
   },
-  "extends": ["next/core-web-vitals", "plugin:jest/recommended"],
-  "rules": {
-    "import/no-anonymous-default-export": [
-      "error",
-      {
-        "allowObject": true
-      }
-    ]
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
   },
-  "plugins": ["jest"]
+  "plugins": ["react"],
+  "rules": {
+    "react/react-in-jsx-scope": "on",
+    "react/prop-types": 0
+  }
 }
