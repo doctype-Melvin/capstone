@@ -39,7 +39,6 @@ export default function ExerciseForm({
 }) {
   const router = useRouter();
   const { id } = router.query;
-  //const { data } = usePlan(id);
 
   const [newData, setNewData] = useState({
     exercise: isEdit ? editExercise.exercise : "",
@@ -47,8 +46,6 @@ export default function ExerciseForm({
     reps: isEdit ? editExercise.reps : "",
     weight: isEdit ? editExercise.weight : "",
   });
-
-  // useSWR to update database
 
   const { trigger } = useSWRMutation(`/api/plans/${id}`, sendPostRequest);
 
