@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import { nanoid } from "nanoid";
-import PlanContext from "@/utils/PlanContext/PlanContext";
-import { useContext, useEffect, useState } from "react";
+import { useState } from "react";
+import { useRouter } from "next/router";
+import useSWRMutation from "swr/mutation";
+import { sendPostRequest } from "@/utils/helpers";
+import { usePlan } from "@/utils/helpers";
+import { mutateExercise } from "@/utils/helpers";
 
 const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
-  width: fit-content;
+  width: 80vw;
   align-items: flex-end;
-  margin: 0 auto;
   gap: 0.5rem;
 
   & > label {
@@ -23,82 +26,60 @@ const StyledForm = styled.form`
 const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
-  justify-content: ${({ edit }) => (edit ? "center" : "space-between")};
+  justify-content: space-around;
   padding: 0.7rem 0;
 `;
 
 export default function ExerciseForm({
-  onToggle,
-  onAdd,
+  toggleForm,
   dayId,
-  edit,
-  onToggleEdit,
+  isEdit,
+  toggleEditMode,
   editExercise,
-  onUpdate,
 }) {
-  const { setPlan } = useContext(PlanContext);
-  const [exerciseData, setExercisesData] = useState({
-    exercise: "",
-    sets: "",
-    reps: "",
-    weight: "",
+  const router = useRouter();
+  const { id } = router.query;
+  //const { data } = usePlan(id);
+
+  const [newData, setNewData] = useState({
+    exercise: isEdit ? editExercise.exercise : "",
+    sets: isEdit ? editExercise.sets : "",
+    reps: isEdit ? editExercise.reps : "",
+    weight: isEdit ? editExercise.weight : "",
   });
 
-  // Receives workout day's id , form data and data from localStorage
-  // Updates the exercise array of the matching workout day
-  // Updates the plan's routine array
-  const addExercise = (dayId, exerciseData, storageData) => {
-    const workoutDay = storageData.routine.find((day) => day.id === dayId);
-    if (workoutDay) {
-      storageData.routine = storageData.routine.map((day) => {
-        if (day.id === workoutDay.id) {
-          const existingExerciseIndex = workoutDay.exercises.findIndex(
-            (exercise) => {
-              return exercise.id === exerciseData.id;
-            }
-          );
-          if (existingExerciseIndex !== -1) {
-            workoutDay.exercises[existingExerciseIndex] = exerciseData;
-            return workoutDay;
-          } else {
-            day.exercises = [...day.exercises, exerciseData];
-            return day;
-          }
-        } else {
-          return day;
-        }
-      });
-      setPlan(storageData);
-    }
-  };
+  // useSWR to update database
 
-  const handleSubmit = (event) => {
+  const { trigger } = useSWRMutation(`/api/plans/${id}`, sendPostRequest);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const storageData = JSON.parse(localStorage.getItem("plan"));
 
     const formData = new FormData(event.target);
     const exerciseData = Object.fromEntries(formData);
 
-    if (edit) {
-      exerciseData.id = editExercise.id;
-
-      addExercise(event.target.id, exerciseData, storageData);
-      onUpdate(exerciseData);
-      onToggleEdit((prevState) => !prevState);
+    if (isEdit) {
+      const updatedExercise = {
+        ...editExercise,
+        ...newData,
+      };
+      await mutateExercise(dayId, id, updatedExercise);
+      toggleEditMode();
     } else {
       exerciseData.id = nanoid(5);
-
-      addExercise(event.target.id, exerciseData, storageData);
-      onAdd(exerciseData);
-      onToggle();
+      exerciseData.dayId = dayId;
+      trigger(exerciseData);
     }
+    toggleForm();
   };
 
-  useEffect(() => {
-    if (editExercise) {
-      setExercisesData(editExercise);
-    }
-  }, [editExercise]);
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setNewData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   return (
     <StyledForm onSubmit={handleSubmit} id={dayId}>
@@ -107,13 +88,8 @@ export default function ExerciseForm({
         <input
           type="text"
           name="exercise"
-          value={exerciseData.exercise}
-          onChange={(event) =>
-            setExercisesData((prevState) => ({
-              ...prevState,
-              exercise: event.target.value,
-            }))
-          }
+          value={newData.exercise}
+          onChange={handleInputChange}
           required
         />
       </label>
@@ -124,15 +100,9 @@ export default function ExerciseForm({
           name="sets"
           min={1}
           max={30}
-          pattern="/d+"
+          value={newData.sets}
+          onChange={handleInputChange}
           required
-          value={exerciseData.sets}
-          onChange={(event) =>
-            setExercisesData((prevState) => ({
-              ...prevState,
-              sets: event.target.value,
-            }))
-          }
         />
       </label>
       <label htmlFor="reps">
@@ -142,15 +112,9 @@ export default function ExerciseForm({
           name="reps"
           min={1}
           max={100}
-          pattern="/d+"
+          value={newData.reps}
+          onChange={handleInputChange}
           required
-          value={exerciseData.reps}
-          onChange={(event) =>
-            setExercisesData((prevState) => ({
-              ...prevState,
-              reps: event.target.value,
-            }))
-          }
         />
       </label>
       <label htmlFor="weight">
@@ -160,23 +124,21 @@ export default function ExerciseForm({
           name="weight"
           min={0}
           max={800}
-          pattern="/d+"
+          value={newData.weight}
+          onChange={handleInputChange}
           required
-          value={exerciseData.weight}
-          onChange={(event) =>
-            setExercisesData((prevState) => ({
-              ...prevState,
-              weight: event.target.value,
-            }))
-          }
         />
       </label>
-      <ButtonContainer edit={edit}>
-        <button type="submit">{edit ? "Save" : "Add"}</button>
-        {!edit && (
-          <button type="button" onClick={() => onToggle()}>
-            Cancel
-          </button>
+      <ButtonContainer>
+        {isEdit ? (
+          <button type="submit">Save</button>
+        ) : (
+          <>
+            <button type="submit">Add</button>
+            <button type="button" onClick={() => toggleForm()}>
+              Cancel
+            </button>
+          </>
         )}
       </ButtonContainer>
     </StyledForm>

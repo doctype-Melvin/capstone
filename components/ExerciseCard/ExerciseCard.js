@@ -1,11 +1,11 @@
 import styled from "styled-components";
-import Collapsible from "../Collapsible/Collapsible";
+import { useState } from "react";
 
 const CardContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: lightgray;
+  background-color: #b8f28d;
   padding: 10px 5px;
 `;
 
@@ -13,28 +13,66 @@ const ExerciseName = styled.span`
   margin-left: 0.8rem;
 `;
 
+const DetailsContainer = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
+  & > span:hover {
+    cursor: pointer;
+  }
+`;
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 1rem;
+`;
+
 export default function ExerciseCard({
-  id,
-  name,
-  sets,
-  reps,
-  weight,
-  dayId,
-  handleUpdateExercise,
+  exercise,
+  toggleForm,
+  toggleEditMode,
+  isEdit,
+  setEditExercise,
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const handleCollapseExpand = () => setExpanded((prevState) => !prevState);
+
+  const handleEditClick = () => {
+    handleCollapseExpand();
+    toggleForm();
+    toggleEditMode();
+    setEditExercise(exercise);
+  };
+
   return (
-    <CardContainer>
-      <ExerciseName aria-label="exercise-name">
-        {name.toUpperCase()}
-      </ExerciseName>
-      <Collapsible
-        id={id}
-        sets={sets}
-        reps={reps}
-        weight={weight}
-        dayId={dayId}
-        handleUpdateExercise={handleUpdateExercise}
-      />
-    </CardContainer>
+    <>
+      {!isEdit ? (
+        <CardContainer>
+          <ExerciseName aria-label="exercise-name">
+            {exercise.exercise.toUpperCase()}
+          </ExerciseName>
+          <DetailsContainer>
+            <div>Sets: {exercise.sets}</div>
+            <div>Reps: {exercise.reps}</div>
+            <div>Weight: {exercise.weight}</div>
+            {expanded ? (
+              <span onClick={handleCollapseExpand}>&#x25B2;</span>
+            ) : (
+              <span onClick={handleCollapseExpand}>&#x25BC;</span>
+            )}
+          </DetailsContainer>
+          {expanded ? (
+            <ButtonContainer>
+              <button type="button">Delete</button>
+              <button type="button" onClick={handleEditClick}>
+                Edit
+              </button>
+            </ButtonContainer>
+          ) : null}
+        </CardContainer>
+      ) : null}
+    </>
   );
 }
