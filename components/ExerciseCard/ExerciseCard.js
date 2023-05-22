@@ -1,5 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { removeExercise } from "@/utils/helpers";
+import { useRouter } from "next/router";
+import { usePlan } from "@/utils/helpers";
+
 
 const CardContainer = styled.section`
   display: flex;
@@ -38,12 +42,19 @@ export default function ExerciseCard({
 }) {
   const [expanded, setExpanded] = useState(false);
   const handleCollapseExpand = () => setExpanded((prevState) => !prevState);
+  const router = useRouter();
+  const { id } = router.query;
+  const { data } = usePlan(id);
 
   const handleEditClick = () => {
     handleCollapseExpand();
     toggleForm();
     toggleEditMode();
     setEditExercise(exercise);
+  };
+
+  const handleDeleteClick = async (exercise) => {
+    await removeExercise(id, data, exercise);
   };
 
   return (
@@ -65,7 +76,9 @@ export default function ExerciseCard({
           </DetailsContainer>
           {expanded ? (
             <ButtonContainer>
-              <button type="button">Delete</button>
+              <button type="button" onClick={() => handleDeleteClick(exercise)}>
+                Delete
+              </button>
               <button type="button" onClick={handleEditClick}>
                 Edit
               </button>
