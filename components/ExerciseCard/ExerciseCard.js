@@ -3,7 +3,7 @@ import { useState } from "react";
 import { removeExercise } from "@/utils/helpers";
 import { useRouter } from "next/router";
 import { usePlan } from "@/utils/helpers";
-import { mutate } from "swr";
+
 
 const CardContainer = styled.section`
   display: flex;
