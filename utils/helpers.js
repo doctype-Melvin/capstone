@@ -96,3 +96,5 @@ export const fetcher = (...args) =>
   fetch(...args).then((response) => response.json());
 
 export const usePlan = (id) => useSWR(`/api/plans/${id}`, fetcher);
+
+export const useAllPlans = () => useSWR(`/api/plans`, fetcher)
