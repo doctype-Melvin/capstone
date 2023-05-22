@@ -10,7 +10,7 @@ export default function ViewAllPlans() {
 
   return (
     <div>
-      <p>You've saved {data.length} {data.length === 1 ? 'template' : 'templates'}</p>
+      <p>{`There are`} {data.length} {data.length === 1 ? 'template' : 'templates'} {`in your vault`}</p>
       {data.map(plan => <div key={plan._id}><Link href={`viewPlans/${plan._id}`}>{plan.name}</Link></div>)}
       <button type="button" onClick={() => router.push(`/createPlan`)}>New Template</button>
     </div>
