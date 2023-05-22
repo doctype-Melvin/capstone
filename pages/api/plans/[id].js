@@ -52,7 +52,23 @@ export default async function handler(request, response) {
     }
   }
 
-  if (request.method === "DELETE") {
-    const currentPlan = await Plan.findById(id);
+  if (request.method === "PUT") {
+    try {
+      const deleteExercise = request.body;
+      const currentPlan = await Plan.findById(id);
+      const updatedRoutine = currentPlan.routine.map((day) => {
+        if (day.id === deleteExercise.dayId) {
+          const updatedExercises = day.exercises.filter(
+            (exercise) => exercise.id !== deleteExercise.id
+          );
+          day.exercises = updatedExercises;
+        }
+        return day;
+      });
+      await Plan.findByIdAndUpdate(id, { routine: updatedRoutine });
+      response.status(200).json({ status: "Exercise successfully deleted" });
+    } catch (error) {
+      return response.status(500).json({ status: "Couldn't delete exercise" });
+    }
   }
 }

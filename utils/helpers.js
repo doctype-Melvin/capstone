@@ -57,6 +57,41 @@ export const mutateExercise = async (dayId, planId, newData) => {
   );
 };
 
+// Start deletion section
+export const sendPutRequest = async (url, exercise) => {
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(exercise),
+  });
+  if (!response.ok) {
+    console.error("Couldn't send delete request");
+  }
+};
+
+export const findDayAndIndex = (data, deleteExercise) => {
+  const targetDay = data.routine.find((day) => day.id === deleteExercise.dayId);
+  const targetDayIndex = data.routine.findIndex(
+    (day) => day.id === deleteExercise.dayId
+  );
+  const updatedExercises = targetDay.exercises.filter(
+    (exercise) => exercise.id !== deleteExercise.id
+  );
+  targetDay.exercises = updatedExercises;
+  return [targetDay, targetDayIndex];
+};
+
+export const removeExercise = async (planId, data, deleteExercise) => {
+  await sendPutRequest(`/api/plans/${planId}`, deleteExercise);
+  const [updatedDay, atIndex] = findDayAndIndex(data, deleteExercise);
+  const updatedData = { ...data };
+  updatedData.routine[atIndex] = updatedDay;
+  mutate(`/api/plans/${planId}`, updatedData, true);
+};
+// End deletion section
+
 export const fetcher = (...args) =>
   fetch(...args).then((response) => response.json());
 
