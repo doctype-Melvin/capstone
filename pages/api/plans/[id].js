@@ -51,4 +51,8 @@ export default async function handler(request, response) {
       return response.status(404).json({ status: "Couldn't update plan" });
     }
   }
+
+  if (request.method === "DELETE") {
+    const currentPlan = await Plan.findById(id);
+  }
 }

@@ -46,6 +46,8 @@ export default function ExerciseCard({
     setEditExercise(exercise);
   };
 
+  const handleDeleteClick = (event) => console.log(event.target.id);
+
   return (
     <>
       {!isEdit ? (
@@ -65,7 +67,13 @@ export default function ExerciseCard({
           </DetailsContainer>
           {expanded ? (
             <ButtonContainer>
-              <button type="button">Delete</button>
+              <button
+                type="button"
+                id={exercise.id}
+                onClick={handleDeleteClick}
+              >
+                Delete
+              </button>
               <button type="button" onClick={handleEditClick}>
                 Edit
               </button>
