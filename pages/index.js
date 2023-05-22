@@ -1,8 +1,5 @@
 import Link from "next/link";
 
 export default function HomePage() {
-
-  return (
-         <Link href="/createPlan">Create Plan</Link>
-  );
+  return <Link href="/createPlan">Create Plan</Link>;
 }

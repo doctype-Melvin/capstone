@@ -2,9 +2,8 @@
 name: User Stories
 about: User Stories
 title: "[US]"
-labels: ''
-assignees: ''
-
+labels: ""
+assignees: ""
 ---
 
 ## Value proposition
