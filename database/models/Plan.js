@@ -6,6 +6,7 @@ const planSchema = new Schema({
   name: String,
   days: Number,
   routine: Array,
+  isCurrent: Boolean,
 });
 
 const Plan = mongoose.models.Plan || mongoose.model("Plan", planSchema);

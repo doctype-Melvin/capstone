@@ -33,6 +33,7 @@ export default function PlanForm() {
     const inputData = Object.fromEntries(formData);
     inputData.days = Number(inputData.days);
     inputData.routine = addWorkoutDays(inputData.days);
+    inputData.isCurrent = false;
 
     trigger(inputData);
   };
