@@ -40,6 +40,7 @@ export default function SinglePlanView() {
           <WorkoutDay key={day.id} number={day.day} dayId={day.id} />
         ))}
       </PlanBody>
+      <button type="button" onClick={() => router.push(`/viewPlans`)}>Save</button>
     </PlanContainer>
   );
 }
