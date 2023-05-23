@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { AiOutlineDelete as Delete } from "react-icons/ai"
 import Link from "next/link"
+import { deleteTemplate } from "@/utils/helpers"
 
 const TemplateContainer = styled.section`
     width: 100%;
@@ -13,6 +14,9 @@ const TemplateContainer = styled.section`
 const IconContainer = styled.div`
 font-size: 1.75rem;
 padding-top: 0.2rem;
+&:hover {
+    cursor: pointer;
+}
 `
 
 const StyledLink = styled(Link)`
@@ -28,7 +32,7 @@ export default function TemplateCard({data}) {
                 {data.days} {data.days > 1 ? 'Days' : 'Day'}
             </span>
             <IconContainer>
-                <Delete color="crimson"/>
+                <Delete color="crimson" onClick={() => deleteTemplate(data._id)}/>
             </IconContainer>
         </TemplateContainer>
     )

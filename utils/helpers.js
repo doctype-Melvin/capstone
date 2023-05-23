@@ -90,6 +90,14 @@ export const removeExercise = async (planId, data, deleteExercise) => {
   updatedData.routine[atIndex] = updatedDay;
   mutate(`/api/plans/${planId}`, updatedData, true);
 };
+
+export const deleteTemplate = async (id) => {
+  await fetch(`/api/plans/${id}`, {
+    method: "DELETE",
+  })
+  mutate(`/api/plans`)
+}
+
 // End deletion section
 
 export const fetcher = (...args) =>
