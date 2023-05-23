@@ -1,6 +1,5 @@
 import { useAllPlans } from "@/utils/helpers";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import TemplateCard from "@/components/TemplateCard/TemplateCard";
 
 export default function ViewAllPlans() {
@@ -12,7 +11,7 @@ export default function ViewAllPlans() {
   return (
     <div>
       <p>{`There are`} {data.length} {data.length === 1 ? 'template' : 'templates'} {`in your vault`}</p>
-      {data.map(plan => <div key={plan._id}><Link href={`viewPlans/${plan._id}`}><TemplateCard data={plan} /></Link></div>)}
+      {data.map(plan => <TemplateCard key={plan._id} data={plan} />)}
       <button type="button" onClick={() => router.push(`/createPlan`)}>New Template</button>
     </div>
   );

@@ -1,5 +1,6 @@
 import styled from "styled-components"
 import { AiOutlineDelete as Delete } from "react-icons/ai"
+import Link from "next/link"
 
 const TemplateContainer = styled.section`
     width: 100%;
@@ -14,11 +15,15 @@ font-size: 1.75rem;
 padding-top: 0.2rem;
 `
 
+const StyledLink = styled(Link)`
+text-decoration: none;
+`
+
 
 export default function TemplateCard({data}) {
     return (
         <TemplateContainer>
-            {data.name.toUpperCase()} 
+            <StyledLink href={`/viewPlans/${data._id}`}>{data.name.toUpperCase()} </StyledLink>
             <span>
                 {data.days} {data.days > 1 ? 'Days' : 'Day'}
             </span>
