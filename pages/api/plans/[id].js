@@ -73,7 +73,7 @@ export default async function handler(request, response) {
   }
 
   if (request.method === "DELETE") {
-      await Plan.findByIdAndDelete(id)
-      response.status(200).json({ status: "Plan successfully deleted" });
+    await Plan.findByIdAndDelete(id);
+    response.status(200).json({ status: "Plan successfully deleted" });
   }
 }

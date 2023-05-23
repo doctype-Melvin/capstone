@@ -1,18 +1,34 @@
 import { useAllPlans } from "@/utils/helpers";
 import { useRouter } from "next/router";
 import TemplateCard from "@/components/TemplateCard/TemplateCard";
+import Link from "next/link";
+import styled from "styled-components";
+
+const NewTemplateLink = styled(Link)`
+  padding: 0.15rem 0.5rem;
+  border: 1px solid hotpink;
+  border-radius: 5px;
+  text-decoration: none;
+  color: black;
+  background-color: yellow;
+`;
 
 export default function ViewAllPlans() {
-  const router = useRouter()
-  const { data } = useAllPlans()
+  const router = useRouter();
+  const { data } = useAllPlans();
 
-  if (!data) return <p>Loading ...</p>
+  if (!data) return <p>Loading ...</p>;
 
   return (
     <div>
-      <p>{`There are`} {data.length} {data.length === 1 ? 'template' : 'templates'} {`in your vault`}</p>
-      {data.map(plan => <TemplateCard key={plan._id} data={plan} />)}
-      <button type="button" onClick={() => router.push(`/createPlan`)}>New Template</button>
+      <p>
+        {`There are`} {data.length}{" "}
+        {data.length === 1 ? "template" : "templates"} {`in your vault`}
+      </p>
+      {data.map((plan) => (
+        <TemplateCard key={plan._id} data={plan} />
+      ))}
+      <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
     </div>
   );
 }
