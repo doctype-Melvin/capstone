@@ -90,6 +90,14 @@ export const removeExercise = async (planId, data, deleteExercise) => {
   updatedData.routine[atIndex] = updatedDay;
   mutate(`/api/plans/${planId}`, updatedData, true);
 };
+
+export const deleteTemplate = async (id) => {
+  await fetch(`/api/plans/${id}`, {
+    method: "DELETE",
+  });
+  mutate(`/api/plans`);
+};
+
 // End deletion section
 
 export const fetcher = (...args) =>
@@ -97,4 +105,4 @@ export const fetcher = (...args) =>
 
 export const usePlan = (id) => useSWR(`/api/plans/${id}`, fetcher);
 
-export const useAllPlans = () => useSWR(`/api/plans`, fetcher)
+export const useAllPlans = () => useSWR(`/api/plans`, fetcher);

@@ -4,7 +4,6 @@ import { removeExercise } from "@/utils/helpers";
 import { useRouter } from "next/router";
 import { usePlan } from "@/utils/helpers";
 
-
 const CardContainer = styled.section`
   display: flex;
   flex-direction: column;

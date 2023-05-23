@@ -71,4 +71,9 @@ export default async function handler(request, response) {
       return response.status(500).json({ status: "Couldn't delete exercise" });
     }
   }
+
+  if (request.method === "DELETE") {
+    await Plan.findByIdAndDelete(id);
+    response.status(200).json({ status: "Plan successfully deleted" });
+  }
 }
