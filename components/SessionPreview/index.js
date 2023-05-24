@@ -10,9 +10,15 @@ const DayDisplay = styled.section`
   background-color: hotpink;
 `;
 
-const ExercisesPreviewContainer = styled.section`
+const ExercisesPreviewContainer = styled.ul`
   display: flex;
   justify-content: space-evenly;
+  padding: 0;
+  margin:0;
+
+  & > li {
+    list-style-type: none;
+  }
 `;
 
 export default function SessionPreview({ template }) {
@@ -26,7 +32,7 @@ export default function SessionPreview({ template }) {
       <DayDisplay>{`Day ${dayCount + 1}`}</DayDisplay>
       <ExercisesPreviewContainer>
         {template.routine[0].exercises.map((exercise) => (
-          <div key={exercise.id}>{exercise.exercise}</div>
+          <li key={exercise.id}>{exercise.exercise}</li>
         ))}
       </ExercisesPreviewContainer>
     </PreviewContainer>
