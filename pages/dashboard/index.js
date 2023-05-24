@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { usePlan } from "@/utils/helpers";
+import SessionPreview from "@/components/SessionPreview";
 
 export default function Dashboard() {
     const router = useRouter()
@@ -10,7 +11,7 @@ export default function Dashboard() {
     if (isLoading || !template) return <p>Loading...</p>
     return (
         <section>
-            {template.name}
+            <SessionPreview template={template} />
         </section>
     )
 }
