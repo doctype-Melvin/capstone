@@ -22,6 +22,15 @@ const StyledParagraph = styled.p`
   text-align: center;
 `;
 
+const StyledList = styled.ul`
+  margin: 0;
+  padding: 0;
+
+  & > li {
+    list-style-type: none;
+  }
+`
+
 export default function ViewAllPlans() {
   const { data } = useAllPlans();
 
@@ -34,9 +43,13 @@ export default function ViewAllPlans() {
           ? `There is ${data.length} template in your vault`
           : `There are ${data.length} templates in your vault`}
       </StyledParagraph>
+      <StyledList>
       {data.map((plan) => (
-        <TemplateCard key={plan._id} templateData={plan} />
-      ))}
+        <li key={plan._id}>
+          <TemplateCard templateData={plan} />
+        </li>
+        ))}
+        </StyledList>
       <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
     </OverviewContainer>
   );

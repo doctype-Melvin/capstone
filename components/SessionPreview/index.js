@@ -4,6 +4,7 @@ const PreviewContainer = styled.section`
   width: 100%;
   text-align: center;
   padding: 0.5rem 1rem;
+  min-height: 100vh;
 `;
 
 const DayDisplay = styled.section`
@@ -13,8 +14,8 @@ const DayDisplay = styled.section`
 const ExercisesPreviewContainer = styled.ul`
   display: flex;
   justify-content: space-evenly;
+  margin: 0;
   padding: 0;
-  margin:0;
 
   & > li {
     list-style-type: none;

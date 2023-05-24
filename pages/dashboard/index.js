@@ -3,9 +3,6 @@ import { usePlan } from "@/utils/helpers";
 import SessionPreview from "@/components/SessionPreview";
 import styled from "styled-components";
 
-const DashboardContainer = styled.section`
-  min-height: 100vh;
-`;
 
 export default function Dashboard() {
   const router = useRouter();
@@ -15,8 +12,8 @@ export default function Dashboard() {
 
   if (isLoading || !template) return <p>Loading...</p>;
   return (
-    <DashboardContainer>
+    <section>
       <SessionPreview template={template} />
-    </DashboardContainer>
+    </section>
   );
 }
