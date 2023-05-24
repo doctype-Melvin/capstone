@@ -6,7 +6,7 @@ const HomeScreen = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-`
+`;
 
 const StyledLinkCreate = styled(Link)`
   text-decoration: none;
@@ -20,12 +20,12 @@ const StyledLinkCreate = styled(Link)`
     background-color: hotpink;
     color: #fff;
   }
-`
+`;
 
 export default function HomePage() {
   return (
     <HomeScreen>
-    <StyledLinkCreate href="/createPlan">Create Plan</StyledLinkCreate>
+      <StyledLinkCreate href="/createPlan">Create Plan</StyledLinkCreate>
     </HomeScreen>
-  )
+  );
 }

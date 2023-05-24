@@ -21,8 +21,6 @@ export const usePlan = (id) => useSWR(`/api/plans/${id}`, fetcher);
 
 export const useAllPlans = () => useSWR(`/api/plans`, fetcher);
 
-
-
 export const sendPostRequest = async (url, { arg }) => {
   const response = await fetch(url, {
     method: "POST",
@@ -54,18 +52,18 @@ export const sendPatchRequestCurrentTemplate = async (url, planId) => {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
-  },
-  body: JSON.stringify(planId)
+    },
+    body: JSON.stringify(planId),
   });
   if (!response.ok) {
-    console.error("Setting current tamplate failed")
+    console.error("Setting current tamplate failed");
   }
-}
+};
 
 export const setCurrentTemplate = async (planId) => {
-  await sendPatchRequestCurrentTemplate(`/api/plans`, planId)
-  mutate(`/api/plans`)
-}
+  await sendPatchRequestCurrentTemplate(`/api/plans`, planId);
+  mutate(`/api/plans`);
+};
 
 export const mutateExercise = async (dayId, planId, newData) => {
   await sendPatchRequest(`/api/plans/${planId}`, newData);
@@ -126,5 +124,3 @@ export const deleteTemplate = async (id) => {
 };
 
 // End deletion section
-
-

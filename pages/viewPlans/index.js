@@ -4,8 +4,8 @@ import Link from "next/link";
 import styled from "styled-components";
 
 const OverviewContainer = styled.section`
-min-height: 100vh;
-`
+  min-height: 100vh;
+`;
 
 const NewTemplateLink = styled(Link)`
   padding: 0.15rem 0.5rem;
@@ -20,8 +20,7 @@ const StyledParagraph = styled.p`
   margin: 0;
   padding: 1rem 0;
   text-align: center;
-`
-
+`;
 
 export default function ViewAllPlans() {
   const { data } = useAllPlans();
@@ -31,10 +30,9 @@ export default function ViewAllPlans() {
   return (
     <OverviewContainer>
       <StyledParagraph>
-        {data.length === 1 ? (
-          `There is ${data.length} template in your vault`
-          ) : (
-          `There are ${data.length} templates in your vault`)}
+        {data.length === 1
+          ? `There is ${data.length} template in your vault`
+          : `There are ${data.length} templates in your vault`}
       </StyledParagraph>
       {data.map((plan) => (
         <TemplateCard key={plan._id} templateData={plan} />

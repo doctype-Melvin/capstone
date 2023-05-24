@@ -26,41 +26,47 @@ const StyledLink = styled(Link)`
 `;
 
 const CurrentIndicator = styled.div`
- border: 2px solid #27F52C;
- border-radius: 5px;
- font-size: 0.8rem;
- text-align: center;
- margin: 0 auto;
- padding: 0 10px;
-`
+  border: 2px solid #27f52c;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0 10px;
+`;
 
 export default function TemplateCard({ templateData }) {
-
-  const router = useRouter()
+  const router = useRouter();
 
   const handleSetCurrentClick = (id) => {
-    setCurrentTemplate(id)
+    setCurrentTemplate(id);
     setTimeout(() => {
-      router.push(`/dashboard?templateId=${id}`)
-    }, 1500)
-  }
+      router.push(`/dashboard?templateId=${id}`);
+    }, 1500);
+  };
 
   return (
     <TemplateContainer>
       <StyledLink href={`/viewPlans/${templateData._id}`}>
         {templateData.name.toUpperCase()}{" "}
       </StyledLink>
-      { templateData.isCurrent ? (
-        <CurrentIndicator>Current</CurrentIndicator> 
+      {templateData.isCurrent ? (
+        <CurrentIndicator>Current</CurrentIndicator>
       ) : (
-        <button type="button" onClick={() => handleSetCurrentClick(templateData._id)}>Set Current</button>
-      )
-      }
+        <button
+          type="button"
+          onClick={() => handleSetCurrentClick(templateData._id)}
+        >
+          Set Current
+        </button>
+      )}
       <span>
         {templateData.days} {templateData.days > 1 ? "Days" : "Day"}
       </span>
       <IconContainer>
-        <Delete color="crimson" onClick={() => deleteTemplate(templateData._id)} />
+        <Delete
+          color="crimson"
+          onClick={() => deleteTemplate(templateData._id)}
+        />
       </IconContainer>
     </TemplateContainer>
   );
