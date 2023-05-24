@@ -25,6 +25,15 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
+const CurrentIndicator = styled.div`
+ border: 2px solid #27F52C;
+ border-radius: 5px;
+ font-size: 0.8rem;
+ text-align: center;
+ margin: 0 auto;
+ padding: 0 10px;
+`
+
 export default function TemplateCard({ templateData }) {
 
   const router = useRouter()
@@ -42,7 +51,7 @@ export default function TemplateCard({ templateData }) {
         {templateData.name.toUpperCase()}{" "}
       </StyledLink>
       { templateData.isCurrent ? (
-        <div>Current Template</div> 
+        <CurrentIndicator>Current</CurrentIndicator> 
       ) : (
         <button type="button" onClick={() => handleSetCurrentClick(templateData._id)}>Set Current</button>
       )

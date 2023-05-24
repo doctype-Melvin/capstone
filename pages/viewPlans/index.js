@@ -12,6 +12,12 @@ const NewTemplateLink = styled(Link)`
   background-color: yellow;
 `;
 
+const StyledParagraph = styled.p`
+  margin: 0;
+  padding: 1rem 0;
+  text-align: center;
+`
+
 export default function ViewAllPlans() {
   const { data } = useAllPlans();
 
@@ -19,10 +25,12 @@ export default function ViewAllPlans() {
 
   return (
     <div>
-      <p>
-        {`There are`} {data.length}{" "}
-        {data.length === 1 ? "template" : "templates"} {`in your vault`}
-      </p>
+      <StyledParagraph>
+        {data.length === 1 ? (
+          `There is ${data.length} template in your vault`
+          ) : (
+          `There are ${data.length} templates in your vault`)}
+      </StyledParagraph>
       {data.map((plan) => (
         <TemplateCard key={plan._id} templateData={plan} />
       ))}
