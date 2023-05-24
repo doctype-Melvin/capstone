@@ -21,6 +21,8 @@ export const usePlan = (id) => useSWR(`/api/plans/${id}`, fetcher);
 
 export const useAllPlans = () => useSWR(`/api/plans`, fetcher);
 
+
+
 export const sendPostRequest = async (url, { arg }) => {
   const response = await fetch(url, {
     method: "POST",
