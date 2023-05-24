@@ -3,6 +3,7 @@ import { AiOutlineDelete as Delete } from "react-icons/ai";
 import Link from "next/link";
 import { deleteTemplate } from "@/utils/helpers";
 import { setCurrentTemplate } from "@/utils/helpers";
+import { useRouter } from "next/router";
 
 const TemplateContainer = styled.section`
   width: 100%;
@@ -26,8 +27,11 @@ const StyledLink = styled(Link)`
 
 export default function TemplateCard({ templateData }) {
 
+  const router = useRouter()
+
   const handleSetCurrentClick = (id) => {
     setCurrentTemplate(id)
+    router.push(`/dashboard?templateId=${id}`)
   }
 
   return (
