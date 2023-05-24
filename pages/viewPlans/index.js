@@ -1,5 +1,4 @@
 import { useAllPlans } from "@/utils/helpers";
-import { useRouter } from "next/router";
 import TemplateCard from "@/components/TemplateCard/TemplateCard";
 import Link from "next/link";
 import styled from "styled-components";
@@ -14,7 +13,6 @@ const NewTemplateLink = styled(Link)`
 `;
 
 export default function ViewAllPlans() {
-  const router = useRouter();
   const { data } = useAllPlans();
 
   if (!data) return <p>Loading ...</p>;
