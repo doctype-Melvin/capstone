@@ -29,7 +29,7 @@ const StyledList = styled.ul`
   & > li {
     list-style-type: none;
   }
-`
+`;
 
 export default function ViewAllPlans() {
   const { data } = useAllPlans();
@@ -44,12 +44,12 @@ export default function ViewAllPlans() {
           : `There are ${data.length} templates in your vault`}
       </StyledParagraph>
       <StyledList>
-      {data.map((plan) => (
-        <li key={plan._id}>
-          <TemplateCard templateData={plan} />
-        </li>
+        {data.map((plan) => (
+          <li key={plan._id}>
+            <TemplateCard templateData={plan} />
+          </li>
         ))}
-        </StyledList>
+      </StyledList>
       <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
     </OverviewContainer>
   );
