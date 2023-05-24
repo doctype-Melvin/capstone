@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { AiOutlineDelete as Delete } from "react-icons/ai";
 import Link from "next/link";
-import { deleteTemplate, useAllPlans } from "@/utils/helpers";
+import { deleteTemplate } from "@/utils/helpers";
 import { setCurrentTemplate } from "@/utils/helpers";
 
 const TemplateContainer = styled.section`
@@ -24,23 +24,28 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-export default function TemplateCard({ data }) {
+export default function TemplateCard({ templateData }) {
 
   const handleSetCurrentClick = (id) => {
-    setCurrentTemplate(`/api/plans/`, id)
+    setCurrentTemplate(id)
   }
 
   return (
     <TemplateContainer>
-      <StyledLink href={`/viewPlans/${data._id}`}>
-        {data.name.toUpperCase()}{" "}
+      <StyledLink href={`/viewPlans/${templateData._id}`}>
+        {templateData.name.toUpperCase()}{" "}
       </StyledLink>
-      <button type="button" onClick={() => handleSetCurrentClick(data._id)}>Set Current</button>
+      { templateData.isCurrent ? (
+        <div>Current Template</div> 
+      ) : (
+        <button type="button" onClick={() => handleSetCurrentClick(templateData._id)}>Set Current</button>
+      )
+      }
       <span>
-        {data.days} {data.days > 1 ? "Days" : "Day"}
+        {templateData.days} {templateData.days > 1 ? "Days" : "Day"}
       </span>
       <IconContainer>
-        <Delete color="crimson" onClick={() => deleteTemplate(data._id)} />
+        <Delete color="crimson" onClick={() => deleteTemplate(templateData._id)} />
       </IconContainer>
     </TemplateContainer>
   );

@@ -60,14 +60,9 @@ export const sendPatchRequestCurrentTemplate = async (url, planId) => {
   }
 }
 
-export const setCurrentTemplate = async (url, planId) => {
-  sendPatchRequestCurrentTemplate(url, planId)
-  mutate(
-    url, (data) => {
-      const lastFetch = { ...data }
-      console.log(lastFetch)
-    }
-    )
+export const setCurrentTemplate = async (planId) => {
+  await sendPatchRequestCurrentTemplate(`/api/plans`, planId)
+  mutate(`/api/plans`)
 }
 
 export const mutateExercise = async (dayId, planId, newData) => {

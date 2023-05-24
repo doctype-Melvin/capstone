@@ -49,7 +49,7 @@ export default async function handler(request, response) {
       await Promise.all(triggerPromises)
 
       const updatedData = await Plan.find()
-      response.status(200).json(updatedData)
+      return response.status(200).json(updatedData)
     } catch (error) {
       response.status(500).json({error: "Internal Server Error"}) 
     }

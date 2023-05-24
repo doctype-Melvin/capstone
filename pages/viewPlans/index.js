@@ -26,7 +26,7 @@ export default function ViewAllPlans() {
         {data.length === 1 ? "template" : "templates"} {`in your vault`}
       </p>
       {data.map((plan) => (
-        <TemplateCard key={plan._id} data={plan} />
+        <TemplateCard key={plan._id} templateData={plan} />
       ))}
       <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
     </div>
