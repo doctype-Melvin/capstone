@@ -34,6 +34,7 @@ export default function PlanForm() {
     inputData.days = Number(inputData.days);
     inputData.routine = addWorkoutDays(inputData.days);
     inputData.isCurrent = false;
+    inputData.logs = []
 
     trigger(inputData);
   };

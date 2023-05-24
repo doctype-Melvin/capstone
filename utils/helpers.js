@@ -14,6 +14,13 @@ export const addWorkoutDays = (number) => {
   return store;
 };
 
+export const fetcher = (...args) =>
+  fetch(...args).then((response) => response.json());
+
+export const usePlan = (id) => useSWR(`/api/plans/${id}`, fetcher);
+
+export const useAllPlans = () => useSWR(`/api/plans`, fetcher);
+
 export const sendPostRequest = async (url, { arg }) => {
   const response = await fetch(url, {
     method: "POST",
@@ -39,6 +46,29 @@ export const sendPatchRequest = async (url, exercise) => {
     console.error("Couldn't send request");
   }
 };
+
+export const sendPatchRequestCurrentTemplate = async (url, planId) => {
+  const response = await fetch(url, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+  },
+  body: JSON.stringify(planId)
+  });
+  if (!response.ok) {
+    console.error("Setting current tamplate failed")
+  }
+}
+
+export const setCurrentTemplate = async (url, planId) => {
+  sendPatchRequestCurrentTemplate(url, planId)
+  mutate(
+    url, (data) => {
+      const lastFetch = { ...data }
+      console.log(lastFetch)
+    }
+    )
+}
 
 export const mutateExercise = async (dayId, planId, newData) => {
   await sendPatchRequest(`/api/plans/${planId}`, newData);
@@ -100,9 +130,4 @@ export const deleteTemplate = async (id) => {
 
 // End deletion section
 
-export const fetcher = (...args) =>
-  fetch(...args).then((response) => response.json());
 
-export const usePlan = (id) => useSWR(`/api/plans/${id}`, fetcher);
-
-export const useAllPlans = () => useSWR(`/api/plans`, fetcher);
