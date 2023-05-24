@@ -10,6 +10,5 @@ export default createGlobalStyle`
   body, html {
     margin: 0;
     font-family: system-ui;
-    min-height: 100vh
   }
 `;

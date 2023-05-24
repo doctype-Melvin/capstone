@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import useSWRMutation from "swr/mutation";
 import { sendPostRequest } from "@/utils/helpers";
-import { usePlan } from "@/utils/helpers";
 import { mutateExercise } from "@/utils/helpers";
 
 const StyledForm = styled.form`
@@ -13,6 +12,7 @@ const StyledForm = styled.form`
   width: 80vw;
   align-items: flex-end;
   gap: 0.5rem;
+  padding-bottom: 1rem;
 
   & > label {
     margin-right: 1rem;
@@ -27,7 +27,7 @@ const ButtonContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-around;
-  padding: 0.7rem 0;
+  padding: 0.7rem;
 `;
 
 export default function ExerciseForm({

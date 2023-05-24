@@ -1,6 +1,11 @@
 import { useRouter } from "next/router";
 import { usePlan } from "@/utils/helpers";
 import SessionPreview from "@/components/SessionPreview";
+import styled from "styled-components";
+
+const DashboardContainer = styled.section`
+    min-height: 100vh;
+`
 
 export default function Dashboard() {
     const router = useRouter()
@@ -10,8 +15,8 @@ export default function Dashboard() {
 
     if (isLoading || !template) return <p>Loading...</p>
     return (
-        <section>
+        <DashboardContainer>
             <SessionPreview template={template} />
-        </section>
+        </DashboardContainer>
     )
 }
