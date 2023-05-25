@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { usePlan } from "@/utils/helpers";
 import SessionPreview from "@/components/SessionPreview";
-import styled from "styled-components";
 
 export default function Dashboard() {
   const router = useRouter();

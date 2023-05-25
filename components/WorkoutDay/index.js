@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import ExerciseForm from "../ExerciseForm/ExerciseForm";
+import ExerciseForm from "../ExerciseForm";
 import { useState } from "react";
-import ExerciseCard from "../ExerciseCard/ExerciseCard";
+import ExerciseCard from "../ExerciseCard";
 import { usePlan } from "@/utils/helpers";
 import { useRouter } from "next/router";
 

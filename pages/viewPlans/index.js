@@ -1,5 +1,5 @@
 import { useAllPlans } from "@/utils/helpers";
-import TemplateCard from "@/components/TemplateCard/TemplateCard";
+import TemplateCard from "@/components/TemplateCard";
 import Link from "next/link";
 import styled from "styled-components";
 
