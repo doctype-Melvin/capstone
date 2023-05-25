@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import useSWR from "swr";
 import { useRouter } from "next/router";
-import WorkoutDay from "@/components/WorkoutDay/WorkoutDay";
+import WorkoutDay from "@/components/WorkoutDay";
 import { fetcher } from "@/utils/helpers";
+import Loading from "@/components/Loading";
 
 const PlanContainer = styled.section`
   min-height: 100vh;
@@ -30,7 +31,7 @@ export default function SinglePlanView() {
 
   const { data, error } = useSWR(`/api/plans/${id}`, fetcher);
 
-  if (!data) return <p>Loading...</p>;
+  if (!data) return <Loading />;
   if (error) return <p>Something went wrong</p>;
 
   return (
