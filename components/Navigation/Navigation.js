@@ -8,7 +8,7 @@ const NavBar = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: absolute;
+  position: sticky;
   bottom: 0;
   background-color: hotpink;
 `;
@@ -16,7 +16,6 @@ const NavBar = styled.nav`
 const NavIconContainer = styled.section`
   font-size: 1.6rem;
   color: white;
-  padding: 5px 0;
 `;
 
 export default function Navigation() {

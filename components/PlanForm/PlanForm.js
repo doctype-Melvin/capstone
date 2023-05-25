@@ -9,6 +9,7 @@ const FormCreatePlan = styled.form`
   display: flex;
   flex-direction: column;
   padding: 20px;
+  min-height: 100vh;
 
   & > button {
     width: fit-content;
@@ -33,6 +34,8 @@ export default function PlanForm() {
     const inputData = Object.fromEntries(formData);
     inputData.days = Number(inputData.days);
     inputData.routine = addWorkoutDays(inputData.days);
+    inputData.isCurrent = false;
+    inputData.logs = [];
 
     trigger(inputData);
   };

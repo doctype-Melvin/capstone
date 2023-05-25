@@ -5,7 +5,8 @@ import WorkoutDay from "@/components/WorkoutDay/WorkoutDay";
 import { fetcher } from "@/utils/helpers";
 
 const PlanContainer = styled.section`
-  height: 100vh;
+  min-height: 100vh;
+  margin-bottom: 1rem;
 `;
 
 const PlanHead = styled.p`
