@@ -6,10 +6,10 @@ const PreviewContainer = styled.section`
 `;
 
 const StyledCard = styled.section`
-width: 100%;
-text-align: center;
-padding: 0.5rem 1rem;
-`
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 1rem;
+`;
 
 const DayDisplay = styled.section`
   background-color: hotpink;
@@ -22,13 +22,12 @@ const ExercisesPreviewContainer = styled.ul`
   flex-direction: column;
   margin: 0;
   padding: 0;
-  gap: .5rem;
+  gap: 0.5rem;
 
   & > li {
     list-style-type: none;
   }
 `;
-
 
 export default function SessionPreview({ template }) {
   // This is all just a bandaid to match current user story
@@ -38,13 +37,15 @@ export default function SessionPreview({ template }) {
   return (
     <PreviewContainer>
       <StyledCard>
-      <section>{template.name}</section>
-      <DayDisplay>{`Day ${dayCount + 1}`}</DayDisplay>
-      <ExercisesPreviewContainer>
-        {template.routine[0].exercises.map((exercise) => (
-          <li key={exercise.id}><ExercisePreview exercise={exercise}/></li>
+        <section>{template.name}</section>
+        <DayDisplay>{`Day ${dayCount + 1}`}</DayDisplay>
+        <ExercisesPreviewContainer>
+          {template.routine[0].exercises.map((exercise) => (
+            <li key={exercise.id}>
+              <ExercisePreview exercise={exercise} />
+            </li>
           ))}
-      </ExercisesPreviewContainer>
+        </ExercisesPreviewContainer>
       </StyledCard>
     </PreviewContainer>
   );
