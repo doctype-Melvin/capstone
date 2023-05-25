@@ -2,6 +2,7 @@ import { useAllPlans } from "@/utils/helpers";
 import TemplateCard from "@/components/TemplateCard";
 import Link from "next/link";
 import styled from "styled-components";
+import Loading from "@/components/Loading";
 
 const OverviewContainer = styled.section`
   min-height: 100vh;
@@ -34,7 +35,7 @@ const StyledList = styled.ul`
 export default function ViewAllPlans() {
   const { data } = useAllPlans();
 
-  if (!data) return <p>Loading ...</p>;
+  if (!data) return <Loading />;
 
   return (
     <OverviewContainer>
