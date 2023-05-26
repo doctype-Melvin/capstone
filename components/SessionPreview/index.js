@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import ExercisePreview from "../ExercisePreview";
+import { useAllPlans, usePlan } from "@/utils/helpers";
+import Loading from "../Loading";
 
 const PreviewContainer = styled.section`
   height: 100vh;
@@ -29,20 +31,27 @@ const ExercisesPreviewContainer = styled.ul`
   }
 `;
 
-export default function SessionPreview({ template }) {
-  // This is all just a bandaid to match current user story
+export default function SessionPreview({ templateId }) {
+  const { data, isLoading } = useAllPlans();
 
-  const dayCount = template.logs.length;
-
+  // const { data: template, isLoading } = usePlan(templateId)
+  if (!data) return <Loading />;
+  if (isLoading) return <Loading />;
+  const currentTemplate = data.find((template) => template.isCurrent === true);
+  const currentTemplateLogs = currentTemplate.logs;
   return (
     <PreviewContainer>
       <StyledCard>
-        <section>{template.name}</section>
-        <DayDisplay>{`Day ${dayCount + 1}`}</DayDisplay>
+        <span>{currentTemplate.name}</span>
+        <DayDisplay>{`Day ${currentTemplate.logs.length + 1}`}</DayDisplay>
         <ExercisesPreviewContainer>
-          {template.routine[0].exercises.map((exercise) => (
+          {currentTemplate.routine[0].exercises.map((exercise) => (
             <li key={exercise.id}>
-              <ExercisePreview exercise={exercise} />
+              <ExercisePreview
+                exercise={exercise}
+                templateId={currentTemplate._id}
+                logs={currentTemplateLogs}
+              />
             </li>
           ))}
         </ExercisesPreviewContainer>

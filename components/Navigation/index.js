@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { BiHomeAlt2 as Home } from "react-icons/bi";
 import { AiOutlineUnorderedList as AllTemplates } from "react-icons/ai";
+import { MdOutlineDashboardCustomize as Dashboard } from "react-icons/md";
 
 const NavBar = styled.nav`
   width: 100%;
@@ -24,6 +25,11 @@ export default function Navigation() {
       <Link href="/">
         <NavIconContainer>
           <Home />
+        </NavIconContainer>
+      </Link>
+      <Link href="/dashboard">
+        <NavIconContainer>
+          <Dashboard />
         </NavIconContainer>
       </Link>
       <Link href="/viewPlans">

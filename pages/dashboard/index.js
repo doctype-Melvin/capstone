@@ -12,7 +12,7 @@ export default function Dashboard() {
   if (isLoading || !template) return <Loading />;
   return (
     <section>
-      <SessionPreview template={template} />
+      <SessionPreview templateId={template._id} />
     </section>
   );
 }

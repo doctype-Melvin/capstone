@@ -34,19 +34,54 @@ export default async function handler(request, response) {
 
   if (request.method === "PATCH") {
     try {
-      const updatedExercise = request.body;
-      const currentPlan = await Plan.findById(id);
-      const updatedRoutine = currentPlan.routine.map((day) => {
-        if (day.id === updatedExercise.dayId) {
-          const exerciseIndex = day.exercises.findIndex(
-            (exercise) => exercise.id === updatedExercise.id
-          );
-          day.exercises[exerciseIndex] = updatedExercise;
-        }
-        return day;
-      });
-      await Plan.findByIdAndUpdate(id, { routine: updatedRoutine });
-      response.status(200).json({ status: `Plan successfully updated` });
+      const { isLog, isEdit, isDelete, id } = request.query;
+
+      if (isLog) {
+        const newSet = request.body;
+        const currentPlan = await Plan.findById(id);
+        const updatedLog = [...currentPlan.logs, newSet];
+        await Plan.findByIdAndUpdate(id, { logs: updatedLog });
+        response.status(200).json({ status: "Added set to workout session" });
+      } else if (isEdit) {
+        const editedSet = request.body;
+        const currentPlan = await Plan.findById(id);
+
+        const updatedLogsArray = currentPlan.logs.map((set, index) => {
+          if (set.id === editedSet.id) {
+            const currentSet = currentPlan.logs[index];
+            const updatedSet = {
+              ...currentSet,
+              ...editedSet,
+            };
+            return updatedSet;
+          }
+          return set;
+        });
+        await Plan.findByIdAndUpdate(id, { logs: updatedLogsArray });
+        response.status(200).json({ status: "Set successfully updated" });
+      } else if (isDelete) {
+        const deleteThisSet = request.body;
+        const currentPlan = await Plan.findById(id);
+        const updatedLogsArray = currentPlan.logs.filter(
+          (set) => set.id !== deleteThisSet
+        );
+        await Plan.findByIdAndUpdate(id, { logs: updatedLogsArray });
+        response.status(200).json({ status: "Set successfully deleted" });
+      } else {
+        const updatedExercise = request.body;
+        const currentPlan = await Plan.findById(id);
+        const updatedRoutine = currentPlan.routine.map((day) => {
+          if (day.id === updatedExercise.dayId) {
+            const exerciseIndex = day.exercises.findIndex(
+              (exercise) => exercise.id === updatedExercise.id
+            );
+            day.exercises[exerciseIndex] = updatedExercise;
+          }
+          return day;
+        });
+        await Plan.findByIdAndUpdate(id, { routine: updatedRoutine });
+        response.status(200).json({ status: `Plan successfully updated` });
+      }
     } catch (error) {
       return response.status(404).json({ status: "Couldn't update plan" });
     }

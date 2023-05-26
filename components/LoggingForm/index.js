@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { nanoid } from "nanoid";
 import { useState } from "react";
+import { format } from "date-fns";
+import { createUpdateDeleteSet } from "@/utils/helpers";
 
 const StyledForm = styled.form`
   display: grid;
@@ -18,10 +20,12 @@ export default function LoggingForm({
   editMode,
   editSet,
   onEditSave,
+  templateId,
+  exercise,
 }) {
-  const [newData, setNewData] = useState({
-    reps: editMode ? editSet.reps : "",
-    weight: editMode ? editSet.weight : "",
+  const [updatedSetValues, setUpdatedSetValues] = useState({
+    reps: exercise.reps,
+    weight: exercise.weight,
   });
 
   const handleSubmit = (event) => {
@@ -33,7 +37,7 @@ export default function LoggingForm({
     if (editMode) {
       const updatedSet = {
         ...editSet,
-        ...newData,
+        ...updatedSetValues,
       };
       onSubmit((prevState) => {
         const updatedState = [...prevState];
@@ -41,20 +45,23 @@ export default function LoggingForm({
           (set) => set.id === updatedSet.id
         );
         updatedState[indexOfSet] = updatedSet;
-        console.log(updatedSet);
         return updatedState;
       });
       onEditSave((prevState) => !prevState);
+      createUpdateDeleteSet(templateId, updatedSet, "isEdit");
     } else {
       setData.id = nanoid(5);
+      setData.date = format(new Date(), "dd-MM-yyyy");
+
       onSubmit((prevState) => [...prevState, setData]);
+      createUpdateDeleteSet(templateId, setData, "isCreate");
     }
     onLog((prevState) => !prevState);
   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setNewData((prevState) => ({
+    setUpdatedSetValues((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -68,7 +75,7 @@ export default function LoggingForm({
         name="reps"
         min={1}
         max={1000}
-        value={newData.reps}
+        value={updatedSetValues.reps}
         onChange={handleInputChange}
       />
       <label htmlFor="weight">Weight</label>
@@ -77,7 +84,7 @@ export default function LoggingForm({
         name="weight"
         min={0}
         max={1000}
-        value={newData.weight}
+        value={updatedSetValues.weight}
         onChange={handleInputChange}
       />
       <button type="submit">Save</button>

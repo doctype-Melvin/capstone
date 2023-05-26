@@ -47,6 +47,26 @@ export const sendPatchRequest = async (url, exercise) => {
   }
 };
 
+export const createUpdateDeleteSet = async (planId, data, mode) => {
+  if (mode === "isEdit") {
+    await sendPatchRequest(
+      `/api/plans/${planId}?isEdit=true&id=${planId}`,
+      data
+    );
+  } else if (mode === "isCreate") {
+    await sendPatchRequest(
+      `/api/plans/${planId}?isLog=true&id=${planId}`,
+      data
+    );
+  } else if (mode === "isDelete") {
+    await sendPatchRequest(
+      `/api/plans/${planId}?isDelete=true&id=${planId}`,
+      data
+    );
+  }
+  mutate(`/api/plans/${planId}`);
+};
+
 export const sendPatchRequestCurrentTemplate = async (url, planId) => {
   const response = await fetch(url, {
     method: "PATCH",

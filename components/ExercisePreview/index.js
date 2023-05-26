@@ -2,6 +2,7 @@ import styled from "styled-components";
 import LoggingForm from "../LoggingForm";
 import { useState } from "react";
 import SetCard from "../SetCard";
+import { createUpdateDeleteSet } from "@/utils/helpers";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -35,9 +36,9 @@ const StyledList = styled.ul`
   }
 `;
 
-export default function ExercisePreview({ exercise }) {
+export default function ExercisePreview({ exercise, templateId, logs }) {
   const [toggleForm, setToggleForm] = useState(false);
-  const [allSets, setAllSets] = useState([]);
+  const [allSets, setAllSets] = useState(logs);
   const [editMode, setEditMode] = useState(false);
   const [editSet, setEditSet] = useState({});
 
@@ -55,6 +56,7 @@ export default function ExercisePreview({ exercise }) {
       const updateSets = [...prevState];
       return updateSets.filter((set) => set.id !== id);
     });
+    createUpdateDeleteSet(templateId, id, "isDelete");
   };
 
   return (
@@ -75,6 +77,7 @@ export default function ExercisePreview({ exercise }) {
                   onEdit={handleEditClick}
                   onDelete={handleDeleteClick}
                   editSet={editSet}
+                  templateId={templateId}
                 />
               </li>
             ))}
@@ -87,6 +90,8 @@ export default function ExercisePreview({ exercise }) {
           editMode={editMode}
           editSet={editSet}
           onEditSave={setEditMode}
+          templateId={templateId}
+          exercise={exercise}
         />
       )}
     </Wrapper>
