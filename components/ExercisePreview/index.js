@@ -49,7 +49,7 @@ export default function ExercisePreview({ exercise }) {
     const editThis = allSets.find((set) => set.id === id);
     setEditSet(editThis);
   };
-  
+
   const handleDeleteClick = (id) => {
     setAllSets((prevState) => {
       const updateSets = [...prevState];
@@ -81,7 +81,13 @@ export default function ExercisePreview({ exercise }) {
         </StyledList>
       </Container>
       {toggleForm && (
-        <LoggingForm onLog={setToggleForm} onSubmit={setAllSets} editMode={editMode} editSet={editSet} onEditSave={setEditMode} />
+        <LoggingForm
+          onLog={setToggleForm}
+          onSubmit={setAllSets}
+          editMode={editMode}
+          editSet={editSet}
+          onEditSave={setEditMode}
+        />
       )}
     </Wrapper>
   );
