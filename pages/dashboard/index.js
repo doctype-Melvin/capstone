@@ -1,18 +1,29 @@
 import { useRouter } from "next/router";
-import { usePlan } from "@/utils/helpers";
+import { useAllPlans, usePlan } from "@/utils/helpers";
 import SessionPreview from "@/components/SessionPreview";
 import Loading from "@/components/Loading";
+import styled from "styled-components";
+
+const StyledMessage = styled.p`
+  height: 100vh;
+`
 
 export default function Dashboard() {
-  const router = useRouter();
-  const { templateId } = router.query;
 
-  const { data: template, isLoading } = usePlan(templateId);
+  const { data, isLoading } = useAllPlans();
 
-  if (isLoading || !template) return <Loading />;
+  if (isLoading || !data) return <Loading />;
+
+  const currentTemplate = data.find(template => template.isCurrent === true)
+
   return (
     <section>
-      <SessionPreview templateId={template._id} />
+      { currentTemplate ? (
+      <SessionPreview template={currentTemplate} />
+      ) : (
+        <StyledMessage>No current template found</StyledMessage>
+      ) }
+      
     </section>
   );
 }

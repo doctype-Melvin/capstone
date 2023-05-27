@@ -31,26 +31,20 @@ const ExercisesPreviewContainer = styled.ul`
   }
 `;
 
-export default function SessionPreview({ templateId }) {
-  const { data, isLoading } = useAllPlans();
-
-  // const { data: template, isLoading } = usePlan(templateId)
-  if (!data) return <Loading />;
-  if (isLoading) return <Loading />;
-  const currentTemplate = data.find((template) => template.isCurrent === true);
-  const currentTemplateLogs = currentTemplate.logs;
+export default function SessionPreview({ template }) {
+  
   return (
     <PreviewContainer>
       <StyledCard>
-        <span>{currentTemplate.name}</span>
-        <DayDisplay>{`Day ${currentTemplate.logs.length + 1}`}</DayDisplay>
+        <span>{template.name}</span>
+        <DayDisplay>{`Day ${template.logs.length + 1}`}</DayDisplay>
         <ExercisesPreviewContainer>
-          {currentTemplate.routine[0].exercises.map((exercise) => (
+          {template.routine[0].exercises.map((exercise) => (
             <li key={exercise.id}>
               <ExercisePreview
                 exercise={exercise}
-                templateId={currentTemplate._id}
-                logs={currentTemplateLogs}
+                templateId={template._id}
+                logs={template.logs}
               />
             </li>
           ))}
