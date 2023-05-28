@@ -11,11 +11,11 @@ const NavBar = styled.nav`
   align-items: center;
   position: sticky;
   bottom: 0;
-  background-color: hotpink;
+  background-color: var(--mid-blue);
 `;
 
 const NavIconContainer = styled.section`
-  font-size: 1.6rem;
+  font-size: 2.2rem;
   color: white;
 `;
 

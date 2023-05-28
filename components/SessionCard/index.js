@@ -15,8 +15,11 @@ const ExerciseList = styled.ul`
 const Title = styled.p`
     text-align: center;
     width: 100%;
-    background-color: hotpink;
+    background-color: var(--light-blue);
+    color: var(--lightest-blue);
     padding: .5rem 0;
+    margin: 0;
+
 `
 
 const Preview = styled.div`
@@ -26,10 +29,14 @@ const Preview = styled.div`
     padding-left: 2rem;
 `
 
+const StyledLink = styled(Link)`
+text-decoration: none;
+`
+
 export default function SessionCard({day}){
 
      return (
-        <Link href={`/sessionView/${day.id}`}>
+        <StyledLink href={`/sessionView/${day.id}`}>
         <Title>Day {day.day}</Title>
         <ExerciseList>
         {day.exercises.map(exercise => <li key={exercise.id}>
@@ -39,6 +46,6 @@ export default function SessionCard({day}){
             </Preview>
         </li>)}
         </ExerciseList>
-        </Link>
+        </StyledLink>
     )
 }

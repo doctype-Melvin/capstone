@@ -9,12 +9,12 @@ const OverviewContainer = styled.section`
 `;
 
 const NewTemplateLink = styled(Link)`
-  padding: 0.15rem 0.5rem;
-  border: 1px solid hotpink;
-  border-radius: 5px;
+  padding: .45rem 1.75rem;
+  font-size: 1.2rem;
+  border-radius: 3px;
   text-decoration: none;
   color: black;
-  background-color: yellow;
+  background-color: var(--lightest-blue);
 `;
 
 const StyledParagraph = styled.p`
@@ -31,6 +31,11 @@ const StyledList = styled.ul`
     list-style-type: none;
   }
 `;
+
+const ButtonContainer = styled.div`
+width: 100%;
+text-align: center;
+`
 
 export default function ViewAllPlans() {
   const { data } = useAllPlans();
@@ -51,7 +56,9 @@ export default function ViewAllPlans() {
           </li>
         ))}
       </StyledList>
-      <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
+<ButtonContainer>
+    <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
+      </ButtonContainer>
     </OverviewContainer>
   );
 }

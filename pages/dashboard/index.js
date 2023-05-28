@@ -6,7 +6,11 @@ import SessionCard from "@/components/SessionCard";
 const TemplateName = styled.p`
 width: 100%;
 text-align: center;
-font-size: 1.2rem;
+font-size: 1.5rem;
+margin: 0;
+padding: 1rem 0;
+background-color: var(--light-blue);
+color: var(--lightest-blue);
 `
 
 const StyledList = styled.ul`

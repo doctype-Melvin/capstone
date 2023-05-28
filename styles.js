@@ -10,5 +10,17 @@ export default createGlobalStyle`
   body, html {
     margin: 0;
     font-family: system-ui;
+    color: var(--dark-main)
+  }
+
+  :root {
+    --dark-main: #414535;
+    --light-blue: #1B98E0;
+    --mid-blue: #247BA0;
+    --dark-blue: #006494;
+    --lightest-blue: #E8F1F2;
+    --sand: #fce282;
+    --soft-green: #7AE7C7;
+    --cancel-red: crimson;
   }
 `;

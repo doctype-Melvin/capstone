@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { useRouter } from "next/router";
 import { sendPostRequest } from "@/utils/helpers";
 import { addWorkoutDays } from "@/utils/helpers";
@@ -19,6 +19,33 @@ const FormCreatePlan = styled.form`
     border-radius: 5px;
   }
 `;
+
+
+const ButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+`
+
+const createFormButton = css`
+padding: .45rem 1.75rem;
+font-size: 1.2rem;
+border-radius: 3px;
+`
+
+const SaveButton = styled.button`
+  ${createFormButton}
+  border: none;
+  background-color: var(--soft-green);  
+`
+
+const BackButton = styled.button`
+${createFormButton}
+  border: none;
+  background-color: var(--cancel-red);
+  color: var(--lightest-blue);
+`
 
 export default function PlanForm() {
   const router = useRouter();
@@ -42,14 +69,18 @@ export default function PlanForm() {
 
   return (
     <FormCreatePlan onSubmit={handleFormSubmit}>
-      <label htmlFor="name">Name</label>
+      <label htmlFor="name">Template Name</label>
       <input type="text" name="name" minLength={2} maxLength={20} required />
-      <label htmlFor="days">Days</label>
+      <label htmlFor="days">Number of Workout Days</label>
       <input type="number" name="days" min={1} max={7} required />
-      <button type="submit">Save</button>
-      <button type="button" onClick={() => router.push("/")}>
-        Back
-      </button>
+
+      <ButtonContainer>
+        <SaveButton type="submit">Save</SaveButton>
+        <BackButton type="button" onClick={() => router.push("/")}>
+          Back
+        </BackButton>
+      </ButtonContainer>
+      
     </FormCreatePlan>
   );
 }

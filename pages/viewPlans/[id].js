@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import WorkoutDay from "@/components/WorkoutDay";
@@ -25,6 +25,19 @@ const PlanBody = styled.section`
   gap: 1rem;
 `;
 
+const SaveButton = styled.button`
+  border: none;
+  padding: .45rem 1.75rem;
+  font-size: 1.2rem;
+  border-radius: 3px;
+  background-color: var(--soft-green);
+`
+
+const ButtonContainer = styled.div`
+text-align: center;
+margin-top: 1rem;
+`
+
 export default function SinglePlanView() {
   const router = useRouter();
   const { id } = router.query;
@@ -44,9 +57,11 @@ export default function SinglePlanView() {
           <WorkoutDay key={day.id} number={day.day} dayId={day.id} />
         ))}
       </PlanBody>
-      <button type="button" onClick={handleSaveClick}>
-        Save
-      </button>
+      <ButtonContainer>
+        <SaveButton type="button" onClick={handleSaveClick}>
+          Save
+        </SaveButton>
+      </ButtonContainer>
     </PlanContainer>
   );
 }
