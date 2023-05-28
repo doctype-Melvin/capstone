@@ -1,28 +1,43 @@
 import styled from "styled-components";
+import { useState } from "react";
+import { nanoid } from "nanoid";
+
 
 const StyledForm = styled.form`
 width: 100%;
 display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-grid-template-rows: 1fr; 
+grid-template-columns: repeat(5, 1fr);
+`
 
-& > label {
-    width: 1rem;
-}
+const StyledInput = styled.input`
+    width: 3rem;
 `
 
 export default function LoggingForm({exercise, toggleForm}){
 
+    const [ attributes, setAttributes ] = useState({
+        exercise: exercise.exercise,
+        reps: exercise.reps,
+        weight: exercise.weight,
+        id: nanoid(5),
+    })
+
     const handleSubmit = () => toggleForm()
+
+    const handleInputchange = (event) => {
+        const { name, value } = event.target
+        setAttributes(prevState => ({
+            ...prevState,
+            [name]: value,
+        }))
+    }
 
     return (
         <StyledForm onSubmit={handleSubmit}>
-            <label htmlFor="reps">Reps
-                <input type="number" name="reps" />
-            </label>
-            <label htmlFor="weight">Weight
-                <input type="number" name="weight" />
-            </label>
+            <label htmlFor="reps">Reps</label>
+                <StyledInput type="number" name="reps" value={attributes.reps} onChange={handleInputchange} />
+            <label htmlFor="weight">Weight</label>
+                <StyledInput type="number" name="weight" value={attributes.weight} onChange={handleInputchange} />
             <button>Save</button>
         </StyledForm>
     )

@@ -1,7 +1,6 @@
 import { useAllPlans } from "@/utils/helpers";
 import Loading from "@/components/Loading";
 import styled from "styled-components";
-import { useState } from "react";
 import SessionCard from "@/components/SessionCard";
 
 
@@ -15,12 +14,7 @@ const ContentContainer = styled.section`
 `;
 
 export default function Dashboard() {
-  const [ logObject, setLogObject ] = useState({
-    week: '',
-    day: '',
-    dayId: '',
-    results: [],
-  })
+  
 
   const { data, isLoading } = useAllPlans();
 
