@@ -48,21 +48,18 @@ export default function LoggingForm({
         updatedState[indexOfSet] = updatedSet;
         return updatedState;
       });
-      // setLogObject(prevState => {
-        
-      // })
+     
       onEditSave((prevState) => !prevState);
-      createUpdateDelete(templateId, updatedSet, "isEdit");
     } else {
       setData.id = nanoid(5);
       setData.date = format(new Date(), "dd-MM-yyyy");
-      setLogObject(prevState => ({
-        ...prevState,
-        dayId: exercise.dayId,
-        results: [...prevState.results, setData]
-      }))
+      setData.exercise = exercise.exercise;
+      // setLogObject(prevState => ({
+      //   ...prevState,
+      //   dayId: exercise.dayId,
+      //   results: [...prevState.results, setData]
+      // }))
       onSubmit((prevState) => [...prevState, setData]);
-      createUpdateDelete(templateId, setData, "isCreate");
     }
     onLog((prevState) => !prevState);
   };

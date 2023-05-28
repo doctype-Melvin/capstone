@@ -29,7 +29,7 @@ const ExercisesPreviewContainer = styled.ul`
   }
 `;
 
-export default function SessionPreview({ template, setLogObject }) {
+export default function SessionPreview({ template, setLogObject, setAllSets }) {
 
   return (
     <PreviewContainer>
@@ -43,6 +43,7 @@ export default function SessionPreview({ template, setLogObject }) {
                 exercise={exercise}
                 templateId={template._id}
                 setLogObject={setLogObject}
+                setAllSets={setAllSets}
               />
             </li>
           ))}

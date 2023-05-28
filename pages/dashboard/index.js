@@ -16,6 +16,8 @@ export default function Dashboard() {
     results: [],
   })
 
+ const [allSets, setAllSets] = useState([]);
+
   const { data, isLoading } = useAllPlans();
 
   if (isLoading || !data) return <Loading />;
@@ -25,10 +27,13 @@ export default function Dashboard() {
   return (
     <section>
       {currentTemplate ? (
-        <SessionPreview template={currentTemplate} setLogObject={setLogObject}/>
-      ) : (
-        <StyledMessage>No current template found</StyledMessage>
-      )}
+        <>
+        <SessionPreview template={currentTemplate} setLogObject={setLogObject} setAllSets={setAllSets}/>
+        </>
+        ) : (
+          <StyledMessage>No current template found</StyledMessage>
+          )}
+          <button type="button" onClick={() => console.log(logObject)}>Save Day</button>
     </section>
   );
 }
