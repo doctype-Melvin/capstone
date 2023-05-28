@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import { format } from "date-fns";
-import { createUpdateDeleteSet } from "@/utils/helpers";
+import { createUpdateDelete } from "@/utils/helpers";
 
 const StyledForm = styled.form`
   display: grid;
@@ -48,13 +48,13 @@ export default function LoggingForm({
         return updatedState;
       });
       onEditSave((prevState) => !prevState);
-      createUpdateDeleteSet(templateId, updatedSet, "isEdit");
+      createUpdateDelete(templateId, updatedSet, "isEdit");
     } else {
       setData.id = nanoid(5);
       setData.date = format(new Date(), "dd-MM-yyyy");
 
       onSubmit((prevState) => [...prevState, setData]);
-      createUpdateDeleteSet(templateId, setData, "isCreate");
+      createUpdateDelete(templateId, setData, "isCreate");
     }
     onLog((prevState) => !prevState);
   };

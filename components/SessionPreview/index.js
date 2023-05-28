@@ -32,14 +32,19 @@ const ExercisesPreviewContainer = styled.ul`
 `;
 
 export default function SessionPreview({ template }) {
-  
+  const currentWeek = template.logs[template.logs.length - 1];
+  const currentDay = currentWeek.log[currentWeek.log.length - 1];
+  const currentDayExercises = template.routine.find(
+    (day) => day.id === currentDay.id
+  ).exercises;
+
   return (
     <PreviewContainer>
       <StyledCard>
         <span>{template.name}</span>
-        <DayDisplay>{`Day ${template.logs.length + 1}`}</DayDisplay>
+        <DayDisplay>{`Week ${currentWeek.week} - Day ${currentDay.day}`}</DayDisplay>
         <ExercisesPreviewContainer>
-          {template.routine[0].exercises.map((exercise) => (
+          {currentDayExercises.map((exercise) => (
             <li key={exercise.id}>
               <ExercisePreview
                 exercise={exercise}

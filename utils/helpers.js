@@ -14,6 +14,26 @@ export const addWorkoutDays = (number) => {
   return store;
 };
 
+export const workoutWeek = {
+  week: 1,
+  get nextWeek() {
+    return this.week + 1;
+  },
+  log: [],
+};
+
+export const copyRoutineToLogs = (templateObject) => {
+  const initialWeeklyLog = templateObject.routine.map((day) => {
+    const sessionData = {
+      day: day.day,
+      id: day.id,
+      results: [],
+    };
+    return sessionData;
+  });
+  createUpdateDelete(templateObject._id, initialWeeklyLog, "intialWeeklyLog");
+};
+
 export const fetcher = (...args) =>
   fetch(...args).then((response) => response.json());
 
@@ -34,20 +54,33 @@ export const sendPostRequest = async (url, { arg }) => {
   return id;
 };
 
-export const sendPatchRequest = async (url, exercise) => {
+export const sendPatchRequest = async (url, payload) => {
   const response = await fetch(url, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(exercise),
+    body: JSON.stringify(payload),
   });
   if (!response.ok) {
     console.error("Couldn't send request");
   }
 };
 
-export const createUpdateDeleteSet = async (planId, data, mode) => {
+export const sendPutRequest = async (url, payload) => {
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  if (!response.ok) {
+    console.error("Couldn't send delete request");
+  }
+};
+
+export const createUpdateDelete = async (planId, data, mode) => {
   if (mode === "isEdit") {
     await sendPatchRequest(
       `/api/plans/${planId}?isEdit=true&id=${planId}`,
@@ -63,25 +96,17 @@ export const createUpdateDeleteSet = async (planId, data, mode) => {
       `/api/plans/${planId}?isDelete=true&id=${planId}`,
       data
     );
+  } else if (mode === "intialWeeklyLog") {
+    await sendPatchRequest(
+      `/api/plans/${planId}?initialWeeklyLog=true&id=${planId}`,
+      data
+    );
   }
-  mutate(`/api/plans/${planId}`);
-};
-
-export const sendPatchRequestCurrentTemplate = async (url, planId) => {
-  const response = await fetch(url, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(planId),
-  });
-  if (!response.ok) {
-    console.error("Setting current tamplate failed");
-  }
+  mutate(`/api/plans`);
 };
 
 export const setCurrentTemplate = async (planId) => {
-  await sendPatchRequestCurrentTemplate(`/api/plans`, planId);
+  await sendPatchRequest(`/api/plans`, planId);
   mutate(`/api/plans`);
 };
 
@@ -103,19 +128,6 @@ export const mutateExercise = async (dayId, planId, newData) => {
 };
 
 // Start deletion section
-export const sendPutRequest = async (url, exercise) => {
-  const response = await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(exercise),
-  });
-  if (!response.ok) {
-    console.error("Couldn't send delete request");
-  }
-};
-
 export const findDayAndIndex = (data, deleteExercise) => {
   const targetDay = data.routine.find((day) => day.id === deleteExercise.dayId);
   const targetDayIndex = data.routine.findIndex(

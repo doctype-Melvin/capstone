@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { sendPostRequest } from "@/utils/helpers";
-import { addWorkoutDays } from "@/utils/helpers";
+import { addWorkoutDays, workoutWeek } from "@/utils/helpers";
 import useSWRMutation from "swr/mutation";
 
 const FormCreatePlan = styled.form`
@@ -35,7 +35,7 @@ export default function PlanForm() {
     inputData.days = Number(inputData.days);
     inputData.routine = addWorkoutDays(inputData.days);
     inputData.isCurrent = false;
-    inputData.logs = [];
+    inputData.logs = [workoutWeek];
 
     trigger(inputData);
   };

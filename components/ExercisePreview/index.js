@@ -2,7 +2,7 @@ import styled from "styled-components";
 import LoggingForm from "../LoggingForm";
 import { useState } from "react";
 import SetCard from "../SetCard";
-import { createUpdateDeleteSet } from "@/utils/helpers";
+import { createUpdateDelete } from "@/utils/helpers";
 
 const Wrapper = styled.section`
   width: 100%;
@@ -56,7 +56,7 @@ export default function ExercisePreview({ exercise, templateId, logs }) {
       const updateSets = [...prevState];
       return updateSets.filter((set) => set.id !== id);
     });
-    createUpdateDeleteSet(templateId, id, "isDelete");
+    createUpdateDelete(templateId, id, "isDelete");
   };
 
   return (
