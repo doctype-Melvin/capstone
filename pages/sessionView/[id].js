@@ -4,6 +4,7 @@ import { useAllPlans } from "@/utils/helpers";
 import styled from "styled-components";
 import Link from "next/link";
 import SetCard from "@/components/SetCard";
+import useLocalStorageState from "use-local-storage-state";
 
 const PageContent = styled.section`
     height: 100vh;
@@ -12,10 +13,9 @@ const PageContent = styled.section`
 export default function SessionView() {
     const router = useRouter()
     const { id } = router.query
-
     const { data, isLoading } = useAllPlans();
 
-  if (isLoading || !data) return <Loading />;
+    if (isLoading || !data) return <Loading />;
 
   const currentTemplate = data.find((template) => template.isCurrent === true);
   const activeDay = currentTemplate.routine.find(day => day.id === id)
