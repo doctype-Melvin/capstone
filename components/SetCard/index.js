@@ -1,24 +1,32 @@
-import styled from "styled-components";
-import { BsFillPencilFill as Edit } from "react-icons/bs";
-import { ImCross as Delete } from "react-icons/im";
+import LoggingForm from "../LoggingForm"
+import { useState } from "react"
+import styled from "styled-components"
 
-const Container = styled.section`
-  display: flex;
-  justify-content: space-between;
-`;
+const StyledContainer = styled.section`
+        display: grid;
+        width: 100%;
+        grid-template-columns: 1fr 1fr .5fr;
+`
 
-export default function SetCard({ set, index, onEdit, onDelete }) {
-  return (
-    <Container>
-      Set #{index + 1} - Reps {set.reps} @ {set.weight} Kg
-      <section>
-        <button type="button" onClick={() => onEdit(set.id)}>
-          <Edit />
-        </button>
-        <button type="button" onClick={() => onDelete(set.id)}>
-          <Delete />
-        </button>
-      </section>
-    </Container>
-  );
+export default function SetCard({exercise}) {
+
+    const [ showLogForm, setShowLogForm ] = useState(false)
+    const handleButtonClick = () => setShowLogForm(prevState => !prevState)
+
+    return (
+        <>
+        <StyledContainer>
+        <span>{exercise.exercise}</span>
+        <span>{exercise.sets} x {exercise.reps} @ {exercise.weight} </span>
+        { !showLogForm ? <button type="button" onClick={handleButtonClick}>Add Set</button> : null}
+        </StyledContainer>
+        {
+            showLogForm ? (
+                <LoggingForm exercise={exercise} toggleForm={handleButtonClick} />
+            ) : (
+                null
+            )
+        }
+        </>
+    )
 }
