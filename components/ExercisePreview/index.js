@@ -36,7 +36,7 @@ const StyledList = styled.ul`
   }
 `;
 
-export default function ExercisePreview({ exercise, templateId,  }) {
+export default function ExercisePreview({ exercise, templateId, setLogObject }) {
   const [toggleForm, setToggleForm] = useState(false);
   const [allSets, setAllSets] = useState([]);
   const [editMode, setEditMode] = useState(false);
@@ -92,6 +92,7 @@ export default function ExercisePreview({ exercise, templateId,  }) {
           onEditSave={setEditMode}
           templateId={templateId}
           exercise={exercise}
+          setLogObject={setLogObject}
         />
       )}
     </Wrapper>

@@ -29,20 +29,20 @@ const ExercisesPreviewContainer = styled.ul`
   }
 `;
 
-export default function SessionPreview({ template }) {
+export default function SessionPreview({ template, setLogObject }) {
 
   return (
     <PreviewContainer>
       <StyledCard>
         <span>{template.name}</span>
-        <DayDisplay>{`Week 1- Day 1`}</DayDisplay>
+        <DayDisplay>{`Week 1 - Day 1`}</DayDisplay>
         <ExercisesPreviewContainer>
           {template.routine[0].exercises.map((exercise) => (
             <li key={exercise.id}>
               <ExercisePreview
                 exercise={exercise}
                 templateId={template._id}
-
+                setLogObject={setLogObject}
               />
             </li>
           ))}

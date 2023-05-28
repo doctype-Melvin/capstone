@@ -2,7 +2,7 @@ import styled from "styled-components";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import WorkoutDay from "@/components/WorkoutDay";
-import { fetcher, copyRoutineToLogs } from "@/utils/helpers";
+import { fetcher } from "@/utils/helpers";
 import Loading from "@/components/Loading";
 
 const PlanContainer = styled.section`
@@ -31,10 +31,7 @@ export default function SinglePlanView() {
 
   const { data, error } = useSWR(`/api/plans/${id}`, fetcher);
 
-  const handleSaveClick = () => {
-    copyRoutineToLogs(data);
-    router.push(`/viewPlans`);
-  };
+  const handleSaveClick = () => router.push(`/viewPlans`);
 
   if (!data) return <Loading />;
   if (error) return <p>Something went wrong</p>;
