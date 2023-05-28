@@ -21,9 +21,8 @@ export default function LoggingForm({exercise, toggleForm}){
         weight: exercise.weight,
         id: nanoid(5),
     })
-
+    
     const handleSubmit = () => {
-        console.log(attributes)
         toggleForm()
     }
 

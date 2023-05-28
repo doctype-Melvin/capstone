@@ -28,16 +28,7 @@ const Preview = styled.div`
 
 export default function SessionCard({day}){
 
-    const [ sessionResults, setSessionResults ] = useLocalStorageState('session', {
-        defaultValue: []
-    })
-
-    const handleSaveSession = () => {
-        const sessionData = JSON.parse(localStorage.getItem('session'))
-        console.log(sessionData)
-    }
-
-    return (
+     return (
         <Link href={`/sessionView/${day.id}`}>
         <Title>Day {day.day}</Title>
         <ExerciseList>
@@ -48,7 +39,6 @@ export default function SessionCard({day}){
             </Preview>
         </li>)}
         </ExerciseList>
-        {/* <button type="button" onClick={() => console.log('redirect')}>Save Session</button> */}
         </Link>
     )
 }

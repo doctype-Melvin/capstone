@@ -1,6 +1,8 @@
 import { nanoid } from "nanoid";
 import useSWR from "swr";
 import { mutate } from "swr";
+import produce, { freeze } from "immer";
+import { useCallback } from "react";
 
 export const addWorkoutDays = (number) => {
   let store = [];
@@ -20,18 +22,6 @@ export const workoutWeek = {
     return this.week + 1;
   },
   log: [],
-};
-
-export const copyRoutineToLogs = (templateObject) => {
-  const initialWeeklyLog = templateObject.routine.map((day) => {
-    const sessionData = {
-      day: day.day,
-      id: day.id,
-      results: [],
-    };
-    return sessionData;
-  });
-  createUpdateDelete(templateObject._id, initialWeeklyLog, "intialWeeklyLog");
 };
 
 export const fetcher = (...args) =>
