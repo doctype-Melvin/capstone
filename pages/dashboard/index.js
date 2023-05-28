@@ -3,6 +3,11 @@ import Loading from "@/components/Loading";
 import styled from "styled-components";
 import SessionCard from "@/components/SessionCard";
 
+const TemplateName = styled.p`
+width: 100%;
+text-align: center;
+font-size: 1.2rem;
+`
 
 const StyledList = styled.ul`
   padding: 0;
@@ -24,7 +29,7 @@ export default function Dashboard() {
 
   return (
     <ContentContainer>
-      {currentTemplate && <p>{currentTemplate.name}</p>}
+      {currentTemplate && <TemplateName>{currentTemplate.name}</TemplateName>}
       {
         currentTemplate ? (
           <StyledList>

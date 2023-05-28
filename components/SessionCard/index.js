@@ -2,6 +2,7 @@ import SetCard from "../SetCard"
 import styled from "styled-components"
 import { useState } from "react"
 import useLocalStorageState from "use-local-storage-state"
+import Link from "next/link"
 
 const ExerciseList = styled.ul`
     display: grid;
@@ -11,21 +12,43 @@ const ExerciseList = styled.ul`
     width: 100%;
 `
 
+const Title = styled.p`
+    text-align: center;
+    width: 100%;
+    background-color: hotpink;
+    padding: .5rem 0;
+`
+
+const Preview = styled.div`
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-left: 2rem;
+`
+
 export default function SessionCard({day}){
 
     const [ sessionResults, setSessionResults ] = useLocalStorageState('session', {
         defaultValue: []
     })
 
+    const handleSaveSession = () => {
+        const sessionData = JSON.parse(localStorage.getItem('session'))
+        console.log(sessionData)
+    }
+
     return (
-        <>
-        <p>Day {day.day}</p>
+        <Link href={`/sessionView/${day.id}`}>
+        <Title>Day {day.day}</Title>
         <ExerciseList>
         {day.exercises.map(exercise => <li key={exercise.id}>
-            <SetCard  exercise={exercise} />
+            <Preview>
+            <span>{exercise.exercise}</span>
+            <span>{exercise.sets} x {exercise.reps} @ {exercise.weight} Kg</span>
+            </Preview>
         </li>)}
         </ExerciseList>
-        <button type="button" onClick={() => console.log(sessionResults)}>Save Session</button>
-        </>
+        {/* <button type="button" onClick={() => console.log('redirect')}>Save Session</button> */}
+        </Link>
     )
 }

@@ -22,7 +22,10 @@ export default function LoggingForm({exercise, toggleForm}){
         id: nanoid(5),
     })
 
-    const handleSubmit = () => toggleForm()
+    const handleSubmit = () => {
+        console.log(attributes)
+        toggleForm()
+    }
 
     const handleInputchange = (event) => {
         const { name, value } = event.target

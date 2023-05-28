@@ -8,7 +8,7 @@ const StyledContainer = styled.section`
         grid-template-columns: 1fr 1fr .5fr;
 `
 
-export default function SetCard({exercise}) {
+export default function SetCard({exercise, toLocalStorage}) {
 
     const [ showLogForm, setShowLogForm ] = useState(false)
     const handleButtonClick = () => setShowLogForm(prevState => !prevState)
@@ -22,11 +22,12 @@ export default function SetCard({exercise}) {
         </StyledContainer>
         {
             showLogForm ? (
-                <LoggingForm exercise={exercise} toggleForm={handleButtonClick} />
+                <LoggingForm exercise={exercise} toggleForm={handleButtonClick} toLocalStorage={toLocalStorage} />
             ) : (
                 null
             )
         }
+        
         </>
     )
 }
