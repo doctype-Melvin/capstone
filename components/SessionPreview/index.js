@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import ExercisePreview from "../ExercisePreview";
-import { useAllPlans, usePlan } from "@/utils/helpers";
-import Loading from "../Loading";
 
 const PreviewContainer = styled.section`
   height: 100vh;
@@ -32,24 +30,19 @@ const ExercisesPreviewContainer = styled.ul`
 `;
 
 export default function SessionPreview({ template }) {
-  const currentWeek = template.logs[template.logs.length - 1];
-  const currentDay = currentWeek.log[currentWeek.log.length - 1];
-  const currentDayExercises = template.routine.find(
-    (day) => day.id === currentDay.id
-  ).exercises;
 
   return (
     <PreviewContainer>
       <StyledCard>
         <span>{template.name}</span>
-        <DayDisplay>{`Week ${currentWeek.week} - Day ${currentDay.day}`}</DayDisplay>
+        <DayDisplay>{`Week 1- Day 1`}</DayDisplay>
         <ExercisesPreviewContainer>
-          {currentDayExercises.map((exercise) => (
+          {template.routine[0].exercises.map((exercise) => (
             <li key={exercise.id}>
               <ExercisePreview
                 exercise={exercise}
                 templateId={template._id}
-                logs={template.logs}
+
               />
             </li>
           ))}
