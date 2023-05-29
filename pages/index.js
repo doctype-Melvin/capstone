@@ -11,17 +11,17 @@ const HomeScreen = styled.section`
 `;
 
 const linkStyles = css`
-display: flex;
-justify-content: center;
-align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-decoration: none;
   background-size: 100%;
   background-position: right;
   padding: 0 10px;
   height: 66%;
-  opacity: .85;
+  opacity: 0.85;
   font-size: 1.5rem;
-  transition: .2s;
+  transition: 0.2s;
 
   &:active {
     opacity: 1;
@@ -29,10 +29,9 @@ align-items: center;
 
   &:hover {
     opacity: 1;
-    transition: .2s
+    transition: 0.2s;
   }
 `;
-
 
 const CreateTemplateLink = styled(Link)`
   ${linkStyles}
@@ -50,13 +49,17 @@ const AllTemplatesLink = styled(Link)`
   ${linkStyles}
   /* background-image: url("/images/shoulder-press.jpg"); */
   color: var(--dark-main);
-`
+`;
 
 export default function HomePage() {
   return (
     <HomeScreen>
-      <CreateTemplateLink href="/createPlan">Create Workout Template</CreateTemplateLink>
-      <ToCurrentTemplateLink href="/dashboard">Go to current Template</ToCurrentTemplateLink>
+      <CreateTemplateLink href="/createPlan">
+        Create Workout Template
+      </CreateTemplateLink>
+      <ToCurrentTemplateLink href="/dashboard">
+        Go to current Template
+      </ToCurrentTemplateLink>
       <AllTemplatesLink href="/viewPlans">View all Templates</AllTemplatesLink>
     </HomeScreen>
   );

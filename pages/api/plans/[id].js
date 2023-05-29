@@ -34,10 +34,9 @@ export default async function handler(request, response) {
   if (request.method === "PATCH") {
     try {
       if (isLog) {
-        const newSet = request.body;
+        const newLog = request.body;
 
-        const updatedLog = [...currentPlan.logs, newSet];
-        await Plan.findByIdAndUpdate(id, { logs: updatedLog });
+        await Plan.findByIdAndUpdate(id, { logs: newLog });
         response.status(200).json({ status: "Added set to workout session" });
       } else if (isEdit) {
         const editedSet = request.body;

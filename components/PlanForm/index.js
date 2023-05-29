@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import { useRouter } from "next/router";
 import { sendPostRequest } from "@/utils/helpers";
 import { addWorkoutDays } from "@/utils/helpers";
@@ -20,32 +20,31 @@ const FormCreatePlan = styled.form`
   }
 `;
 
-
 const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
   margin-top: 2rem;
-`
+`;
 
 const createFormButton = css`
-padding: .45rem 1.75rem;
-font-size: 1.2rem;
-border-radius: 3px;
-`
+  padding: 0.45rem 1.75rem;
+  font-size: 1.2rem;
+  border-radius: 3px;
+`;
 
 const SaveButton = styled.button`
   ${createFormButton}
   border: none;
-  background-color: var(--soft-green);  
-`
+  background-color: var(--soft-green);
+`;
 
 const BackButton = styled.button`
-${createFormButton}
+  ${createFormButton}
   border: none;
   background-color: var(--cancel-red);
   color: var(--lightest-blue);
-`
+`;
 
 export default function PlanForm() {
   const router = useRouter();
@@ -80,7 +79,6 @@ export default function PlanForm() {
           Back
         </BackButton>
       </ButtonContainer>
-      
     </FormCreatePlan>
   );
 }

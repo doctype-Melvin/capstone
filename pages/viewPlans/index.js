@@ -9,7 +9,7 @@ const OverviewContainer = styled.section`
 `;
 
 const NewTemplateLink = styled(Link)`
-  padding: .45rem 1.75rem;
+  padding: 0.45rem 1.75rem;
   font-size: 1.2rem;
   border-radius: 3px;
   text-decoration: none;
@@ -33,9 +33,9 @@ const StyledList = styled.ul`
 `;
 
 const ButtonContainer = styled.div`
-width: 100%;
-text-align: center;
-`
+  width: 100%;
+  text-align: center;
+`;
 
 export default function ViewAllPlans() {
   const { data } = useAllPlans();
@@ -56,8 +56,8 @@ export default function ViewAllPlans() {
           </li>
         ))}
       </StyledList>
-<ButtonContainer>
-    <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
+      <ButtonContainer>
+        <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
       </ButtonContainer>
     </OverviewContainer>
   );

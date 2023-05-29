@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 import useSWR from "swr";
 import { useRouter } from "next/router";
 import WorkoutDay from "@/components/WorkoutDay";
@@ -27,16 +27,16 @@ const PlanBody = styled.section`
 
 const SaveButton = styled.button`
   border: none;
-  padding: .45rem 1.75rem;
+  padding: 0.45rem 1.75rem;
   font-size: 1.2rem;
   border-radius: 3px;
   background-color: var(--soft-green);
-`
+`;
 
 const ButtonContainer = styled.div`
-text-align: center;
-margin-top: 1rem;
-`
+  text-align: center;
+  margin-top: 1rem;
+`;
 
 export default function SinglePlanView() {
   const router = useRouter();
