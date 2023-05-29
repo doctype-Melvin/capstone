@@ -9,10 +9,10 @@ const StyledForm = styled.form`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  ${({ isEdit }) => 
+  ${({ isEdit }) =>
     isEdit &&
     css`
-        grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(6, 1fr);
     `}
 `;
 
@@ -37,25 +37,29 @@ export default function LoggingForm({
     weight: isEdit ? editSet.weight : exercise.weight,
     exerciseId: exercise.id,
     dayId: exercise.dayId,
-});
+  });
 
-const handleCloseClick = () => {
-    toggleEditMode()
-    toggleForm()
-}
+  const handleCloseClick = () => {
+    toggleEditMode();
+    toggleForm();
+  };
 
-const handleSubmit = () => {
+  const handleSubmit = () => {
     if (isEdit) {
-        const previousSetData = data.logs.find(log => log.setId === editSet.setId)
-        const previousSetDataIndex = data.logs.findIndex(log => log.setId === editSet.setId)
-        data.logs[previousSetDataIndex] = {...previousSetData, ...attributes}
-        mutate(data, true)
-        toggleEditMode()
+      const previousSetData = data.logs.find(
+        (log) => log.setId === editSet.setId
+      );
+      const previousSetDataIndex = data.logs.findIndex(
+        (log) => log.setId === editSet.setId
+      );
+      data.logs[previousSetDataIndex] = { ...previousSetData, ...attributes };
+      mutate(data, true);
+      toggleEditMode();
     } else {
-        attributes.setId = nanoid(5);
-        const logsArray = data.logs;
-        const updatedLogs = [...logsArray, attributes];
-        data.logs = updatedLogs;
+      attributes.setId = nanoid(5);
+      const logsArray = data.logs;
+      const updatedLogs = [...logsArray, attributes];
+      data.logs = updatedLogs;
     }
 
     toggleForm();
@@ -71,7 +75,7 @@ const handleSubmit = () => {
     }));
   };
 
-  if (!data || isLoading ) return <Loading />;
+  if (!data || isLoading) return <Loading />;
 
   return (
     <StyledForm onSubmit={handleSubmit}>
