@@ -1,9 +1,7 @@
 import { BsPencilFill as Edit } from "react-icons/bs";
 import { AiOutlineDelete as Delete } from "react-icons/ai";
-import styled, { css } from "styled-components";
-import LoggingForm from "../LoggingForm";
-import { useState } from "react";
-import { usePlan } from "@/utils/helpers";
+import styled from "styled-components";
+import { createUpdateDelete, usePlan } from "@/utils/helpers";
 
 const ContentContainer = styled.div`
   display: grid;
@@ -26,13 +24,20 @@ export default function ResultCard({
   isEdit,
   setEditSet,
 }) {
-  const { data } = usePlan(templateId);
+  const { data, mutate } = usePlan(templateId);
 
   const handleEditClick = (id) => {
     toggleEditMode((prevState) => !prevState);
     toggleForm();
     const targetSet = data.logs.find((log) => log.setId === id);
     setEditSet(targetSet);
+  };
+
+  const handleDeleteClick = (id) => {
+    const updatedLogs = data.logs.filter((log) => log.setId !== id);
+    const updatedData = { ...data, logs: updatedLogs };
+    createUpdateDelete(templateId, updatedLogs, "isDelete");
+    mutate(updatedData, false);
   };
 
   return (
@@ -46,7 +51,7 @@ export default function ResultCard({
             <button type="button" onClick={() => handleEditClick(log.setId)}>
               <Edit />
             </button>
-            <button type="button">
+            <button type="button" onClick={() => handleDeleteClick(log.setId)}>
               <Delete />
             </button>
           </ContentContainer>

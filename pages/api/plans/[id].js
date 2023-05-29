@@ -55,11 +55,8 @@ export default async function handler(request, response) {
         await Plan.findByIdAndUpdate(id, { logs: updatedLogsArray });
         response.status(200).json({ status: "Set successfully updated" });
       } else if (isDelete) {
-        const deleteThisSet = request.body;
-        const updatedLogsArray = currentPlan.logs.filter(
-          (set) => set.id !== deleteThisSet
-        );
-        await Plan.findByIdAndUpdate(id, { logs: updatedLogsArray });
+        const updatedLogs = request.body;
+        await Plan.findByIdAndUpdate(id, { logs: updatedLogs });
         response.status(200).json({ status: "Set successfully deleted" });
       } else if (initialWeeklyLog) {
         const initialWeeklyLog = request.body;

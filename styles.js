@@ -9,6 +9,8 @@ export default createGlobalStyle`
 
   body, html {
     margin: 0;
+    padding: 0;
+    height: 100vh;
     font-family: system-ui;
     color: var(--dark-main)
   }
@@ -22,5 +24,6 @@ export default createGlobalStyle`
     --sand: #fce282;
     --soft-green: #7AE7C7;
     --cancel-red: crimson;
+    --navbar-height: 61.5px
   }
 `;

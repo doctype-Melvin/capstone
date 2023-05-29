@@ -28,7 +28,6 @@ export default function LoggingForm({
   toggleEditMode,
   editSet,
 }) {
-  // Mutate cached data here in the form
   const { data, isLoading, mutate } = usePlan(templateId);
 
   const [attributes, setAttributes] = useState({
@@ -52,19 +51,20 @@ export default function LoggingForm({
       const previousSetDataIndex = data.logs.findIndex(
         (log) => log.setId === editSet.setId
       );
-      data.logs[previousSetDataIndex] = { ...previousSetData, ...attributes };
-      mutate(data, true);
+      const updatedLogs = [...data.logs];
+      updatedLogs[previousSetDataIndex] = { ...previousSetData, ...attributes };
+      const updatedData = { ...data, logs: updatedLogs };
+      mutate(updatedData, false);
       toggleEditMode();
     } else {
       attributes.setId = nanoid(5);
-      const logsArray = data.logs;
-      const updatedLogs = [...logsArray, attributes];
-      data.logs = updatedLogs;
+      const updatedLogs = [...data.logs, attributes];
+      const updatedData = { ...data, logs: updatedLogs };
+      mutate(updatedData, false);
+      createUpdateDelete(templateId, updatedLogs, "isCreate");
     }
 
     toggleForm();
-    mutate(data, true);
-    createUpdateDelete(templateId, data.logs, "isCreate");
   };
 
   const handleInputchange = (event) => {

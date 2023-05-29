@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { sendPostRequest } from "@/utils/helpers";
 import { addWorkoutDays } from "@/utils/helpers";
 import useSWRMutation from "swr/mutation";
+import { TemplateName as Info } from "@/pages/dashboard";
 
 const FormCreatePlan = styled.form`
   width: 100%;
@@ -18,6 +19,16 @@ const FormCreatePlan = styled.form`
     padding: 5px 10px;
     border-radius: 5px;
   }
+
+  & > label, input {
+    font-size: 1.5rem;
+  }
+
+  & > input {
+    padding: 5px;
+    text-indent: 10px;
+  }
+
 `;
 
 const ButtonContainer = styled.div`
@@ -67,6 +78,8 @@ export default function PlanForm() {
   };
 
   return (
+    <>
+    <Info>Create Template</Info>
     <FormCreatePlan onSubmit={handleFormSubmit}>
       <label htmlFor="name">Template Name</label>
       <input type="text" name="name" minLength={2} maxLength={20} required />
@@ -80,5 +93,6 @@ export default function PlanForm() {
         </BackButton>
       </ButtonContainer>
     </FormCreatePlan>
+    </>
   );
 }

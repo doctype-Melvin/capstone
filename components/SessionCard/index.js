@@ -15,10 +15,12 @@ const ExerciseList = styled.ul`
 const Title = styled.p`
   text-align: center;
   width: 100%;
+  font-size: 1.2rem;
   background-color: var(--light-blue);
   color: var(--lightest-blue);
   padding: 0.5rem 0;
   margin: 0;
+  box-shadow: 1px 1px 5px 5px var(--lightest-blue);
 `;
 
 const Preview = styled.div`
@@ -26,6 +28,7 @@ const Preview = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-left: 2rem;
+  color: var(--dark-main);
 `;
 
 const StyledLink = styled(Link)`

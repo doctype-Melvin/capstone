@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Link from "next/link";
 import SetCard from "@/components/SetCard";
 import format from "date-fns/format";
+import { TemplateName as DayNumber } from "../dashboard";
 
 const PageContent = styled.section`
   height: 100vh;
@@ -32,7 +33,7 @@ export default function SessionView() {
 
   return (
     <PageContent>
-      <div>Day {activeDay.day}</div>
+      <DayNumber>Day {activeDay.day}</DayNumber>
       {activeDay.exercises.map((exercise) => (
         <li key={exercise.id}>
           <SetCard exercise={exercise} templateId={currentTemplate._id} />

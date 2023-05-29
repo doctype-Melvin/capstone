@@ -4,17 +4,11 @@ import { useRouter } from "next/router";
 import WorkoutDay from "@/components/WorkoutDay";
 import { fetcher } from "@/utils/helpers";
 import Loading from "@/components/Loading";
+import { TemplateName } from "../dashboard";
 
 const PlanContainer = styled.section`
   min-height: 100vh;
   margin-bottom: 1rem;
-`;
-
-const PlanHead = styled.p`
-  width: 100vw;
-  text-align: center;
-  margin-bottom: 1rem;
-  font-size: 1.5rem;
 `;
 
 const PlanBody = styled.section`
@@ -51,7 +45,7 @@ export default function SinglePlanView() {
 
   return (
     <PlanContainer>
-      <PlanHead>{data.name}</PlanHead>
+      <TemplateName>{data.name}</TemplateName>
       <PlanBody>
         {data.routine.map((day) => (
           <WorkoutDay key={day.id} number={day.day} dayId={day.id} />

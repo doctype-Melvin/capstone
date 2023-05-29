@@ -9,14 +9,16 @@ const NavBar = styled.nav`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  position: sticky;
+  position: fixed;
   bottom: 0;
+  height: var(--navbar-height);
   background-color: var(--mid-blue);
 `;
 
 const NavIconContainer = styled.section`
-  font-size: 2.2rem;
   color: white;
+  font-size: 2.25rem;
+  padding-top: .5rem;
 `;
 
 export default function Navigation() {

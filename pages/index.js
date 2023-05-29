@@ -2,7 +2,7 @@ import Link from "next/link";
 import styled, { css } from "styled-components";
 
 const HomeScreen = styled.section`
-  min-height: 100vh;
+  height: calc(100vh - var(--navbar-height));
   display: grid;
   grid-template-rows: repeat(3, 1fr);
   grid-template-columns: 1fr;
