@@ -18,7 +18,7 @@ const NavBar = styled.nav`
 const NavIconContainer = styled.section`
   color: white;
   font-size: 2.25rem;
-  padding-top: .5rem;
+  padding-top: 0.5rem;
 `;
 
 export default function Navigation() {

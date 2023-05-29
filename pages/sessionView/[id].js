@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
-import { useAllPlans, usePlan } from "@/utils/helpers";
-import styled from "styled-components";
+import { useAllPlans } from "@/utils/helpers";
+import styled, { css } from "styled-components";
 import Link from "next/link";
 import SetCard from "@/components/SetCard";
 import format from "date-fns/format";
@@ -9,6 +9,34 @@ import { TemplateName as DayNumber } from "../dashboard";
 
 const PageContent = styled.section`
   height: 100vh;
+`;
+
+const ControlsContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const SharedButtonStyle = css`
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  font-size: 1rem;
+`;
+
+const StyledLink = styled(Link)`
+  ${SharedButtonStyle}
+  text-decoration: none;
+  background-color: var(--lightest-blue);
+  color: var(--dark-main);
+`;
+
+const SaveSessionButton = styled.button`
+  ${SharedButtonStyle}
+  border: none;
+  background-color: var(--soft-green);
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 export default function SessionView() {
@@ -39,10 +67,12 @@ export default function SessionView() {
           <SetCard exercise={exercise} templateId={currentTemplate._id} />
         </li>
       ))}
-      <Link href="/dashboard">Back</Link>
-      <button type="button" onClick={handleSaveClick}>
-        Save Session
-      </button>
+      <ControlsContainer>
+        <StyledLink href="/dashboard">Dashboard</StyledLink>
+        <SaveSessionButton type="button" onClick={handleSaveClick}>
+          Save Session
+        </SaveSessionButton>
+      </ControlsContainer>
     </PageContent>
   );
 }

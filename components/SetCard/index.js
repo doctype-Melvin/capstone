@@ -10,6 +10,9 @@ const StyledContainer = styled.section`
   display: grid;
   width: 100%;
   grid-template-columns: 1fr 1fr 0.5fr;
+  font-size: 1.3rem;
+  margin: 1rem 0;
+  padding: 0 0.3rem;
 `;
 
 const ResultList = styled.ul`
@@ -17,10 +20,19 @@ const ResultList = styled.ul`
   list-style-type: none;
   padding: 0;
   margin: 0;
+  & > li {
+    font-size: 1.15rem;
+  }
+`;
+
+const AddSetButton = styled.button`
+  background-color: var(--soft-green);
+  border: none;
+  border-radius: 3px;
+  font-size: 1rem;
 `;
 
 export default function SetCard({ exercise, templateId }) {
-  // Render mutated data
   const { data, isLoading } = usePlan(templateId);
   const [showLogForm, setShowLogForm] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
@@ -42,9 +54,9 @@ export default function SetCard({ exercise, templateId }) {
           {exercise.sets} x {exercise.reps} @ {exercise.weight}{" "}
         </span>
         {!showLogForm ? (
-          <button type="button" onClick={toggleForm}>
+          <AddSetButton type="button" onClick={toggleForm}>
             Add Set
-          </button>
+          </AddSetButton>
         ) : null}
       </StyledContainer>
       {showLogForm ? (

@@ -17,7 +17,7 @@ const TemplateContainer = styled.section`
   font-size: 1.25rem;
 
   & > span {
-    padding-left: .5rem;
+    padding-left: 0.5rem;
   }
 `;
 const IconContainer = styled.div`
@@ -33,11 +33,11 @@ const StyledLink = styled(Link)`
 `;
 
 const CurrentButton = styled.button`
-border: none;
-background-color: var(--soft-green);
-font-size: 1rem;
-border-radius: 3px;
-`
+  border: none;
+  background-color: var(--soft-green);
+  font-size: 1rem;
+  border-radius: 3px;
+`;
 
 const CurrentIndicator = styled.div`
   border: 2px solid var(--soft-green);

@@ -11,7 +11,7 @@ const OverviewContainer = styled.section`
 
 const NewTemplateLink = styled(Link)`
   font-size: 1.2rem;
-  padding: .5rem ;
+  padding: 0.5rem;
   border-radius: 3px;
   text-decoration: none;
   color: var(--lightest-blue);
@@ -30,7 +30,7 @@ const StyledList = styled.ul`
 const ButtonContainer = styled.div`
   width: 100%;
   text-align: center;
-  margin-top: 2rem
+  margin-top: 2rem;
 `;
 
 export default function ViewAllPlans() {
@@ -40,11 +40,10 @@ export default function ViewAllPlans() {
 
   return (
     <OverviewContainer>
-    
-        <TemplateCount>
-          Found {data.length} {data.length === 1 ? `template` : `templates`}
-        </TemplateCount>
-     
+      <TemplateCount>
+        Found {data.length} {data.length === 1 ? `template` : `templates`}
+      </TemplateCount>
+
       <StyledList>
         {data.map((plan) => (
           <li key={plan._id}>

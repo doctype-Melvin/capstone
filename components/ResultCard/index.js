@@ -1,18 +1,37 @@
 import { BsPencilFill as Edit } from "react-icons/bs";
 import { AiOutlineDelete as Delete } from "react-icons/ai";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { createUpdateDelete, usePlan } from "@/utils/helpers";
 
 const ContentContainer = styled.div`
   display: grid;
   grid-template-columns: 1fr 0.2fr 0.2fr;
   margin-bottom: 0.45rem;
-  & > button {
-    font-size: 1.1rem;
-  }
+  align-items: center;
   & > span {
     padding-left: 1.5rem;
   }
+`;
+
+const SharedButtonStyle = css`
+  border: none;
+  border-radius: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2rem;
+  padding: 0.3rem;
+`;
+
+const DeleteButton = styled.button`
+  ${SharedButtonStyle}
+  background-color: var(--cancel-red);
+  margin: auto 5px;
+`;
+
+const EditButton = styled.button`
+  ${SharedButtonStyle}
+  background-color: var(--sand);
 `;
 
 export default function ResultCard({
@@ -48,12 +67,18 @@ export default function ResultCard({
             <span>
               Set# {setNumber} Reps: {log.reps} @ {log.weight} Kg
             </span>
-            <button type="button" onClick={() => handleEditClick(log.setId)}>
+            <EditButton
+              type="button"
+              onClick={() => handleEditClick(log.setId)}
+            >
               <Edit />
-            </button>
-            <button type="button" onClick={() => handleDeleteClick(log.setId)}>
+            </EditButton>
+            <DeleteButton
+              type="button"
+              onClick={() => handleDeleteClick(log.setId)}
+            >
               <Delete />
-            </button>
+            </DeleteButton>
           </ContentContainer>
         ) : null
         // <LoggingForm toggleForm={toggleForm} exercise={log} isEdit={isEditMode}/>

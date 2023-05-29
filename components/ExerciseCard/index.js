@@ -79,7 +79,10 @@ export default function ExerciseCard({
           </DetailsContainer>
           {expanded ? (
             <ButtonContainer>
-              <DeleteButton type="button" onClick={() => handleDeleteClick(exercise)}>
+              <DeleteButton
+                type="button"
+                onClick={() => handleDeleteClick(exercise)}
+              >
                 Delete
               </DeleteButton>
               <AddButton type="button" onClick={handleEditClick}>
