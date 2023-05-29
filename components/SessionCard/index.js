@@ -24,11 +24,13 @@ const Title = styled.p`
 `;
 
 const Preview = styled.div`
+  margin-top: 1rem;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   padding-left: 2rem;
   color: var(--dark-main);
+  font-size: 1.25rem;
 `;
 
 const StyledLink = styled(Link)`

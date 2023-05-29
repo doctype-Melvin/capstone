@@ -19,7 +19,7 @@ const StyledSection = styled.section`
 const StyledTitle = styled.h1`
   padding: 0.5rem 0 0 0;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1.65rem;
 `;
 
 const StyledButton = styled.button`

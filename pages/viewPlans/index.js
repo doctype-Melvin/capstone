@@ -6,7 +6,7 @@ import Loading from "@/components/Loading";
 import { TemplateName as TemplateCount } from "../dashboard";
 
 const OverviewContainer = styled.section`
-  min-height: 100vh;
+  height: 100vh;
 `;
 
 const NewTemplateLink = styled(Link)`

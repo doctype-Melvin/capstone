@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -7,19 +7,22 @@ import { sendPostRequest } from "@/utils/helpers";
 import { mutateExercise } from "@/utils/helpers";
 
 const StyledForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 80vw;
-  align-items: flex-end;
-  gap: 0.5rem;
+  display: grid;
+  grid-template-columns: .5fr 1fr;
+  grid-template-rows: repeat(5, .5fr);
+  align-items: center;
+  gap: .5rem;
   padding-bottom: 1rem;
 
   & > label {
     margin-right: 1rem;
+    font-size: 1.5rem;
   }
 
-  & > label > input {
+  & > input {
     margin-left: 0.3rem;
+    font-size: 1.5rem;
+    width: 50vw;
   }
 `;
 
@@ -28,7 +31,29 @@ const ButtonContainer = styled.div`
   width: 100%;
   justify-content: space-around;
   padding: 0.7rem;
+  grid-column: 1 / 3;
 `;
+
+
+const SharedButtonStyle = css`
+border: none;
+  padding: .5rem 1rem;
+  border-radius: 3px;
+  font-size: 1rem;
+`
+
+export const AddButton = styled.button`
+${SharedButtonStyle}
+  background-color: var(--soft-green);
+  color: var(--dark-main);
+`
+
+export const CancelButton = styled.button`
+${SharedButtonStyle}
+  background-color: var(--cancel-red);
+  color: var(--lightest-blue);
+`
+
 
 export default function ExerciseForm({
   toggleForm,
@@ -82,6 +107,7 @@ export default function ExerciseForm({
     <StyledForm onSubmit={handleSubmit} id={dayId}>
       <label htmlFor="exercise">
         Exercise
+        </label>
         <input
           type="text"
           name="exercise"
@@ -89,9 +115,9 @@ export default function ExerciseForm({
           onChange={handleInputChange}
           required
         />
-      </label>
       <label htmlFor="sets">
         Sets
+        </label>
         <input
           type="number"
           name="sets"
@@ -101,9 +127,9 @@ export default function ExerciseForm({
           onChange={handleInputChange}
           required
         />
-      </label>
       <label htmlFor="reps">
         Reps
+        </label>
         <input
           type="number"
           name="reps"
@@ -113,9 +139,9 @@ export default function ExerciseForm({
           onChange={handleInputChange}
           required
         />
-      </label>
       <label htmlFor="weight">
         Weight
+        </label>
         <input
           type="number"
           name="weight"
@@ -125,16 +151,15 @@ export default function ExerciseForm({
           onChange={handleInputChange}
           required
         />
-      </label>
       <ButtonContainer>
         {isEdit ? (
-          <button type="submit">Save</button>
+          <AddButton type="submit">Save</AddButton>
         ) : (
           <>
-            <button type="submit">Add</button>
-            <button type="button" onClick={() => toggleForm()}>
+            <CancelButton type="button" onClick={() => toggleForm()}>
               Cancel
-            </button>
+            </CancelButton>
+            <AddButton type="submit">Add</AddButton>
           </>
         )}
       </ButtonContainer>
