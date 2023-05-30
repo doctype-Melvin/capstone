@@ -41,6 +41,8 @@ const SaveSessionButton = styled.button`
 
 const SetCardList = styled.ul`
 list-style-type: none;
+padding: 0;
+margin: 0;
 
 `
 

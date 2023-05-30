@@ -73,7 +73,7 @@ export const sendPutRequest = async (url, payload) => {
 export const createUpdateDelete = async (planId, data, mode) => {
   const modes = {
     isEdit: "isEdit",
-    isCreate: "isCreate",
+    isCreate: "isLog",
     isDelete: "isDelete",
   };
 
