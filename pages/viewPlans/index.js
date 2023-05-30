@@ -34,9 +34,9 @@ const ButtonContainer = styled.div`
 `;
 
 export default function ViewAllPlans() {
-  const { data } = useAllPlans();
+  const { data, isLoading } = useAllPlans();
 
-  if (!data) return <Loading />;
+  if (isLoading || !data) return <Loading />;
 
   return (
     <OverviewContainer>
