@@ -35,19 +35,16 @@ const linkStyles = css`
 
 const CreateTemplateLink = styled(Link)`
   ${linkStyles}
-  /* background-image: url("/images/barbell.jpg"); */
   color: var(--dark-main);
 `;
 
 const ToCurrentTemplateLink = styled(Link)`
   ${linkStyles}
-  /* background-image: url("/images/running.jpg"); */
   color: var(--dark-main);
 `;
 
 const AllTemplatesLink = styled(Link)`
   ${linkStyles}
-  /* background-image: url("/images/shoulder-press.jpg"); */
   color: var(--dark-main);
 `;
 
