@@ -62,7 +62,7 @@ export default function ResultCard({
   return (
     <>
       {
-        !isEdit ? (
+        !isEdit && (
           <ContentContainer>
             <span>
               Set# {setNumber} Reps: {log.reps} @ {log.weight} Kg
@@ -80,8 +80,7 @@ export default function ResultCard({
               <Delete />
             </DeleteButton>
           </ContentContainer>
-        ) : null
-        // <LoggingForm toggleForm={toggleForm} exercise={log} isEdit={isEditMode}/>
+        ) 
       }
     </>
   );
