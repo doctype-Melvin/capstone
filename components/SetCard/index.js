@@ -57,13 +57,13 @@ export default function SetCard({ exercise, templateId }) {
         <span>
           {exercise.sets} x {exercise.reps} @ {exercise.weight}{" "}
         </span>
-        {!showLogForm ? (
+        {!showLogForm && (
           <AddSetButton type="button" onClick={toggleForm}>
             Add Set
           </AddSetButton>
-        ) : null}
+        )}
       </StyledContainer>
-      {showLogForm ? (
+      {showLogForm && (
         <LoggingForm
           exercise={exercise}
           toggleForm={toggleForm}
@@ -72,7 +72,7 @@ export default function SetCard({ exercise, templateId }) {
           toggleEditMode={toggleEditMode}
           editSet={editSet}
         />
-      ) : null}
+      )}
 
       {sessionLogs.length > 0 && (
         <ResultList>

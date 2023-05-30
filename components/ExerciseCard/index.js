@@ -77,7 +77,7 @@ export default function ExerciseCard({
               <span onClick={handleCollapseExpand}>&#x25BC;</span>
             )}
           </DetailsContainer>
-          {expanded ? (
+          {expanded && (
             <ButtonContainer>
               <DeleteButton
                 type="button"
@@ -89,7 +89,7 @@ export default function ExerciseCard({
                 Edit
               </AddButton>
             </ButtonContainer>
-          ) : null}
+          )}
         </CardContainer>
       ) : null}
     </>

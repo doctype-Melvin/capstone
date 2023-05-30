@@ -42,7 +42,7 @@ export default function SessionCard({ day }) {
     <StyledLink href={`/sessionView/${day.id}`}>
       <Title>Day {day.day}</Title>
       <ExerciseList>
-        {day.exercises.map((exercise) => (
+        {day.exercises.length > 0 && day.exercises.map((exercise) => (
           <li key={exercise.id}>
             <Preview>
               <span>{exercise.exercise}</span>

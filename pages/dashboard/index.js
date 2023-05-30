@@ -20,7 +20,7 @@ const StyledList = styled.ul`
 `;
 
 const ContentContainer = styled.section`
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 export default function Dashboard() {
