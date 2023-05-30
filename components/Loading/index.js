@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from "styled-components";
 
 const Overlay = styled.div`
   width: 100%;
@@ -9,15 +9,15 @@ const Overlay = styled.div`
 `;
 
 const SpinAnimation = css`
-@keyframes spin-animation {
-  0% {
-    transform: rotate(0deg);
+  @keyframes spin-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
   }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-`
+`;
 
 const Content = styled.div`
   width: 3rem;
@@ -28,7 +28,6 @@ const Content = styled.div`
   animation: spin-animation 1.2s linear infinite;
   ${SpinAnimation}
 `;
-
 
 export default function Loading() {
   return (

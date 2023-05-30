@@ -46,6 +46,10 @@ export default function SetCard({ exercise, templateId }) {
 
   if (!data || isLoading) return <Loading />;
 
+  const sessionLogs = data.logs
+    .filter((log) => log.dayId === id)
+    .filter((log) => log.exercise === exercise.exercise);
+
   return (
     <>
       <StyledContainer>
@@ -70,11 +74,9 @@ export default function SetCard({ exercise, templateId }) {
         />
       ) : null}
 
-      <ResultList>
-        {data.logs
-          .filter((log) => log.dayId === id)
-          .filter((log) => log.exercise === exercise.exercise)
-          .map((log, index) => (
+      {sessionLogs.length > 0 && (
+        <ResultList>
+          {sessionLogs.map((log, index) => (
             <li key={log.setId}>
               <ResultCard
                 templateId={templateId}
@@ -87,7 +89,8 @@ export default function SetCard({ exercise, templateId }) {
               />
             </li>
           ))}
-      </ResultList>
+        </ResultList>
+      )}
     </>
   );
 }

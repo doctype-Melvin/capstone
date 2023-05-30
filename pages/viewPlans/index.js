@@ -44,13 +44,15 @@ export default function ViewAllPlans() {
         Found {data.length} {data.length === 1 ? `template` : `templates`}
       </TemplateCount>
 
-      <StyledList>
-        {data.map((plan) => (
-          <li key={plan._id}>
-            <TemplateCard templateData={plan} />
-          </li>
-        ))}
-      </StyledList>
+      {data.length > 0 && (
+        <StyledList>
+          {data.map((plan) => (
+            <li key={plan._id}>
+              <TemplateCard templateData={plan} />
+            </li>
+          ))}
+        </StyledList>
+      )}
       <ButtonContainer>
         <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
       </ButtonContainer>

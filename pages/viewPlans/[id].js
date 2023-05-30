@@ -40,7 +40,7 @@ export default function SinglePlanView() {
 
   const handleSaveClick = () => router.push(`/viewPlans`);
 
-  if (isLoading || !data ) return <Loading />;
+  if (isLoading || !data) return <Loading />;
   if (error) return <p>Something went wrong</p>;
 
   return (
