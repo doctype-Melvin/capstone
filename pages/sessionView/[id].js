@@ -8,7 +8,7 @@ import format from "date-fns/format";
 import { TemplateName as DayNumber } from "../dashboard";
 
 const PageContent = styled.section`
-  height: 100vh;
+  min-height: 100vh;
 `;
 
 const ControlsContainer = styled.div`
@@ -39,6 +39,11 @@ const SaveSessionButton = styled.button`
   }
 `;
 
+const SetCardList = styled.ul`
+list-style-type: none;
+
+`
+
 export default function SessionView() {
   const router = useRouter();
   const { id } = router.query;
@@ -62,11 +67,13 @@ export default function SessionView() {
   return (
     <PageContent>
       <DayNumber>Day {activeDay.day}</DayNumber>
-      {activeDay.exercises.map((exercise) => (
-        <li key={exercise.id}>
-          <SetCard exercise={exercise} templateId={currentTemplate._id} />
-        </li>
-      ))}
+        <SetCardList>
+        {activeDay.exercises.map((exercise) => (
+          <li key={exercise.id}>
+            <SetCard exercise={exercise} templateId={currentTemplate._id} />
+          </li>
+        ))}
+        </SetCardList>
       <ControlsContainer>
         <StyledLink href="/dashboard">Dashboard</StyledLink>
         <SaveSessionButton type="button" onClick={handleSaveClick}>

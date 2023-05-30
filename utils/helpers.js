@@ -71,15 +71,14 @@ export const sendPutRequest = async (url, payload) => {
 };
 
 export const createUpdateDelete = async (planId, data, mode) => {
-
   const modes = {
     isEdit: "isEdit",
     isCreate: "isCreate",
     isDelete: "isDelete",
-  }
+  };
 
-  const url = `/api/plans/${planId}?${modes[mode]}=true&id=${planId}`
-  await sendPatchRequest(url, data)
+  const url = `/api/plans/${planId}?${modes[mode]}=true&id=${planId}`;
+  await sendPatchRequest(url, data);
 
   mutate(`/api/plans`);
 };

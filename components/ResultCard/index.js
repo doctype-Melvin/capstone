@@ -61,27 +61,22 @@ export default function ResultCard({
 
   return (
     <>
-      {
-        !isEdit && (
-          <ContentContainer>
-            <span>
-              Set# {setNumber} Reps: {log.reps} @ {log.weight} Kg
-            </span>
-            <EditButton
-              type="button"
-              onClick={() => handleEditClick(log.setId)}
-            >
-              <Edit />
-            </EditButton>
-            <DeleteButton
-              type="button"
-              onClick={() => handleDeleteClick(log.setId)}
-            >
-              <Delete />
-            </DeleteButton>
-          </ContentContainer>
-        ) 
-      }
+      {!isEdit && (
+        <ContentContainer>
+          <span>
+            Set# {setNumber} Reps: {log.reps} @ {log.weight} Kg
+          </span>
+          <EditButton type="button" onClick={() => handleEditClick(log.setId)}>
+            <Edit />
+          </EditButton>
+          <DeleteButton
+            type="button"
+            onClick={() => handleDeleteClick(log.setId)}
+          >
+            <Delete />
+          </DeleteButton>
+        </ContentContainer>
+      )}
     </>
   );
 }
