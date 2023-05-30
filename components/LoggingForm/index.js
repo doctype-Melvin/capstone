@@ -83,6 +83,7 @@ export default function LoggingForm({
       <StyledInput
         type="number"
         name="reps"
+        id="reps"
         value={attributes.reps}
         onChange={handleInputchange}
       />
@@ -90,6 +91,7 @@ export default function LoggingForm({
       <StyledInput
         type="number"
         name="weight"
+        id="weight"
         value={attributes.weight}
         onChange={handleInputchange}
       />

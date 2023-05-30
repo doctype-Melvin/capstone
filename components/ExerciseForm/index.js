@@ -107,6 +107,7 @@ export default function ExerciseForm({
       <input
         type="text"
         name="exercise"
+        id="exercise"
         value={newData.exercise}
         onChange={handleInputChange}
         required
@@ -115,6 +116,7 @@ export default function ExerciseForm({
       <input
         type="number"
         name="sets"
+        id="sets"
         min={1}
         max={30}
         value={newData.sets}
@@ -125,6 +127,7 @@ export default function ExerciseForm({
       <input
         type="number"
         name="reps"
+        id="reps"
         min={1}
         max={100}
         value={newData.reps}
@@ -135,6 +138,7 @@ export default function ExerciseForm({
       <input
         type="number"
         name="weight"
+        id="weight"
         min={0}
         max={800}
         value={newData.weight}
