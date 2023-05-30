@@ -36,11 +36,11 @@ export default function SinglePlanView() {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, error } = useSWR(`/api/plans/${id}`, fetcher);
+  const { data, error, isLoading } = useSWR(`/api/plans/${id}`, fetcher);
 
   const handleSaveClick = () => router.push(`/viewPlans`);
 
-  if (!data) return <Loading />;
+  if (isLoading || !data ) return <Loading />;
   if (error) return <p>Something went wrong</p>;
 
   return (

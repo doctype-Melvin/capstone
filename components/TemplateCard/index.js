@@ -40,7 +40,6 @@ const CurrentButton = styled.button`
 `;
 
 const CurrentIndicator = styled.div`
-  border: 2px solid var(--soft-green);
   border-radius: 5px;
   font-size: 1rem;
   text-align: center;
