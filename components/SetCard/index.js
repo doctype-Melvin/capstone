@@ -73,6 +73,7 @@ export default function SetCard({ exercise, templateId }) {
       <ResultList>
         {data.logs
           .filter((log) => log.dayId === id)
+          .filter((log) => log.exercise === exercise.exercise)
           .map((log, index) => (
             <li key={log.setId}>
               <ResultCard
