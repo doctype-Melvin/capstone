@@ -71,27 +71,16 @@ export const sendPutRequest = async (url, payload) => {
 };
 
 export const createUpdateDelete = async (planId, data, mode) => {
-  if (mode === "isEdit") {
-    await sendPatchRequest(
-      `/api/plans/${planId}?isEdit=true&id=${planId}`,
-      data
-    );
-  } else if (mode === "isCreate") {
-    await sendPatchRequest(
-      `/api/plans/${planId}?isLog=true&id=${planId}`,
-      data
-    );
-  } else if (mode === "isDelete") {
-    await sendPatchRequest(
-      `/api/plans/${planId}?isDelete=true&id=${planId}`,
-      data
-    );
-  } else if (mode === "intialWeeklyLog") {
-    await sendPatchRequest(
-      `/api/plans/${planId}?initialWeeklyLog=true&id=${planId}`,
-      data
-    );
+
+  const modes = {
+    isEdit: "isEdit",
+    isCreate: "isCreate",
+    isDelete: "isDelete",
   }
+
+  const url = `/api/plans/${planId}?${modes[mode]}=true&id=${planId}`
+  await sendPatchRequest(url, data)
+
   mutate(`/api/plans`);
 };
 
