@@ -32,7 +32,7 @@ const Content = styled.div`
 export default function Loading() {
   return (
     <Overlay>
-      <Content></Content>
+      <Content />
     </Overlay>
   );
 }
