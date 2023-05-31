@@ -65,7 +65,7 @@ export default function TemplateCard({ templateData }) {
         {templateData.name.toUpperCase()}{" "}
       </StyledLink>
       {templateData.isCurrent ? (
-        <CurrentIndicator>Current</CurrentIndicator>
+        <CurrentIndicator onClick={() => router.push(`/dashboard?id=${templateData._id}`)}>Current</CurrentIndicator>
       ) : (
         <CurrentButton
           type="button"

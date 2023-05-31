@@ -1,3 +1,5 @@
+import Loading from "@/components/Loading";
+import { useAllPlans } from "@/utils/helpers";
 import Link from "next/link";
 import styled, { css } from "styled-components";
 
@@ -49,12 +51,16 @@ const AllTemplatesLink = styled(Link)`
 `;
 
 export default function HomePage() {
+  const { data: allPlans, isLoading } = useAllPlans()
+
+  if (isLoading || !allPlans) return <Loading />
+
   return (
     <HomeScreen>
       <CreateTemplateLink href="/createPlan">
         Create Workout Template
       </CreateTemplateLink>
-      <ToCurrentTemplateLink href="/dashboard">
+      <ToCurrentTemplateLink href={allPlans.length > 0 ? `/dashboard?id=${allPlans.find(plan => plan.isCurrent === true)._id}` : `/dashboard`}>
         Go to current Template
       </ToCurrentTemplateLink>
       <AllTemplatesLink href="/viewPlans">View all Templates</AllTemplatesLink>

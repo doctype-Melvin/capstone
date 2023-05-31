@@ -37,9 +37,9 @@ const StyledLink = styled(Link)`
   text-decoration: none;
 `;
 
-export default function SessionCard({ day }) {
+export default function SessionCard({ day, planId }) {
   return (
-    <StyledLink href={`/sessionView/${day.id}`}>
+    <StyledLink href={`/sessionView/${day.id}?plan=${planId}`}>
       <Title>Day {day.day}</Title>
       <ExerciseList>
         {day.exercises.length > 0 && day.exercises.map((exercise) => (

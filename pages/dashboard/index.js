@@ -1,7 +1,8 @@
-import { useAllPlans } from "@/utils/helpers";
+import { useAllPlans, usePlan } from "@/utils/helpers";
 import Loading from "@/components/Loading";
 import styled from "styled-components";
 import SessionCard from "@/components/SessionCard";
+import { useRouter } from "next/router";
 
 export const TemplateName = styled.p`
   width: 100%;
@@ -24,26 +25,26 @@ const ContentContainer = styled.section`
 `;
 
 export default function Dashboard() {
-  const { data, isLoading } = useAllPlans();
+  // const { data, isLoading } = useAllPlans();
+  const router = useRouter()
+  const { id } = router.query
 
-  if (isLoading || !data) return <Loading />;
+  const { data: currentPlan, isLoading, error } = usePlan(id)
 
-  const currentTemplate = data.find((template) => template.isCurrent === true);
+  if (error) return <TemplateName>No current template set</TemplateName>
+  if (isLoading || !currentPlan) return <Loading />;
+  // const currentPlan = data.find((template) => template.isCurrent === true);
 
   return (
     <ContentContainer>
-      {currentTemplate && <TemplateName>{currentTemplate.name}</TemplateName>}
-      {currentTemplate ? (
+      <TemplateName>{currentPlan.name}</TemplateName>
         <StyledList>
-          {currentTemplate.routine.map((day) => (
+          {currentPlan.routine.map((day) => (
             <li key={day.id}>
-              <SessionCard day={day} />
+              <SessionCard day={day} planId={id}/>
             </li>
           ))}
         </StyledList>
-      ) : (
-        <TemplateName>No current template set</TemplateName>
-      )}
     </ContentContainer>
   );
 }

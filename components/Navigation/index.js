@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { BiHomeAlt2 as Home } from "react-icons/bi";
 import { AiOutlineUnorderedList as AllTemplates } from "react-icons/ai";
 import { MdOutlineDashboardCustomize as Dashboard } from "react-icons/md";
+import { useAllPlans } from "@/utils/helpers";
+import Loading from "../Loading";
 
 const NavBar = styled.nav`
   width: 100%;
@@ -22,6 +24,10 @@ const NavIconContainer = styled.section`
 `;
 
 export default function Navigation() {
+  const { data: allPlans, isLoading } = useAllPlans()
+
+  if (isLoading || !allPlans) return <Loading />
+
   return (
     <NavBar>
       <Link href="/">
@@ -29,7 +35,7 @@ export default function Navigation() {
           <Home />
         </NavIconContainer>
       </Link>
-      <Link href="/dashboard">
+      <Link href={allPlans.length > 0 ? `/dashboard?id=${allPlans.find(plan => plan.isCurrent === true)._id}` : `/dashboard`}>
         <NavIconContainer>
           <Dashboard />
         </NavIconContainer>

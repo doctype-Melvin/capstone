@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
-import { useAllPlans } from "@/utils/helpers";
+import { useAllPlans, usePlan } from "@/utils/helpers";
 import styled, { css } from "styled-components";
 import Link from "next/link";
 import SetCard from "@/components/SetCard";
@@ -48,8 +48,9 @@ margin: 0;
 
 export default function SessionView() {
   const router = useRouter();
-  const { id } = router.query;
-  const { data, isLoading } = useAllPlans();
+  const { id, plan } = router.query;
+  console.log(id, plan)
+  const { data: currentTemplate, isLoading } = usePlan(plan);
 
   const handleSaveClick = () => {
     const session = {
@@ -58,9 +59,8 @@ export default function SessionView() {
     };
   };
 
-  if (isLoading || !data) return <Loading />;
+  if (isLoading || !currentTemplate) return <Loading />;
 
-  const currentTemplate = data.find((template) => template.isCurrent === true);
   const activeDay = currentTemplate.routine.find((day) => day.id === id);
   const activeDaySession = currentTemplate.logs.filter(
     (log) => log.dayId === id
@@ -68,7 +68,7 @@ export default function SessionView() {
 
   return (
     <PageContent>
-      <DayNumber>Day {activeDay.day}</DayNumber>
+      <DayNumber>Session Day {activeDay.day}</DayNumber>
         <SetCardList>
         {activeDay.exercises.map((exercise) => (
           <li key={exercise.id}>
