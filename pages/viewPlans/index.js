@@ -3,24 +3,19 @@ import TemplateCard from "@/components/TemplateCard";
 import Link from "next/link";
 import styled from "styled-components";
 import Loading from "@/components/Loading";
+import { TemplateName as TemplateCount } from "../dashboard";
 
 const OverviewContainer = styled.section`
-  min-height: 100vh;
+  height: 100vh;
 `;
 
-const NewTemplateLink = styled(Link)`
-  padding: 0.15rem 0.5rem;
-  border: 1px solid hotpink;
-  border-radius: 5px;
+export const NewTemplateLink = styled(Link)`
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  border-radius: 3px;
   text-decoration: none;
-  color: black;
-  background-color: yellow;
-`;
-
-const StyledParagraph = styled.p`
-  margin: 0;
-  padding: 1rem 0;
-  text-align: center;
+  color: var(--lightest-blue);
+  background-color: var(--light-blue);
 `;
 
 const StyledList = styled.ul`
@@ -32,26 +27,35 @@ const StyledList = styled.ul`
   }
 `;
 
-export default function ViewAllPlans() {
-  const { data } = useAllPlans();
+export const ButtonContainer = styled.div`
+  width: 100%;
+  text-align: center;
+  margin-top: 2rem;
+`;
 
-  if (!data) return <Loading />;
+export default function ViewAllPlans() {
+  const { data, isLoading } = useAllPlans();
+
+  if (isLoading || !data) return <Loading />;
 
   return (
     <OverviewContainer>
-      <StyledParagraph>
-        {data.length === 1
-          ? `There is ${data.length} template in your vault`
-          : `There are ${data.length} templates in your vault`}
-      </StyledParagraph>
-      <StyledList>
-        {data.map((plan) => (
-          <li key={plan._id}>
-            <TemplateCard templateData={plan} />
-          </li>
-        ))}
-      </StyledList>
-      <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
+      <TemplateCount>
+        Found {data.length} {data.length === 1 ? `template` : `templates`}
+      </TemplateCount>
+
+      {data.length > 0 && (
+        <StyledList>
+          {data.map((plan) => (
+            <li key={plan._id}>
+              <TemplateCard templateData={plan} />
+            </li>
+          ))}
+        </StyledList>
+      )}
+      <ButtonContainer>
+        <NewTemplateLink href={`/createPlan`}>New Template</NewTemplateLink>
+      </ButtonContainer>
     </OverviewContainer>
   );
 }

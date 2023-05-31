@@ -1,6 +1,8 @@
 import { nanoid } from "nanoid";
 import useSWR from "swr";
 import { mutate } from "swr";
+import produce, { freeze } from "immer";
+import { useCallback } from "react";
 
 export const addWorkoutDays = (number) => {
   let store = [];
@@ -12,6 +14,14 @@ export const addWorkoutDays = (number) => {
     });
   }
   return store;
+};
+
+export const workoutWeek = {
+  week: 1,
+  get nextWeek() {
+    return this.week + 1;
+  },
+  log: [],
 };
 
 export const fetcher = (...args) =>
@@ -34,34 +44,47 @@ export const sendPostRequest = async (url, { arg }) => {
   return id;
 };
 
-export const sendPatchRequest = async (url, exercise) => {
+export const sendPatchRequest = async (url, payload) => {
   const response = await fetch(url, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(exercise),
+    body: JSON.stringify(payload),
   });
   if (!response.ok) {
     console.error("Couldn't send request");
   }
 };
 
-export const sendPatchRequestCurrentTemplate = async (url, planId) => {
+export const sendPutRequest = async (url, payload) => {
   const response = await fetch(url, {
-    method: "PATCH",
+    method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(planId),
+    body: JSON.stringify(payload),
   });
   if (!response.ok) {
-    console.error("Setting current tamplate failed");
+    console.error("Couldn't send delete request");
   }
 };
 
+export const createUpdateDelete = async (planId, data, mode) => {
+  const modes = {
+    isEdit: "isEdit",
+    isCreate: "isLog",
+    isDelete: "isDelete",
+  };
+
+  const url = `/api/plans/${planId}?${modes[mode]}=true&id=${planId}`;
+  await sendPatchRequest(url, data);
+
+  mutate();
+};
+
 export const setCurrentTemplate = async (planId) => {
-  await sendPatchRequestCurrentTemplate(`/api/plans`, planId);
+  await sendPatchRequest(`/api/plans`, planId);
   mutate(`/api/plans`);
 };
 
@@ -83,19 +106,6 @@ export const mutateExercise = async (dayId, planId, newData) => {
 };
 
 // Start deletion section
-export const sendPutRequest = async (url, exercise) => {
-  const response = await fetch(url, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(exercise),
-  });
-  if (!response.ok) {
-    console.error("Couldn't send delete request");
-  }
-};
-
 export const findDayAndIndex = (data, deleteExercise) => {
   const targetDay = data.routine.find((day) => day.id === deleteExercise.dayId);
   const targetDayIndex = data.routine.findIndex(

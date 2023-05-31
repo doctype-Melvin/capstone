@@ -19,13 +19,16 @@ const StyledSection = styled.section`
 const StyledTitle = styled.h1`
   padding: 0.5rem 0 0 0;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 1.65rem;
 `;
 
 const StyledButton = styled.button`
   border: none;
   font-size: 1rem;
-  width: fit-content;
+  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  color: var(--lightest-blue);
+  background-color: var(--mid-blue);
 `;
 
 export default function WorkoutDay({ number, dayId }) {

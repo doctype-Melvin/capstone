@@ -3,23 +3,27 @@ import { useState } from "react";
 import { removeExercise } from "@/utils/helpers";
 import { useRouter } from "next/router";
 import { usePlan } from "@/utils/helpers";
+import { AddButton, AddButton as EditButton } from "../ExerciseForm";
+import { CancelButton as DeleteButton } from "../ExerciseForm";
 
 const CardContainer = styled.section`
   display: flex;
   flex-direction: column;
   width: 100%;
-  background-color: #b8f28d;
+  background-color: var(--lightest-blue);
   padding: 10px 5px;
 `;
 
 const ExerciseName = styled.span`
   margin-left: 0.8rem;
+  font-size: 1.25rem;
 `;
 
 const DetailsContainer = styled.div`
   display: flex;
   width: 100%;
   justify-content: space-around;
+  font-size: 1.2rem;
   & > span:hover {
     cursor: pointer;
   }
@@ -73,16 +77,19 @@ export default function ExerciseCard({
               <span onClick={handleCollapseExpand}>&#x25BC;</span>
             )}
           </DetailsContainer>
-          {expanded ? (
+          {expanded && (
             <ButtonContainer>
-              <button type="button" onClick={() => handleDeleteClick(exercise)}>
+              <DeleteButton
+                type="button"
+                onClick={() => handleDeleteClick(exercise)}
+              >
                 Delete
-              </button>
-              <button type="button" onClick={handleEditClick}>
+              </DeleteButton>
+              <AddButton type="button" onClick={handleEditClick}>
                 Edit
-              </button>
+              </AddButton>
             </ButtonContainer>
-          ) : null}
+          )}
         </CardContainer>
       ) : null}
     </>

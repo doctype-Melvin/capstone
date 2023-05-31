@@ -4,12 +4,12 @@ import Plan from "@/database/models/Plan";
 export default async function handler(request, response) {
   await dbConnect();
 
-  const { id } = request.query;
+  const { isLog, isEdit, isDelete, initialWeeklyLog, id } = request.query;
+  const currentPlan = await Plan.findById(id);
 
   if (request.method === "GET") {
     try {
-      const plan = await Plan.findById(id);
-      response.status(200).json(plan);
+      response.status(200).json(currentPlan);
     } catch (error) {
       return response.status(404).json({ status: "Plan not found" });
     }
@@ -18,7 +18,6 @@ export default async function handler(request, response) {
   if (request.method === "POST") {
     try {
       const exerciseData = request.body;
-      const currentPlan = await Plan.findById(id);
       const updatedRoutine = currentPlan.routine.map((day) => {
         if (day.id === exerciseData.dayId) {
           day.exercises.push(exerciseData);
@@ -34,19 +33,42 @@ export default async function handler(request, response) {
 
   if (request.method === "PATCH") {
     try {
-      const updatedExercise = request.body;
-      const currentPlan = await Plan.findById(id);
-      const updatedRoutine = currentPlan.routine.map((day) => {
-        if (day.id === updatedExercise.dayId) {
-          const exerciseIndex = day.exercises.findIndex(
-            (exercise) => exercise.id === updatedExercise.id
-          );
-          day.exercises[exerciseIndex] = updatedExercise;
-        }
-        return day;
-      });
-      await Plan.findByIdAndUpdate(id, { routine: updatedRoutine });
-      response.status(200).json({ status: `Plan successfully updated` });
+      if (isLog) {
+        const newLog = request.body;
+
+        await Plan.findByIdAndUpdate(id, { logs: newLog });
+        response.status(200).json({ status: "Added set to workout session" });
+      } else if (isEdit) {
+        const updatedLogsArray = request.body;
+
+        await Plan.findByIdAndUpdate(id, { logs: updatedLogsArray });
+        response.status(200).json({ status: "Set successfully updated" });
+      } else if (isDelete) {
+        const updatedLogs = request.body;
+        await Plan.findByIdAndUpdate(id, { logs: updatedLogs });
+        response.status(200).json({ status: "Set successfully deleted" });
+      } else if (initialWeeklyLog) {
+        const initialWeeklyLog = request.body;
+        await Plan.findByIdAndUpdate(id, {
+          $set: { "logs.0.log": initialWeeklyLog },
+        });
+        response
+          .status(200)
+          .json({ status: "Created new weekly logging container" });
+      } else {
+        const updatedExercise = request.body;
+        const updatedRoutine = currentPlan.routine.map((day) => {
+          if (day.id === updatedExercise.dayId) {
+            const exerciseIndex = day.exercises.findIndex(
+              (exercise) => exercise.id === updatedExercise.id
+            );
+            day.exercises[exerciseIndex] = updatedExercise;
+          }
+          return day;
+        });
+        await Plan.findByIdAndUpdate(id, { routine: updatedRoutine });
+        response.status(200).json({ status: `Plan successfully updated` });
+      }
     } catch (error) {
       return response.status(404).json({ status: "Couldn't update plan" });
     }
@@ -55,7 +77,6 @@ export default async function handler(request, response) {
   if (request.method === "PUT") {
     try {
       const deleteExercise = request.body;
-      const currentPlan = await Plan.findById(id);
       const updatedRoutine = currentPlan.routine.map((day) => {
         if (day.id === deleteExercise.dayId) {
           const updatedExercises = day.exercises.filter(
