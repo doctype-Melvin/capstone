@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { useRouter } from "next/router";
-import { sendPostRequest } from "@/utils/helpers";
+import { sendPostRequest, useAllPlans } from "@/utils/helpers";
 import { addWorkoutDays } from "@/utils/helpers";
 import useSWRMutation from "swr/mutation";
 import { TemplateName as Info } from "@/pages/dashboard";
@@ -59,7 +59,7 @@ const BackButton = styled.button`
 
 export default function PlanForm() {
   const router = useRouter();
-
+  const { data } = useAllPlans()
   const { trigger } = useSWRMutation("/api/plans", sendPostRequest, {
     onSuccess: (id) => router.push(`viewPlans/${id}`),
   });
@@ -71,7 +71,11 @@ export default function PlanForm() {
     const inputData = Object.fromEntries(formData);
     inputData.days = Number(inputData.days);
     inputData.routine = addWorkoutDays(inputData.days);
-    inputData.isCurrent = true;
+    if (data.length === 0) {
+     inputData.isCurrent = true;
+    } else {
+      inputData.isCurrent = false;
+    }
     inputData.logs = [];
 
     trigger(inputData);

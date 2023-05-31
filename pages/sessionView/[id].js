@@ -48,7 +48,7 @@ const SetCardList = styled.ul`
 export default function SessionView() {
   const router = useRouter();
   const { id, plan } = router.query;
-  console.log(id, plan);
+  
   const { data: currentTemplate, isLoading } = usePlan(plan);
 
   const handleSaveClick = () => {

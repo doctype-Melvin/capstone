@@ -55,7 +55,7 @@ export default function TemplateCard({ templateData }) {
   const handleSetCurrentClick = (id) => {
     setCurrentTemplate(id);
     setTimeout(() => {
-      router.push(`/dashboard?templateId=${id}`);
+      router.push(`/dashboard?id=${id}`);
     }, 1500);
   };
 
