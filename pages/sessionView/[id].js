@@ -40,16 +40,15 @@ const SaveSessionButton = styled.button`
 `;
 
 const SetCardList = styled.ul`
-list-style-type: none;
-padding: 0;
-margin: 0;
-
-`
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+`;
 
 export default function SessionView() {
   const router = useRouter();
   const { id, plan } = router.query;
-  console.log(id, plan)
+  console.log(id, plan);
   const { data: currentTemplate, isLoading } = usePlan(plan);
 
   const handleSaveClick = () => {
@@ -69,15 +68,15 @@ export default function SessionView() {
   return (
     <PageContent>
       <DayNumber>Session Day {activeDay.day}</DayNumber>
-        <SetCardList>
+      <SetCardList>
         {activeDay.exercises.map((exercise) => (
           <li key={exercise.id}>
             <SetCard exercise={exercise} templateId={currentTemplate._id} />
           </li>
         ))}
-        </SetCardList>
+      </SetCardList>
       <ControlsContainer>
-        <StyledLink href="/dashboard">Dashboard</StyledLink>
+        <StyledLink href={`/dashboard?id=${plan}`}>Dashboard</StyledLink>
         <SaveSessionButton type="button" onClick={handleSaveClick}>
           Save Session
         </SaveSessionButton>

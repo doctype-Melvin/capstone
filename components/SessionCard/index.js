@@ -42,16 +42,17 @@ export default function SessionCard({ day, planId }) {
     <StyledLink href={`/sessionView/${day.id}?plan=${planId}`}>
       <Title>Day {day.day}</Title>
       <ExerciseList>
-        {day.exercises.length > 0 && day.exercises.map((exercise) => (
-          <li key={exercise.id}>
-            <Preview>
-              <span>{exercise.exercise}</span>
-              <span>
-                {exercise.sets} x {exercise.reps} @ {exercise.weight} Kg
-              </span>
-            </Preview>
-          </li>
-        ))}
+        {day.exercises.length > 0 &&
+          day.exercises.map((exercise) => (
+            <li key={exercise.id}>
+              <Preview>
+                <span>{exercise.exercise}</span>
+                <span>
+                  {exercise.sets} x {exercise.reps} @ {exercise.weight} Kg
+                </span>
+              </Preview>
+            </li>
+          ))}
       </ExerciseList>
     </StyledLink>
   );

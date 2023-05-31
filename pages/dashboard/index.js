@@ -26,25 +26,25 @@ const ContentContainer = styled.section`
 
 export default function Dashboard() {
   // const { data, isLoading } = useAllPlans();
-  const router = useRouter()
-  const { id } = router.query
+  const router = useRouter();
+  const { id } = router.query;
 
-  const { data: currentPlan, isLoading, error } = usePlan(id)
+  const { data: currentPlan, isLoading, error } = usePlan(id);
 
-  if (error) return <TemplateName>No current template set</TemplateName>
+  if (error) return <TemplateName>No current template set</TemplateName>;
   if (isLoading || !currentPlan) return <Loading />;
   // const currentPlan = data.find((template) => template.isCurrent === true);
 
   return (
     <ContentContainer>
       <TemplateName>{currentPlan.name}</TemplateName>
-        <StyledList>
-          {currentPlan.routine.map((day) => (
-            <li key={day.id}>
-              <SessionCard day={day} planId={id}/>
-            </li>
-          ))}
-        </StyledList>
+      <StyledList>
+        {currentPlan.routine.map((day) => (
+          <li key={day.id}>
+            <SessionCard day={day} planId={id} />
+          </li>
+        ))}
+      </StyledList>
     </ContentContainer>
   );
 }

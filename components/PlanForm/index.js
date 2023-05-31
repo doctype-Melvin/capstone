@@ -82,7 +82,14 @@ export default function PlanForm() {
       <Info>Create Template</Info>
       <FormCreatePlan onSubmit={handleFormSubmit}>
         <label htmlFor="name">Template Name</label>
-        <input type="text" id="name" name="name" minLength={2} maxLength={20} required />
+        <input
+          type="text"
+          id="name"
+          name="name"
+          minLength={2}
+          maxLength={20}
+          required
+        />
         <label htmlFor="days">Number of Workout Days</label>
         <input type="number" id="days" name="days" min={1} max={7} required />
 

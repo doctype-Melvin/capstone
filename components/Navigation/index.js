@@ -24,9 +24,9 @@ const NavIconContainer = styled.section`
 `;
 
 export default function Navigation() {
-  const { data: allPlans, isLoading } = useAllPlans()
+  const { data: allPlans, isLoading } = useAllPlans();
 
-  if (isLoading || !allPlans) return <Loading />
+  if (isLoading || !allPlans) return <Loading />;
 
   return (
     <NavBar>
@@ -35,7 +35,15 @@ export default function Navigation() {
           <Home />
         </NavIconContainer>
       </Link>
-      <Link href={allPlans.length > 0 ? `/dashboard?id=${allPlans.find(plan => plan.isCurrent === true)._id}` : `/dashboard`}>
+      <Link
+        href={
+          allPlans.length > 0
+            ? `/dashboard?id=${
+                allPlans.find((plan) => plan.isCurrent === true)._id
+              }`
+            : `/dashboard`
+        }
+      >
         <NavIconContainer>
           <Dashboard />
         </NavIconContainer>

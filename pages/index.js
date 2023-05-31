@@ -51,16 +51,24 @@ const AllTemplatesLink = styled(Link)`
 `;
 
 export default function HomePage() {
-  const { data: allPlans, isLoading } = useAllPlans()
+  const { data: allPlans, isLoading } = useAllPlans();
 
-  if (isLoading || !allPlans) return <Loading />
+  if (isLoading || !allPlans) return <Loading />;
 
   return (
     <HomeScreen>
       <CreateTemplateLink href="/createPlan">
         Create Workout Template
       </CreateTemplateLink>
-      <ToCurrentTemplateLink href={allPlans.length > 0 ? `/dashboard?id=${allPlans.find(plan => plan.isCurrent === true)._id}` : `/dashboard`}>
+      <ToCurrentTemplateLink
+        href={
+          allPlans.length > 0
+            ? `/dashboard?id=${
+                allPlans.find((plan) => plan.isCurrent === true)._id
+              }`
+            : `/dashboard`
+        }
+      >
         Go to current Template
       </ToCurrentTemplateLink>
       <AllTemplatesLink href="/viewPlans">View all Templates</AllTemplatesLink>
