@@ -43,7 +43,7 @@ export default function LoggingForm({
     toggleForm();
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (isEdit) {
       const previousSetData = data.logs.find(
@@ -55,14 +55,15 @@ export default function LoggingForm({
       const updatedLogs = [...data.logs];
       updatedLogs[previousSetDataIndex] = { ...previousSetData, ...attributes };
       const updatedData = { ...data, logs: updatedLogs };
-      mutate(updatedData, false);
+      await createUpdateDelete(templateId, updatedLogs, "isEdit");
+      mutate();
       toggleEditMode();
     } else {
       attributes.setId = nanoid(5);
       const updatedLogs = [...data.logs, attributes];
       const updatedData = { ...data, logs: updatedLogs };
-      mutate(updatedData, false);
-      createUpdateDelete(templateId, updatedLogs, "isCreate");
+      await createUpdateDelete(templateId, updatedLogs, "isCreate");
+      mutate();
     }
 
     toggleForm();
