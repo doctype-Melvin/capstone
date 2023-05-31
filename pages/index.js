@@ -62,9 +62,9 @@ export default function HomePage() {
       </CreateTemplateLink>
       <ToCurrentTemplateLink
         href={
-          !allPlans.find(plan => plan.isCurrent === true) > 0
-            ? `/dashboard` :
-            `/dashboard?id=${
+          !allPlans.find((plan) => plan.isCurrent === true) > 0
+            ? `/dashboard`
+            : `/dashboard?id=${
                 allPlans.find((plan) => plan.isCurrent === true)._id
               }`
         }

@@ -34,14 +34,15 @@ export default function Dashboard() {
 
   const { data: currentPlan, isLoading, error } = usePlan(id);
 
-  if (error) return (
-    <ContentContainer>
-  <TemplateName>No current template set</TemplateName>
-  <ButtonContainer>
-    <NewTemplateLink href="/createPlan">New Template</NewTemplateLink>
-  </ButtonContainer>
-    </ContentContainer>
-  );
+  if (error)
+    return (
+      <ContentContainer>
+        <TemplateName>No current template set</TemplateName>
+        <ButtonContainer>
+          <NewTemplateLink href="/createPlan">New Template</NewTemplateLink>
+        </ButtonContainer>
+      </ContentContainer>
+    );
   if (isLoading || !currentPlan) return <Loading />;
   // const currentPlan = data.find((template) => template.isCurrent === true);
 

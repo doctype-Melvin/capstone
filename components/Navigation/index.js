@@ -37,9 +37,9 @@ export default function Navigation() {
       </Link>
       <Link
         href={
-          !allPlans.find(plan => plan.isCurrent === true) > 0
-            ? `/dashboard` :
-            `/dashboard?id=${
+          !allPlans.find((plan) => plan.isCurrent === true) > 0
+            ? `/dashboard`
+            : `/dashboard?id=${
                 allPlans.find((plan) => plan.isCurrent === true)._id
               }`
         }

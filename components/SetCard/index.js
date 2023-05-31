@@ -34,7 +34,7 @@ const AddSetButton = styled.button`
 
 export default function SetCard({ exercise, templateId }) {
   const { data, isLoading } = usePlan(templateId);
-  
+
   const [showLogForm, setShowLogForm] = useState(false);
   const [isEditMode, setIsEditMode] = useState(false);
   const [editSet, setEditSet] = useState("");

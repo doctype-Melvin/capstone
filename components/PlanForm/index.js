@@ -59,7 +59,7 @@ const BackButton = styled.button`
 
 export default function PlanForm() {
   const router = useRouter();
-  const { data } = useAllPlans()
+  const { data } = useAllPlans();
   const { trigger } = useSWRMutation("/api/plans", sendPostRequest, {
     onSuccess: (id) => router.push(`viewPlans/${id}`),
   });
@@ -72,7 +72,7 @@ export default function PlanForm() {
     inputData.days = Number(inputData.days);
     inputData.routine = addWorkoutDays(inputData.days);
     if (data.length === 0) {
-     inputData.isCurrent = true;
+      inputData.isCurrent = true;
     } else {
       inputData.isCurrent = false;
     }
