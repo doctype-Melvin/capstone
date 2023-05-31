@@ -37,11 +37,11 @@ export default function Navigation() {
       </Link>
       <Link
         href={
-          allPlans.length > 0
-            ? `/dashboard?id=${
+          !allPlans.find(plan => plan.isCurrent === true) > 0
+            ? `/dashboard` :
+            `/dashboard?id=${
                 allPlans.find((plan) => plan.isCurrent === true)._id
               }`
-            : `/dashboard`
         }
       >
         <NavIconContainer>
