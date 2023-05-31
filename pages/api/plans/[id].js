@@ -39,19 +39,8 @@ export default async function handler(request, response) {
         await Plan.findByIdAndUpdate(id, { logs: newLog });
         response.status(200).json({ status: "Added set to workout session" });
       } else if (isEdit) {
-        const editedSet = request.body;
+        const updatedLogsArray = request.body;
 
-        const updatedLogsArray = currentPlan.logs.map((set, index) => {
-          if (set.id === editedSet.id) {
-            const currentSet = currentPlan.logs[index];
-            const updatedSet = {
-              ...currentSet,
-              ...editedSet,
-            };
-            return updatedSet;
-          }
-          return set;
-        });
         await Plan.findByIdAndUpdate(id, { logs: updatedLogsArray });
         response.status(200).json({ status: "Set successfully updated" });
       } else if (isDelete) {

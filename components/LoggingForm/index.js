@@ -54,14 +54,13 @@ export default function LoggingForm({
       );
       const updatedLogs = [...data.logs];
       updatedLogs[previousSetDataIndex] = { ...previousSetData, ...attributes };
-      const updatedData = { ...data, logs: updatedLogs };
+      console.log(updatedLogs);
       await createUpdateDelete(templateId, updatedLogs, "isEdit");
       mutate();
       toggleEditMode();
     } else {
       attributes.setId = nanoid(5);
       const updatedLogs = [...data.logs, attributes];
-      const updatedData = { ...data, logs: updatedLogs };
       await createUpdateDelete(templateId, updatedLogs, "isCreate");
       mutate();
     }

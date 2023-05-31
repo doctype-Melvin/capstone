@@ -80,7 +80,7 @@ export const createUpdateDelete = async (planId, data, mode) => {
   const url = `/api/plans/${planId}?${modes[mode]}=true&id=${planId}`;
   await sendPatchRequest(url, data);
 
-  mutate(`/api/plans`);
+  mutate();
 };
 
 export const setCurrentTemplate = async (planId) => {
