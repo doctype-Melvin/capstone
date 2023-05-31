@@ -43,7 +43,8 @@ export default function LoggingForm({
     toggleForm();
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
     if (isEdit) {
       const previousSetData = data.logs.find(
         (log) => log.setId === editSet.setId
@@ -100,7 +101,7 @@ export default function LoggingForm({
           Close
         </button>
       )}
-      <button>Save</button>
+      <button type="submit">Save</button>
     </StyledForm>
   );
 }
