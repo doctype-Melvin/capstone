@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
-import { useAllPlans, usePlan } from "@/utils/helpers";
+import { usePlan } from "@/utils/helpers";
 import styled, { css } from "styled-components";
 import Link from "next/link";
 import SetCard from "@/components/SetCard";

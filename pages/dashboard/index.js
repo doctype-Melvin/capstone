@@ -1,9 +1,8 @@
-import { useAllPlans, usePlan } from "@/utils/helpers";
+import { usePlan } from "@/utils/helpers";
 import Loading from "@/components/Loading";
 import styled from "styled-components";
 import SessionCard from "@/components/SessionCard";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { NewTemplateLink } from "../viewPlans";
 import { ButtonContainer } from "../viewPlans";
 
@@ -28,7 +27,7 @@ const ContentContainer = styled.section`
 `;
 
 export default function Dashboard() {
-  // const { data, isLoading } = useAllPlans();
+
   const router = useRouter();
   const { id } = router.query;
 
@@ -44,7 +43,6 @@ export default function Dashboard() {
       </ContentContainer>
     );
   if (isLoading || !currentPlan) return <Loading />;
-  // const currentPlan = data.find((template) => template.isCurrent === true);
 
   return (
     <ContentContainer>

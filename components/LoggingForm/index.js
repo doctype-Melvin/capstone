@@ -1,20 +1,55 @@
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import { useState } from "react";
 import { nanoid } from "nanoid";
 import { usePlan } from "@/utils/helpers";
 import { createUpdateDelete } from "@/utils/helpers";
 import Loading from "../Loading";
+import { AiOutlineCheck as Checkmark } from "react-icons/ai"
+import { RxCross1 as Cross } from "react-icons/rx"
 
 const StyledForm = styled.form`
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  gap: .3rem;
+  grid-template-columns: 0.35fr 0.5fr 0.5fr .75fr 1fr;
   ${({ isEdit }) =>
     isEdit &&
     css`
-      grid-template-columns: repeat(6, 1fr);
-    `}
+      grid-template-columns: repeat(5, .5fr) 1fr;
+    `};
+  padding: 0 .5rem 1rem .5rem;
+
+  & > input {
+    border: solid 1px var(--dark-blue);
+    border-radius: 3px;
+    font-size: 1.1rem;
+    width: 100%;
+  }
+
 `;
+
+const SharedButtonStyle = css`
+  border: none;
+  padding: 0.3rem .5rem;
+  border-radius: 3px;
+`
+
+const SaveButton = styled.button`
+  ${SharedButtonStyle}
+  background-color: var(--soft-green);
+`
+
+const CloseButton = styled.button`
+  ${SharedButtonStyle}
+  background-color: var(--cancel-red);
+`
+
+const ButtonContainer = styled.section`
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+`
 
 const StyledInput = styled.input`
   width: 3rem;
@@ -39,7 +74,9 @@ export default function LoggingForm({
   });
 
   const handleCloseClick = () => {
-    toggleEditMode();
+    if (isEdit){
+      toggleEditMode();
+    }
     toggleForm();
   };
 
@@ -96,12 +133,10 @@ export default function LoggingForm({
         value={attributes.weight}
         onChange={handleInputchange}
       />
-      {isEdit && (
-        <button type="button" onClick={handleCloseClick}>
-          Close
-        </button>
-      )}
-      <button type="submit">Save</button>
+      <ButtonContainer>
+        <SaveButton type="submit"><Checkmark /></SaveButton>
+        <CloseButton type="button" onClick={handleCloseClick}><Cross /></CloseButton>
+      </ButtonContainer>
     </StyledForm>
   );
 }

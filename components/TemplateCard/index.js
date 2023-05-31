@@ -4,7 +4,6 @@ import Link from "next/link";
 import { deleteTemplate } from "@/utils/helpers";
 import { setCurrentTemplate } from "@/utils/helpers";
 import { useRouter } from "next/router";
-import { AddButton as SetCurrentButton } from "../ExerciseForm";
 
 const TemplateContainer = styled.section`
   width: 100%;
