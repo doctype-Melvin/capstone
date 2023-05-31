@@ -3,6 +3,9 @@ import Loading from "@/components/Loading";
 import styled from "styled-components";
 import SessionCard from "@/components/SessionCard";
 import { useRouter } from "next/router";
+import Link from "next/link";
+import { NewTemplateLink } from "../viewPlans";
+import { ButtonContainer } from "../viewPlans";
 
 export const TemplateName = styled.p`
   width: 100%;
@@ -31,7 +34,14 @@ export default function Dashboard() {
 
   const { data: currentPlan, isLoading, error } = usePlan(id);
 
-  if (error) return <TemplateName>No current template set</TemplateName>;
+  if (error) return (
+    <ContentContainer>
+  <TemplateName>No current template set</TemplateName>
+  <ButtonContainer>
+    <NewTemplateLink href="/createPlan">New Template</NewTemplateLink>
+  </ButtonContainer>
+    </ContentContainer>
+  );
   if (isLoading || !currentPlan) return <Loading />;
   // const currentPlan = data.find((template) => template.isCurrent === true);
 

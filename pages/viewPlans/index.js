@@ -9,7 +9,7 @@ const OverviewContainer = styled.section`
   height: 100vh;
 `;
 
-const NewTemplateLink = styled(Link)`
+export const NewTemplateLink = styled(Link)`
   font-size: 1.2rem;
   padding: 0.5rem;
   border-radius: 3px;
@@ -27,7 +27,7 @@ const StyledList = styled.ul`
   }
 `;
 
-const ButtonContainer = styled.div`
+export const ButtonContainer = styled.div`
   width: 100%;
   text-align: center;
   margin-top: 2rem;
