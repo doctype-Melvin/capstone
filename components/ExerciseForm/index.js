@@ -102,7 +102,7 @@ export default function ExerciseForm({
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit} id={dayId}>
+    <StyledForm onSubmit={handleSubmit} autoComplete="off" id={dayId}>
       <label htmlFor="exercise">Exercise</label>
       <input
         type="text"

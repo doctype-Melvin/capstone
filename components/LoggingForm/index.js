@@ -18,7 +18,7 @@ const StyledForm = styled.form`
     css`
       grid-template-columns: repeat(5, 0.5fr) 1fr;
     `};
-  padding: 0 0.5rem 1rem 0.5rem;
+  padding: 0.5rem 0.5rem 1rem 0.5rem;
 
   & > input {
     border: solid 1px var(--dark-blue);
@@ -117,7 +117,7 @@ export default function LoggingForm({
   if (!data || isLoading) return <Loading />;
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
+    <StyledForm onSubmit={handleSubmit} autoComplete="off">
       <label htmlFor="reps">Reps</label>
       <StyledInput
         type="number"

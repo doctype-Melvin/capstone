@@ -20,13 +20,10 @@ const ResultList = styled.ul`
   list-style-type: none;
   padding:0;
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+  
   & > li {
     padding-top: 0.5rem;
     font-size: 1.15rem;
-    background-color: var(--lightest-blue);
   }
 `;
 
@@ -58,7 +55,7 @@ export default function SetCard({ exercise, templateId }) {
 
   return (
     <>
-      <StyledContainer>
+      <StyledContainer style={{backgroundColor: 'var(--lightest-blue)'}}>
         <span>{exercise.exercise}</span>
         <span>
           {exercise.sets} x {exercise.reps} @ {exercise.weight}{" "}
