@@ -37,13 +37,14 @@ export default function Dashboard() {
     return (
       <ContentContainer>
         <TemplateName>No current template set</TemplateName>
-        {allPlans.length > 0 ? (
+        {allPlans.length === undefined ? (
+          
           <ButtonContainer>
-            <NewTemplateLink href="/viewPlans">Go to Templates</NewTemplateLink>
+            <NewTemplateLink href="/createPlan">New Template</NewTemplateLink>
           </ButtonContainer>
         ) : (
           <ButtonContainer>
-            <NewTemplateLink href="/createPlan">New Template</NewTemplateLink>
+            <NewTemplateLink href="/viewPlans">Go to Templates</NewTemplateLink>
           </ButtonContainer>
         )}
       </ContentContainer>

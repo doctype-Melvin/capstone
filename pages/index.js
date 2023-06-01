@@ -7,7 +7,7 @@ import { TemplateName as AppName } from "./dashboard";
 const HomeScreen = styled.section`
   min-height: 100vh;
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(3, .3fr);
   grid-template-columns: 1fr;
   justify-content: center;
   align-items: center;

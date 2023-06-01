@@ -104,7 +104,7 @@ export default function TemplateCard({ templateData }) {
         <CurrentIndicator
           onClick={() => router.push(`/dashboard?id=${templateData._id}`)}
         >
-          Current
+          <Checkmark />
         </CurrentIndicator>
       ) : (
         <CurrentButton

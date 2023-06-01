@@ -6,10 +6,12 @@ import Link from "next/link";
 import SetCard from "@/components/SetCard";
 import format from "date-fns/format";
 import { TemplateName as DayNumber } from "../dashboard";
+import { useState } from "react";
 
 const PageContent = styled.section`
   min-height: 100vh;
   padding-bottom: calc(var(--navbar-height) + 1rem);
+  position: relative;
 `;
 
 const ControlsContainer = styled.div`
@@ -47,9 +49,28 @@ const SetCardList = styled.ul`
   margin: 0;
 `;
 
+const TempModal = styled.div`
+  height: 10rem;
+  width: 20rem;
+  background-color: var(--sand);
+  visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
+  opacity: ${({visible }) => (visible ? 1 : 0)};
+  transition: opacity 0.7s ease-in-out;
+  position: absolute;
+  text-align: center;
+  top: 15%;
+  left: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  border-radius: 5px;
+`
+
 export default function SessionView() {
   const router = useRouter();
   const { id, plan } = router.query;
+  const [ showModal, setShowModal ] = useState(false)
 
   const { data: currentTemplate, isLoading } = usePlan(plan);
 
@@ -58,7 +79,12 @@ export default function SessionView() {
       sessionDate: format(new Date(), "dd.MM.yy"),
       result: activeDaySession,
     };
-    alert(`Saved session for ${session.sessionDate}`)
+
+    setShowModal(true)
+    setTimeout(() => {
+      setShowModal(false);
+    }, 2800)
+    
   };
 
   if (isLoading || !currentTemplate) return <Loading />;
@@ -71,6 +97,9 @@ export default function SessionView() {
   return (
     <PageContent>
       <DayNumber>Session Day {activeDay.day}</DayNumber>
+      <TempModal visible={showModal}>
+        {`This feature will be available soon :)`}
+      </TempModal>
       <SetCardList>
         {activeDay.exercises.map((exercise) => (
           <li key={exercise.id}>
