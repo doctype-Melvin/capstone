@@ -21,7 +21,7 @@ const TemplateContainer = styled.section`
     padding-left: 0.5rem;
   }
 `;
-const IconContainer = styled.button`
+export const IconContainer = styled.button`
   font-size: 1.75rem;
   display: flex;
   justify-content: center;
@@ -35,6 +35,10 @@ const IconContainer = styled.button`
 
 const StyledLink = styled(Link)`
   text-decoration: none;
+  color: var(--dark-main);
+  &:visited {
+    color: var(--dark-blue);
+  }
 `;
 
 const CurrentButton = styled.button`
@@ -43,6 +47,9 @@ const CurrentButton = styled.button`
   color: #fff;
   font-size: 1rem;
   border-radius: 3px;
+  width: fit-content;
+  padding: .1rem .75rem;
+  margin: 0 auto;
 `;
 
 const CurrentIndicator = styled.div`
@@ -111,6 +118,7 @@ export default function TemplateCard({ templateData }) {
         {templateData.days} {templateData.days > 1 ? "Days" : "Day"}
       </span>
       <IconContainer
+      type="button"
         style={{
           backgroundColor: isDelete ? "var(--sand)" : "var(--cancel-red)",
         }}

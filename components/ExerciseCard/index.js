@@ -5,6 +5,11 @@ import { useRouter } from "next/router";
 import { usePlan } from "@/utils/helpers";
 import { AddButton, AddButton as EditButton } from "../ExerciseForm";
 import { CancelButton as DeleteButton } from "../ExerciseForm";
+import { AiOutlineCheck as Checkmark } from "react-icons/ai";
+import { IconContainer } from "../TemplateCard";
+import { AiOutlineDelete as Delete } from "react-icons/ai";
+import { BsPencilFill as Edit } from "react-icons/bs";
+
 
 const CardContainer = styled.section`
   display: flex;
@@ -33,7 +38,13 @@ const ButtonContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
   margin-top: 1rem;
+  & > button {
+    width: 4rem;
+    height: fit-content;
+    font-size: 1.25rem;
+  }
 `;
 
 export default function ExerciseCard({
@@ -44,12 +55,23 @@ export default function ExerciseCard({
   setEditExercise,
 }) {
   const [expanded, setExpanded] = useState(false);
-  const handleCollapseExpand = () => setExpanded((prevState) => !prevState);
+  const [ isDelete, setIsDelete ] = useState(false);
+
   const router = useRouter();
   const { id } = router.query;
   const { data } = usePlan(id);
 
+  const handleCollapseExpand = () => {
+    if (isDelete) {
+      setIsDelete(false);
+    }
+    setExpanded((prevState) => !prevState)
+  };
+
   const handleEditClick = () => {
+    if (isDelete) {
+      setIsDelete(false);
+    }
     handleCollapseExpand();
     toggleForm();
     toggleEditMode();
@@ -62,7 +84,7 @@ export default function ExerciseCard({
 
   return (
     <>
-      {!isEdit ? (
+      {!isEdit && (
         <CardContainer>
           <ExerciseName aria-label="exercise-name">
             {exercise.exercise.toUpperCase()}
@@ -79,19 +101,31 @@ export default function ExerciseCard({
           </DetailsContainer>
           {expanded && (
             <ButtonContainer>
-              <DeleteButton
+              <IconContainer
                 type="button"
-                onClick={() => handleDeleteClick(exercise)}
+                style={{
+          backgroundColor: isDelete ? "var(--sand)" : "var(--cancel-red)",
+        }}
+                onClick={() => {
+                  if (isDelete) {
+                    handleDeleteClick(exercise)
+                  }
+                  setIsDelete(prevState => !prevState)
+                }}
               >
-                Delete
-              </DeleteButton>
-              <AddButton type="button" onClick={handleEditClick}>
-                Edit
-              </AddButton>
+                { !isDelete ? <Delete /> : <Checkmark />} 
+              </IconContainer>
+              <IconContainer
+               type="button"
+               onClick={handleEditClick}
+               style={{backgroundColor: "var(--soft-green)"}}
+               >
+                <Edit />
+              </IconContainer>
             </ButtonContainer>
           )}
         </CardContainer>
-      ) : null}
+  )}
     </>
   );
 }
