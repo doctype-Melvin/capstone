@@ -14,13 +14,13 @@ const ExerciseList = styled.ul`
 
 const Title = styled.p`
   text-align: center;
-  width: 100%;
+  width: 90%;
   font-size: 1.2rem;
+  font-weight: 600;
   background-color: var(--light-blue);
   color: var(--lightest-blue);
   padding: 0.5rem 0;
-  margin: 0;
-  box-shadow: 1px 1px 5px 5px var(--lightest-blue);
+  margin: 0 auto;
 `;
 
 const Preview = styled.div`

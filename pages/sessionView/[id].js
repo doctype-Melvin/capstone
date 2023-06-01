@@ -16,6 +16,7 @@ const ControlsContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  padding-top: 1rem;
 `;
 
 const SharedButtonStyle = css`

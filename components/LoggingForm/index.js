@@ -32,6 +32,8 @@ const SharedButtonStyle = css`
   border: none;
   padding: 0.3rem 0.5rem;
   border-radius: 3px;
+  width: 3rem;
+  font-size: 1rem;
 `;
 
 const SaveButton = styled.button`
@@ -47,7 +49,7 @@ const CloseButton = styled.button`
 const ButtonContainer = styled.section`
   display: flex;
   width: 100%;
-  justify-content: space-evenly;
+  justify-content: space-between;
 `;
 
 const StyledInput = styled.input`
