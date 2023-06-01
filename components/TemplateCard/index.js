@@ -4,13 +4,16 @@ import Link from "next/link";
 import { deleteTemplate } from "@/utils/helpers";
 import { setCurrentTemplate } from "@/utils/helpers";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import { AiOutlineCheck as Checkmark } from "react-icons/ai";
+
 
 const TemplateContainer = styled.section`
   width: 100%;
   display: grid;
   grid-template-columns: 0.6fr 0.5fr 0.5fr 0.25fr;
   align-items: center;
-  padding-left: 0.75rem;
+  padding: 0.35rem 0.75rem;  
   margin-bottom: 0.75rem;
   background-color: var(--lightest-blue);
   font-size: 1.25rem;
@@ -21,7 +24,10 @@ const TemplateContainer = styled.section`
 `;
 const IconContainer = styled.div`
   font-size: 1.75rem;
-  padding-top: 0.2rem;
+  display: flex;
+  justify-content: center;
+  padding: 0.3rem 0;
+  border-radius: 5px;
   &:hover {
     cursor: pointer;
   }
@@ -33,7 +39,8 @@ const StyledLink = styled(Link)`
 
 const CurrentButton = styled.button`
   border: none;
-  background-color: var(--soft-green);
+  background-color: var(--dark-main);
+  color: #fff;
   font-size: 1rem;
   border-radius: 3px;
 `;
@@ -44,11 +51,12 @@ const CurrentIndicator = styled.div`
   text-align: center;
   margin: 0 auto;
   padding: 0 10px;
-  background-color: var(--dark-main);
-  color: var(--lightest-blue);
+  background-color: var(--soft-green);
+  color: var(--dark-main);
 `;
 
 export default function TemplateCard({ templateData }) {
+  const [ isDelete, setIsDelete ] = useState(false)
   const router = useRouter();
 
   const handleSetCurrentClick = (id) => {
@@ -57,6 +65,12 @@ export default function TemplateCard({ templateData }) {
       router.push(`/dashboard?id=${id}`);
     }, 1500);
   };
+
+  const handleDeleteClick = (id) => {
+    deleteTemplate(id);
+    setIsDelete(false)
+  }
+
 
   return (
     <TemplateContainer>
@@ -80,11 +94,20 @@ export default function TemplateCard({ templateData }) {
       <span>
         {templateData.days} {templateData.days > 1 ? "Days" : "Day"}
       </span>
-      <IconContainer>
-        <Delete
-          color="crimson"
-          onClick={() => deleteTemplate(templateData._id)}
-        />
+      <IconContainer 
+      style={{backgroundColor: isDelete ? 'var(--sand)' : 'var(--cancel-red)'}}
+      >
+        {
+          !isDelete ? (
+            <Delete
+            onClick={() => setIsDelete(prevState => !prevState)}
+            />
+            ) : (
+              <Checkmark 
+              onClick={() => handleDeleteClick(templateData._id)}
+              />
+            )
+        }
       </IconContainer>
     </TemplateContainer>
   );
