@@ -14,7 +14,6 @@ export const TemplateName = styled.p`
   padding: 1rem 0;
   background-color: var(--light-blue);
   color: var(--lightest-blue);
-  box-shadow: 1px 1px 5px 5px var(--lightest-blue);
 `;
 
 const StyledList = styled.ul`

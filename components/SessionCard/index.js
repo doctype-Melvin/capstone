@@ -20,7 +20,7 @@ const Title = styled.p`
   background-color: var(--light-blue);
   color: var(--lightest-blue);
   padding: 0.5rem 0;
-  margin: 0 auto;
+  margin: 1rem auto;
 `;
 
 const Preview = styled.div`
