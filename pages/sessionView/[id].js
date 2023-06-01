@@ -54,9 +54,10 @@ export default function SessionView() {
 
   const handleSaveClick = () => {
     const session = {
-      sessionDate: format(new Date(), "MM/dd/yy"),
+      sessionDate: format(new Date(), "dd.MM.yy"),
       result: activeDaySession,
     };
+    alert(`Saved session for ${session.sessionDate}`)
   };
 
   if (isLoading || !currentTemplate) return <Loading />;
