@@ -2,6 +2,9 @@ import { BsPencilFill as Edit } from "react-icons/bs";
 import { AiOutlineDelete as Delete } from "react-icons/ai";
 import styled, { css } from "styled-components";
 import { createUpdateDelete, usePlan } from "@/utils/helpers";
+import { useState } from "react";
+import { AiOutlineCheck as Checkmark } from "react-icons/ai";
+import { RxCross1 as Cross } from "react-icons/rx";
 
 const ContentContainer = styled.div`
   display: grid;
@@ -31,7 +34,8 @@ const DeleteButton = styled.button`
 
 const EditButton = styled.button`
   ${SharedButtonStyle}
-  background-color: var(--sand);
+  background-color: ${(props) =>
+    props.isDelete ? "var(--soft-green)" : "var(--sand)"};
 `;
 
 export default function ResultCard({
@@ -44,6 +48,8 @@ export default function ResultCard({
   setEditSet,
 }) {
   const { data, mutate } = usePlan(templateId);
+
+  const [isDelete, setIsDelete] = useState(false);
 
   const handleEditClick = (id) => {
     toggleEditMode((prevState) => !prevState);
@@ -66,15 +72,36 @@ export default function ResultCard({
           <span>
             Set# {setNumber} Reps: {log.reps} @ {log.weight} Kg
           </span>
-          <EditButton type="button" onClick={() => handleEditClick(log.setId)}>
-            <Edit />
-          </EditButton>
-          <DeleteButton
-            type="button"
-            onClick={() => handleDeleteClick(log.setId)}
-          >
-            <Delete />
-          </DeleteButton>
+          {isDelete ? (
+            <EditButton
+              type="button"
+              onClick={() => handleDeleteClick(log.setId)}
+            >
+              <Checkmark />
+            </EditButton>
+          ) : (
+            <EditButton
+              type="button"
+              onClick={() => handleEditClick(log.setId)}
+            >
+              <Edit />
+            </EditButton>
+          )}
+          {isDelete ? (
+            <DeleteButton
+              type="button"
+              onClick={() => setIsDelete((prevState) => !prevState)}
+            >
+              <Cross />
+            </DeleteButton>
+          ) : (
+            <DeleteButton
+              type="button"
+              onClick={() => setIsDelete((prevState) => !prevState)}
+            >
+              <Delete />
+            </DeleteButton>
+          )}
         </ContentContainer>
       )}
     </>
