@@ -27,7 +27,6 @@ const ContentContainer = styled.section`
 `;
 
 export default function Dashboard() {
-
   const router = useRouter();
   const { id } = router.query;
 

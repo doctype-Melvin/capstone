@@ -3,8 +3,8 @@ import { AiOutlineDelete as Delete } from "react-icons/ai";
 import styled, { css } from "styled-components";
 import { createUpdateDelete, usePlan } from "@/utils/helpers";
 import { useState } from "react";
-import { AiOutlineCheck as Checkmark } from "react-icons/ai"
-import { RxCross1 as Cross } from "react-icons/rx"
+import { AiOutlineCheck as Checkmark } from "react-icons/ai";
+import { RxCross1 as Cross } from "react-icons/rx";
 
 const ContentContainer = styled.div`
   display: grid;
@@ -34,7 +34,8 @@ const DeleteButton = styled.button`
 
 const EditButton = styled.button`
   ${SharedButtonStyle}
-  background-color: ${(props) => props.isDelete ? 'var(--soft-green)' : 'var(--sand)'};
+  background-color: ${(props) =>
+    props.isDelete ? "var(--soft-green)" : "var(--sand)"};
 `;
 
 export default function ResultCard({
@@ -48,7 +49,7 @@ export default function ResultCard({
 }) {
   const { data, mutate } = usePlan(templateId);
 
-  const [ isDelete, setIsDelete ] = useState(false)
+  const [isDelete, setIsDelete] = useState(false);
 
   const handleEditClick = (id) => {
     toggleEditMode((prevState) => !prevState);
@@ -63,7 +64,7 @@ export default function ResultCard({
     createUpdateDelete(templateId, updatedLogs, "isDelete");
     mutate(updatedData, false);
   };
-// handleDeleteClick(log.setId)
+  // handleDeleteClick(log.setId)
   return (
     <>
       {!isEdit && (
@@ -71,27 +72,36 @@ export default function ResultCard({
           <span>
             Set# {setNumber} Reps: {log.reps} @ {log.weight} Kg
           </span>
-            {
-             isDelete ? (
-              <EditButton type="button" onClick={() => handleDeleteClick(log.setId)}>
-                <Checkmark />
-              </EditButton>
-            ) : (
-            <EditButton type="button" onClick={() => handleEditClick(log.setId)}>
+          {isDelete ? (
+            <EditButton
+              type="button"
+              onClick={() => handleDeleteClick(log.setId)}
+            >
+              <Checkmark />
+            </EditButton>
+          ) : (
+            <EditButton
+              type="button"
+              onClick={() => handleEditClick(log.setId)}
+            >
               <Edit />
             </EditButton>
-            )}
-          {
-            isDelete ? (
-              <DeleteButton type="button" onClick={() => setIsDelete(prevState => !prevState)}>
-                <Cross />
-              </DeleteButton>
-            ) : (
-              <DeleteButton type="button" onClick={() => setIsDelete(prevState => !prevState)}>
-                <Delete />
-              </DeleteButton>
-            )
-          }
+          )}
+          {isDelete ? (
+            <DeleteButton
+              type="button"
+              onClick={() => setIsDelete((prevState) => !prevState)}
+            >
+              <Cross />
+            </DeleteButton>
+          ) : (
+            <DeleteButton
+              type="button"
+              onClick={() => setIsDelete((prevState) => !prevState)}
+            >
+              <Delete />
+            </DeleteButton>
+          )}
         </ContentContainer>
       )}
     </>
