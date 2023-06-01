@@ -8,7 +8,7 @@ import { TemplateName } from "../dashboard";
 
 const PlanContainer = styled.section`
   min-height: 100vh;
-  margin-bottom: 1rem;
+  padding-bottom: calc(var(--navbar-height) + 1rem);
 `;
 
 const PlanBody = styled.section`

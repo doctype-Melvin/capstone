@@ -1,4 +1,4 @@
-import { usePlan } from "@/utils/helpers";
+import { useAllPlans, usePlan } from "@/utils/helpers";
 import Loading from "@/components/Loading";
 import styled from "styled-components";
 import SessionCard from "@/components/SessionCard";
@@ -14,7 +14,6 @@ export const TemplateName = styled.p`
   padding: 1rem 0;
   background-color: var(--light-blue);
   color: var(--lightest-blue);
-  box-shadow: 1px 1px 5px 5px var(--lightest-blue);
 `;
 
 const StyledList = styled.ul`
@@ -30,15 +29,23 @@ export default function Dashboard() {
   const router = useRouter();
   const { id } = router.query;
 
+  const { data: allPlans } = useAllPlans();
+
   const { data: currentPlan, isLoading, error } = usePlan(id);
 
   if (error)
     return (
       <ContentContainer>
         <TemplateName>No current template set</TemplateName>
-        <ButtonContainer>
-          <NewTemplateLink href="/createPlan">New Template</NewTemplateLink>
-        </ButtonContainer>
+        {allPlans.length > 0 ? (
+          <ButtonContainer>
+            <NewTemplateLink href="/viewPlans">Go to Templates</NewTemplateLink>
+          </ButtonContainer>
+        ) : (
+          <ButtonContainer>
+            <NewTemplateLink href="/createPlan">New Template</NewTemplateLink>
+          </ButtonContainer>
+        )}
       </ContentContainer>
     );
   if (isLoading || !currentPlan) return <Loading />;

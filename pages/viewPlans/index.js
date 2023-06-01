@@ -7,6 +7,7 @@ import { TemplateName as TemplateCount } from "../dashboard";
 
 const OverviewContainer = styled.section`
   height: 100vh;
+  padding-bottom: calc(var(--navbar-height) + 1rem);
 `;
 
 export const NewTemplateLink = styled(Link)`
@@ -21,6 +22,9 @@ export const NewTemplateLink = styled(Link)`
 const StyledList = styled.ul`
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 
   & > li {
     list-style-type: none;

@@ -8,11 +8,11 @@ import { RxCross1 as Cross } from "react-icons/rx";
 
 const ContentContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr 0.2fr 0.2fr;
+  grid-template-columns: 1fr 0.25fr 0.25fr;
   margin-bottom: 0.45rem;
   align-items: center;
   & > span {
-    padding-left: 1.5rem;
+    padding-left: 1rem;
   }
 `;
 

@@ -11,16 +11,18 @@ const StyledContainer = styled.section`
   width: 100%;
   grid-template-columns: 1fr 1fr 0.5fr;
   font-size: 1.3rem;
-  margin: 1rem 0;
-  padding: 0 0.3rem;
+
+  padding: 1rem 0.3rem;
 `;
 
 const ResultList = styled.ul`
   width: 100%;
   list-style-type: none;
-  padding: 0;
+  padding:0;
   margin: 0;
+  
   & > li {
+    padding-top: 0.5rem;
     font-size: 1.15rem;
   }
 `;
@@ -53,7 +55,7 @@ export default function SetCard({ exercise, templateId }) {
 
   return (
     <>
-      <StyledContainer>
+      <StyledContainer style={{backgroundColor: 'var(--lightest-blue)'}}>
         <span>{exercise.exercise}</span>
         <span>
           {exercise.sets} x {exercise.reps} @ {exercise.weight}{" "}

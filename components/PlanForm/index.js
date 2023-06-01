@@ -84,7 +84,7 @@ export default function PlanForm() {
   return (
     <>
       <Info>Create Template</Info>
-      <FormCreatePlan onSubmit={handleFormSubmit}>
+      <FormCreatePlan onSubmit={handleFormSubmit} autoComplete="off">
         <label htmlFor="name">Template Name</label>
         <input
           type="text"

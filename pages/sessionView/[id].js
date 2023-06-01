@@ -9,12 +9,14 @@ import { TemplateName as DayNumber } from "../dashboard";
 
 const PageContent = styled.section`
   min-height: 100vh;
+  padding-bottom: calc(var(--navbar-height) + 1rem);
 `;
 
 const ControlsContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+  padding-top: 1rem;
 `;
 
 const SharedButtonStyle = css`
@@ -53,9 +55,10 @@ export default function SessionView() {
 
   const handleSaveClick = () => {
     const session = {
-      sessionDate: format(new Date(), "MM/dd/yy"),
+      sessionDate: format(new Date(), "dd.MM.yy"),
       result: activeDaySession,
     };
+    alert(`Saved session for ${session.sessionDate}`)
   };
 
   if (isLoading || !currentTemplate) return <Loading />;
