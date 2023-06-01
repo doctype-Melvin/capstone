@@ -7,13 +7,12 @@ import { useRouter } from "next/router";
 import { useState, useEffect, useRef } from "react";
 import { AiOutlineCheck as Checkmark } from "react-icons/ai";
 
-
 const TemplateContainer = styled.section`
   width: 100%;
   display: grid;
   grid-template-columns: 0.6fr 0.5fr 0.5fr 0.25fr;
   align-items: center;
-  padding: 0.35rem 0.75rem;  
+  padding: 0.35rem 0.75rem;
   margin-bottom: 0.75rem;
   background-color: var(--lightest-blue);
   font-size: 1.25rem;
@@ -22,12 +21,13 @@ const TemplateContainer = styled.section`
     padding-left: 0.5rem;
   }
 `;
-const IconContainer = styled.div`
+const IconContainer = styled.button`
   font-size: 1.75rem;
   display: flex;
   justify-content: center;
   padding: 0.3rem 0;
   border-radius: 5px;
+  border: none;
   &:hover {
     cursor: pointer;
   }
@@ -56,8 +56,8 @@ const CurrentIndicator = styled.div`
 `;
 
 export default function TemplateCard({ templateData }) {
-  const [ isDelete, setIsDelete ] = useState(false)
-  const deleteRef = useRef(null)
+  const [isDelete, setIsDelete] = useState(false);
+  const deleteRef = useRef(null);
   const router = useRouter();
 
   const handleSetCurrentClick = (id) => {
@@ -69,21 +69,24 @@ export default function TemplateCard({ templateData }) {
 
   const handleDeleteClick = (id) => {
     deleteTemplate(id);
-    setIsDelete(false)
-  }
+    setIsDelete(false);
+  };
 
   useEffect(() => {
     const handleWindowClick = (event) => {
-      if (isDelete && deleteRef.current && !deleteRef.current.contains(event.target)) {
+      if (
+        isDelete &&
+        deleteRef.current &&
+        !deleteRef.current.contains(event.target)
+      ) {
         setIsDelete(false);
       }
-    }
+    };
 
-    document.addEventListener("mousedown", handleWindowClick)
+    document.addEventListener("mousedown", handleWindowClick);
 
-    return () => document.removeEventListener("mousedown", handleWindowClick)
-  }, [isDelete])
-
+    return () => document.removeEventListener("mousedown", handleWindowClick);
+  }, [isDelete]);
 
   return (
     <TemplateContainer>
@@ -107,21 +110,19 @@ export default function TemplateCard({ templateData }) {
       <span>
         {templateData.days} {templateData.days > 1 ? "Days" : "Day"}
       </span>
-      <IconContainer 
-      style={{backgroundColor: isDelete ? 'var(--sand)' : 'var(--cancel-red)'}}
-      ref={deleteRef}
+      <IconContainer
+        style={{
+          backgroundColor: isDelete ? "var(--sand)" : "var(--cancel-red)",
+        }}
+        ref={deleteRef}
+        onClick={() => {
+          if (isDelete) {
+            handleDeleteClick(templateData._id);
+          }
+          setIsDelete((prevState) => !prevState);
+        }}
       >
-        {
-          !isDelete ? (
-            <Delete
-            onClick={() => setIsDelete(prevState => !prevState)}
-            />
-            ) : (
-              <Checkmark 
-              onClick={() => handleDeleteClick(templateData._id)}
-              />
-            )
-        }
+        {!isDelete ? <Delete /> : <Checkmark />}
       </IconContainer>
     </TemplateContainer>
   );
