@@ -4,7 +4,7 @@ import Link from "next/link";
 import { deleteTemplate } from "@/utils/helpers";
 import { setCurrentTemplate } from "@/utils/helpers";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AiOutlineCheck as Checkmark } from "react-icons/ai";
 
 
@@ -57,6 +57,7 @@ const CurrentIndicator = styled.div`
 
 export default function TemplateCard({ templateData }) {
   const [ isDelete, setIsDelete ] = useState(false)
+  const deleteRef = useRef(null)
   const router = useRouter();
 
   const handleSetCurrentClick = (id) => {
@@ -70,6 +71,18 @@ export default function TemplateCard({ templateData }) {
     deleteTemplate(id);
     setIsDelete(false)
   }
+
+  useEffect(() => {
+    const handleWindowClick = (event) => {
+      if (isDelete && deleteRef.current && !deleteRef.current.contains(event.target)) {
+        setIsDelete(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleWindowClick)
+
+    return () => document.removeEventListener("mousedown", handleWindowClick)
+  }, [isDelete])
 
 
   return (
@@ -96,6 +109,7 @@ export default function TemplateCard({ templateData }) {
       </span>
       <IconContainer 
       style={{backgroundColor: isDelete ? 'var(--sand)' : 'var(--cancel-red)'}}
+      ref={deleteRef}
       >
         {
           !isDelete ? (
