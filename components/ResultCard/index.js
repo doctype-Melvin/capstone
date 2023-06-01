@@ -64,7 +64,7 @@ export default function ResultCard({
     createUpdateDelete(templateId, updatedLogs, "isDelete");
     mutate(updatedData, false);
   };
-  // handleDeleteClick(log.setId)
+
   return (
     <>
       {!isEdit && (
