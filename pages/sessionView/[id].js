@@ -9,6 +9,7 @@ import { TemplateName as DayNumber } from "../dashboard";
 
 const PageContent = styled.section`
   min-height: 100vh;
+  padding-bottom: calc(var(--navbar-height) + 1rem);
 `;
 
 const ControlsContainer = styled.div`
