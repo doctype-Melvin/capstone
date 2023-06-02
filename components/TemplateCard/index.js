@@ -48,7 +48,7 @@ const CurrentButton = styled.button`
   font-size: 1rem;
   border-radius: 3px;
   width: fit-content;
-  padding: .1rem .75rem;
+  padding: 0.1rem 0.75rem;
   margin: 0 auto;
 `;
 
@@ -118,7 +118,7 @@ export default function TemplateCard({ templateData }) {
         {templateData.days} {templateData.days > 1 ? "Days" : "Day"}
       </span>
       <IconContainer
-      type="button"
+        type="button"
         style={{
           backgroundColor: isDelete ? "var(--sand)" : "var(--cancel-red)",
         }}

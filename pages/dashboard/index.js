@@ -38,7 +38,6 @@ export default function Dashboard() {
       <ContentContainer>
         <TemplateName>No current template set</TemplateName>
         {allPlans.length === undefined ? (
-          
           <ButtonContainer>
             <NewTemplateLink href="/createPlan">New Template</NewTemplateLink>
           </ButtonContainer>

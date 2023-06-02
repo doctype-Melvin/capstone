@@ -49,28 +49,10 @@ const SetCardList = styled.ul`
   margin: 0;
 `;
 
-const TempModal = styled.div`
-  height: 10rem;
-  width: 20rem;
-  background-color: var(--sand);
-  visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
-  opacity: ${({visible }) => (visible ? 1 : 0)};
-  transition: opacity 0.7s ease-in-out;
-  position: absolute;
-  text-align: center;
-  top: 15%;
-  left: 5%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 2rem;
-  border-radius: 5px;
-`
-
 export default function SessionView() {
   const router = useRouter();
   const { id, plan } = router.query;
-  const [ showModal, setShowModal ] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const { data: currentTemplate, isLoading } = usePlan(plan);
 
@@ -79,12 +61,6 @@ export default function SessionView() {
       sessionDate: format(new Date(), "dd.MM.yy"),
       result: activeDaySession,
     };
-
-    setShowModal(true)
-    setTimeout(() => {
-      setShowModal(false);
-    }, 2800)
-    
   };
 
   if (isLoading || !currentTemplate) return <Loading />;
@@ -97,9 +73,7 @@ export default function SessionView() {
   return (
     <PageContent>
       <DayNumber>Session Day {activeDay.day}</DayNumber>
-      <TempModal visible={showModal}>
-        {`This feature will be available soon :)`}
-      </TempModal>
+
       <SetCardList>
         {activeDay.exercises.map((exercise) => (
           <li key={exercise.id}>
