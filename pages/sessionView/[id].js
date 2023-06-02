@@ -37,7 +37,7 @@ const StyledLink = styled(Link)`
 const SaveSessionButton = styled.button`
   ${SharedButtonStyle}
   border: none;
-  background-color: var(--soft-green);
+  background-color: ${(props) => props.isConfirm ?  "var(--soft-green)" : "var(--sand)"};
   &:hover {
     cursor: pointer;
   }
@@ -57,6 +57,8 @@ export default function SessionView() {
   const { data: currentTemplate, isLoading } = usePlan(plan);
 
   const handleSaveClick = async () => {
+    /* The button for saving the session needs more work
+    Users need to cancel the saving process */
     if (isConfirm) {
 
       const session = {
@@ -65,7 +67,11 @@ export default function SessionView() {
         dayNumber: activeDay.day,
         dayId: activeDay.id,
       };
-     await createUpdateDelete(plan, session, "saveSession")
+      if (session.sessionDate !== currentTemplate.sessions[currentTemplate.sessions.length - 1].sessionDate) {
+        await createUpdateDelete(plan, session, "saveSession")
+      }else {
+        alert('Session already saved!')
+      }
     }
     setIsConfirm(!isConfirm)
   };
@@ -90,7 +96,7 @@ export default function SessionView() {
       </SetCardList>
       <ControlsContainer>
         <StyledLink href={`/dashboard?id=${plan}`}>Dashboard</StyledLink>
-        <SaveSessionButton type="button" onClick={handleSaveClick}>
+        <SaveSessionButton isConfirm={isConfirm} type="button" onClick={handleSaveClick}>
           { isConfirm ? "Save" : "Save Session" }
         </SaveSessionButton>
       </ControlsContainer>
