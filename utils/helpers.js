@@ -1,8 +1,6 @@
 import { nanoid } from "nanoid";
 import useSWR from "swr";
 import { mutate } from "swr";
-import produce, { freeze } from "immer";
-import { useCallback } from "react";
 
 export const addWorkoutDays = (number) => {
   let store = [];
@@ -73,7 +71,7 @@ export const sendPutRequest = async (url, payload) => {
 export const createUpdateDelete = async (planId, data, mode) => {
   const modes = {
     isEdit: "isEdit",
-    isCreate: "isLog",
+    isCreate: "isCreate",
     isDelete: "isDelete",
   };
 

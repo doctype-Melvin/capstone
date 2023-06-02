@@ -6,10 +6,12 @@ import Link from "next/link";
 import SetCard from "@/components/SetCard";
 import format from "date-fns/format";
 import { TemplateName as DayNumber } from "../dashboard";
+import { useState } from "react";
 
 const PageContent = styled.section`
   min-height: 100vh;
   padding-bottom: calc(var(--navbar-height) + 1rem);
+  position: relative;
 `;
 
 const ControlsContainer = styled.div`
@@ -50,6 +52,7 @@ const SetCardList = styled.ul`
 export default function SessionView() {
   const router = useRouter();
   const { id, plan } = router.query;
+  const [showModal, setShowModal] = useState(false);
 
   const { data: currentTemplate, isLoading } = usePlan(plan);
 
@@ -58,7 +61,6 @@ export default function SessionView() {
       sessionDate: format(new Date(), "dd.MM.yy"),
       result: activeDaySession,
     };
-    alert(`Saved session for ${session.sessionDate}`)
   };
 
   if (isLoading || !currentTemplate) return <Loading />;
@@ -71,6 +73,7 @@ export default function SessionView() {
   return (
     <PageContent>
       <DayNumber>Session Day {activeDay.day}</DayNumber>
+
       <SetCardList>
         {activeDay.exercises.map((exercise) => (
           <li key={exercise.id}>

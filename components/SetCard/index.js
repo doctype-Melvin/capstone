@@ -18,9 +18,9 @@ const StyledContainer = styled.section`
 const ResultList = styled.ul`
   width: 100%;
   list-style-type: none;
-  padding:0;
+  padding: 0;
   margin: 0;
-  
+
   & > li {
     padding-top: 0.5rem;
     font-size: 1.15rem;
@@ -55,7 +55,7 @@ export default function SetCard({ exercise, templateId }) {
 
   return (
     <>
-      <StyledContainer style={{backgroundColor: 'var(--lightest-blue)'}}>
+      <StyledContainer style={{ backgroundColor: "var(--lightest-blue)" }}>
         <span>{exercise.exercise}</span>
         <span>
           {exercise.sets} x {exercise.reps} @ {exercise.weight}{" "}

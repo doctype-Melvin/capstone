@@ -10,7 +10,6 @@ import { IconContainer } from "../TemplateCard";
 import { AiOutlineDelete as Delete } from "react-icons/ai";
 import { BsPencilFill as Edit } from "react-icons/bs";
 
-
 const CardContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -55,7 +54,7 @@ export default function ExerciseCard({
   setEditExercise,
 }) {
   const [expanded, setExpanded] = useState(false);
-  const [ isDelete, setIsDelete ] = useState(false);
+  const [isDelete, setIsDelete] = useState(false);
 
   const router = useRouter();
   const { id } = router.query;
@@ -65,7 +64,7 @@ export default function ExerciseCard({
     if (isDelete) {
       setIsDelete(false);
     }
-    setExpanded((prevState) => !prevState)
+    setExpanded((prevState) => !prevState);
   };
 
   const handleEditClick = () => {
@@ -104,28 +103,30 @@ export default function ExerciseCard({
               <IconContainer
                 type="button"
                 style={{
-          backgroundColor: isDelete ? "var(--sand)" : "var(--cancel-red)",
-        }}
+                  backgroundColor: isDelete
+                    ? "var(--sand)"
+                    : "var(--cancel-red)",
+                }}
                 onClick={() => {
                   if (isDelete) {
-                    handleDeleteClick(exercise)
+                    handleDeleteClick(exercise);
                   }
-                  setIsDelete(prevState => !prevState)
+                  setIsDelete((prevState) => !prevState);
                 }}
               >
-                { !isDelete ? <Delete /> : <Checkmark />} 
+                {!isDelete ? <Delete /> : <Checkmark />}
               </IconContainer>
               <IconContainer
-               type="button"
-               onClick={handleEditClick}
-               style={{backgroundColor: "var(--soft-green)"}}
-               >
+                type="button"
+                onClick={handleEditClick}
+                style={{ backgroundColor: "var(--soft-green)" }}
+              >
                 <Edit />
               </IconContainer>
             </ButtonContainer>
           )}
         </CardContainer>
-  )}
+      )}
     </>
   );
 }
