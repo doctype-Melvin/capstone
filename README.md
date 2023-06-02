@@ -15,12 +15,12 @@ This app helps weightlifting trainees to create workout plans and track their pr
 
 ## Motivation
 
-This is my final project of a 12 week Web Development Bootcamp at @neuefische.
+This is my final project of a 12 week Web Development Bootcamp at [neuefische](https://www.neuefische.de/en).
 I've wanted to not only show my newly acquired Frontend skills, but also some
 of my desire to work as a Full-Stack Developer. That's why I've used MongoDB
 and Mongoose for my backend. It's been a wild ride and I am currently working
 on a second version of this project using Next.js 13.
-If all goes well, I will enroll in the Java Bootcamp also at @neuefische.
+If all goes well, I will enroll in the Java Bootcamp also at [neuefische](https://www.neuefische.de/en).
 
 ## Biggest Challenge
 
