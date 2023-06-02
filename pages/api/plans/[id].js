@@ -4,7 +4,7 @@ import Plan from "@/database/models/Plan";
 export default async function handler(request, response) {
   await dbConnect();
 
-  const { isCreate, isEdit, isDelete, id } = request.query;
+  const { isCreate, isEdit, isDelete, saveSession, id } = request.query;
   const currentPlan = await Plan.findById(id);
 
   switch (request.method) {
@@ -47,6 +47,12 @@ export default async function handler(request, response) {
           const updatedLogs = request.body;
           await Plan.findByIdAndUpdate(id, { logs: updatedLogs });
           response.status(200).json({ status: "Set successfully deleted" });
+        } else if (saveSession) {
+          const newSession = request.body;
+          const currentSessions = currentPlan.sessions
+          const updatedSessions = [...currentSessions, newSession]
+          await Plan.findByIdAndUpdate(id, { sessions: updatedSessions})
+          response.status(200).json({ status: "Successfully added session"})
         } else {
           const updatedExercise = request.body;
           const updatedRoutine = currentPlan.routine.map((day) => {

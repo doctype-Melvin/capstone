@@ -73,6 +73,7 @@ export const createUpdateDelete = async (planId, data, mode) => {
     isEdit: "isEdit",
     isCreate: "isCreate",
     isDelete: "isDelete",
+    saveSession: "saveSession"
   };
 
   const url = `/api/plans/${planId}?${modes[mode]}=true&id=${planId}`;

@@ -8,6 +8,7 @@ const planSchema = new Schema({
   routine: Array,
   isCurrent: Boolean,
   logs: Array,
+  sessions: Array,
 });
 
 const Plan = mongoose.models.Plan || mongoose.model("Plan", planSchema);

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
-import { usePlan } from "@/utils/helpers";
+import { createUpdateDelete, usePlan } from "@/utils/helpers";
 import styled, { css } from "styled-components";
 import Link from "next/link";
 import SetCard from "@/components/SetCard";
@@ -52,15 +52,22 @@ const SetCardList = styled.ul`
 export default function SessionView() {
   const router = useRouter();
   const { id, plan } = router.query;
-  const [showModal, setShowModal] = useState(false);
+  const [isConfirm, setIsConfirm] = useState(false);
 
   const { data: currentTemplate, isLoading } = usePlan(plan);
 
-  const handleSaveClick = () => {
-    const session = {
-      sessionDate: format(new Date(), "dd.MM.yy"),
-      result: activeDaySession,
-    };
+  const handleSaveClick = async () => {
+    if (isConfirm) {
+
+      const session = {
+        sessionDate: format(new Date(), "dd.MM.yy"),
+        result: activeDaySession,
+        dayNumber: activeDay.day,
+        dayId: activeDay.id,
+      };
+     await createUpdateDelete(plan, session, "saveSession")
+    }
+    setIsConfirm(!isConfirm)
   };
 
   if (isLoading || !currentTemplate) return <Loading />;
@@ -84,7 +91,7 @@ export default function SessionView() {
       <ControlsContainer>
         <StyledLink href={`/dashboard?id=${plan}`}>Dashboard</StyledLink>
         <SaveSessionButton type="button" onClick={handleSaveClick}>
-          Save Session
+          { isConfirm ? "Save" : "Save Session" }
         </SaveSessionButton>
       </ControlsContainer>
     </PageContent>
