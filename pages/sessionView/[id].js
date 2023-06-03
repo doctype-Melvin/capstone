@@ -77,6 +77,7 @@ export default function SessionView() {
       } else {
        await weeklySessionsHandler(currentTemplate, session)
         console.log("Next session");
+        mutate( )
       }
     }
     setIsConfirm(!isConfirm);

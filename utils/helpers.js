@@ -91,29 +91,27 @@ const weekObject = {
 
 export const weeklySessionsHandler = async (currentPlan, sessionObject) => {
 
-  const nextDay = sessionObject.dayNumber + 1
-
   if (currentPlan.sessions.length > 0) {
     // Session count is greater than 0
     const [ recentWeek ] = currentPlan.sessions.slice(-1)
     const [ recentSession ] = recentWeek.sessions.slice(-1)
-    console.log(recentWeek, recentSession)
+  
     if (recentSession.dayId === sessionObject.dayId){
       // Prevent dupes
       console.log(`Already saved`)
       return 
     } 
-    if (sessionObject.dayNumber <= currentPlan.days) {
-      console.log(`New Session`, sessionObject)
+    if (recentWeek.sessions.length < currentPlan.days) {
+      console.log(`New Session`)
       await createUpdateDelete(currentPlan._id, sessionObject, "saveSession" )
       await createUpdateDelete(currentPlan._id, [], "isDelete")
     } else {
-      sessionObject.nextDay = 1
-      const updatedWeek = weekObject
-      updatedWeek.week = recentWeek.nextWeek
-      updatedWeek.nextWeek = recentWeek.nextWeek + 1
+      const newWeek = weekObject
+      newWeek.sessions.push(sessionObject)
+      newWeek.week = recentWeek.nextWeek
+      newWeek.nextWeek = recentWeek.nextWeek + 1
       console.log(`New Week`)
-      await createUpdateDelete(currentPlan._id, updatedWeek, "saveWeek")
+      await createUpdateDelete(currentPlan._id, newWeek, "saveWeek")
       await createUpdateDelete(currentPlan._id, [], "isDelete")
     }
   } else {
@@ -125,7 +123,6 @@ export const weeklySessionsHandler = async (currentPlan, sessionObject) => {
     await createUpdateDelete(currentPlan._id, [], "isDelete")
   }
   mutate(`/api/plans/`)
-  console.log(`This should mutate`)
 };
 
 export const setCurrentTemplate = async (planId) => {
