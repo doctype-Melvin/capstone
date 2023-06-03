@@ -59,7 +59,7 @@ export default function SessionView() {
   const { id, plan } = router.query;
   const [isConfirm, setIsConfirm] = useState(false);
 
-  const { data: currentTemplate, isLoading } = usePlan(plan);
+  const { data: currentTemplate, isLoading, mutate } = usePlan(plan);
 
   const handleSaveClick = async () => {
     /* The button for saving the session needs more work
@@ -71,15 +71,11 @@ export default function SessionView() {
         dayNumber: activeDay.day,
         dayId: activeDay.id,
       };
-      if (
-        currentTemplate.sessions.length === 0 ||
-        session.sessionDate !==
-          currentTemplate.sessions[currentTemplate.sessions.length - 1]
-            .sessionDate
-      ) {
+      if (currentTemplate.sessions.length === 0 ) {
        await weeklySessionsHandler(currentTemplate, session);
+       mutate()
       } else {
-        alert("Session already saved!");
+        alert("You've already saved a session for today");
       }
     }
     setIsConfirm(!isConfirm);

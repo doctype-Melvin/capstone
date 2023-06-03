@@ -90,15 +90,32 @@ const weekObject = {
 
 export const weeklySessionsHandler = async (currentPlan, sessionObject) => {
   const weekSessionsArray = currentPlan.sessions
-  if (currentPlan.sessions.length === 0) {
+  if (currentPlan.sessions.length > 0) {
+    const recentWeek = currentPlan.sessions.pop()
+    const recentSession = recentWeek.sessions.pop()
+    console.log(recentWeek, recentSession, sessionObject)
+    if (recentSession.sessionsDate === sessionObject.sessionDate){
+      console.log(`Already saved`)
+      return 
+    }
+  } else {
+    console.log(`Saved new session`)
     console.log(`First Week`);
     const updatedWeek = weekObject;
     updatedWeek.sessions = [sessionObject];
     console.log(updatedWeek);
-    createUpdateDelete(currentPlan._id, updatedWeek, "saveSession")
-  } else if (currentPlan.sessions.length > 0 ) {
-    console.log(`Next session`)
+    await createUpdateDelete(currentPlan._id, updatedWeek, "saveSession")
+    mutate()
   }
+  // if (currentPlan.sessions.length === 0) {
+  //   console.log(`First Week`);
+  //   const updatedWeek = weekObject;
+  //   updatedWeek.sessions = [sessionObject];
+  //   console.log(updatedWeek);
+  //   createUpdateDelete(currentPlan._id, updatedWeek, "saveSession")
+  // } else if (currentPlan.sessions.length > 0 ) {
+  //   console.log(`Next session`)
+  // }
 };
 
 export const setCurrentTemplate = async (planId) => {
