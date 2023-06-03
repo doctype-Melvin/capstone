@@ -73,13 +73,32 @@ export const createUpdateDelete = async (planId, data, mode) => {
     isEdit: "isEdit",
     isCreate: "isCreate",
     isDelete: "isDelete",
-    saveSession: "saveSession"
+    saveSession: "saveSession",
   };
 
   const url = `/api/plans/${planId}?${modes[mode]}=true&id=${planId}`;
   await sendPatchRequest(url, data);
 
   mutate();
+};
+
+const weekObject = {
+  week: 1,
+  sessions: [],
+  nextWeek: 2,
+};
+
+export const weeklySessionsHandler = async (currentPlan, sessionObject) => {
+  const weekSessionsArray = currentPlan.sessions
+  if (currentPlan.sessions.length === 0) {
+    console.log(`First Week`);
+    const updatedWeek = weekObject;
+    updatedWeek.sessions = [sessionObject];
+    console.log(updatedWeek);
+    createUpdateDelete(currentPlan._id, updatedWeek, "saveSession")
+  } else if (currentPlan.sessions.length > 0 ) {
+    console.log(`Next session`)
+  }
 };
 
 export const setCurrentTemplate = async (planId) => {

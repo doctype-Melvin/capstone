@@ -72,7 +72,6 @@ export default function PlanForm() {
 
     inputData.days = Number(inputData.days);
     inputData.routine = addWorkoutDays(inputData.days);
-    
 
     if (data.length === 0) {
       inputData.isCurrent = true;
