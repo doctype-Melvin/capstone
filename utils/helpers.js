@@ -73,7 +73,8 @@ export const createUpdateDelete = async (planId, data, mode) => {
     isEdit: "isEdit",
     isCreate: "isCreate",
     isDelete: "isDelete",
-    saveSession: "saveSession",
+    saveWeek: "saveWeek",
+    saveSession: "saveSession"
   };
 
   const url = `/api/plans/${planId}?${modes[mode]}=true&id=${planId}`;
@@ -89,33 +90,42 @@ const weekObject = {
 };
 
 export const weeklySessionsHandler = async (currentPlan, sessionObject) => {
-  const weekSessionsArray = currentPlan.sessions
+
+  const nextDay = sessionObject.dayNumber + 1
+
   if (currentPlan.sessions.length > 0) {
-    const recentWeek = currentPlan.sessions.pop()
-    const recentSession = recentWeek.sessions.pop()
-    console.log(recentWeek, recentSession, sessionObject)
-    if (recentSession.sessionsDate === sessionObject.sessionDate){
+    // Session count is greater than 0
+    const [ recentWeek ] = currentPlan.sessions.slice(-1)
+    const [ recentSession ] = recentWeek.sessions.slice(-1)
+    console.log(recentWeek, recentSession)
+    if (recentSession.dayId === sessionObject.dayId){
+      // Prevent dupes
       console.log(`Already saved`)
       return 
+    } 
+    if (sessionObject.dayNumber <= currentPlan.days) {
+      console.log(`New Session`, sessionObject)
+      await createUpdateDelete(currentPlan._id, sessionObject, "saveSession" )
+      await createUpdateDelete(currentPlan._id, [], "isDelete")
+    } else {
+      sessionObject.nextDay = 1
+      const updatedWeek = weekObject
+      updatedWeek.week = recentWeek.nextWeek
+      updatedWeek.nextWeek = recentWeek.nextWeek + 1
+      console.log(`New Week`)
+      await createUpdateDelete(currentPlan._id, updatedWeek, "saveWeek")
+      await createUpdateDelete(currentPlan._id, [], "isDelete")
     }
   } else {
-    console.log(`Saved new session`)
     console.log(`First Week`);
     const updatedWeek = weekObject;
     updatedWeek.sessions = [sessionObject];
     console.log(updatedWeek);
-    await createUpdateDelete(currentPlan._id, updatedWeek, "saveSession")
-    mutate()
+    await createUpdateDelete(currentPlan._id, updatedWeek, "saveWeek")
+    await createUpdateDelete(currentPlan._id, [], "isDelete")
   }
-  // if (currentPlan.sessions.length === 0) {
-  //   console.log(`First Week`);
-  //   const updatedWeek = weekObject;
-  //   updatedWeek.sessions = [sessionObject];
-  //   console.log(updatedWeek);
-  //   createUpdateDelete(currentPlan._id, updatedWeek, "saveSession")
-  // } else if (currentPlan.sessions.length > 0 ) {
-  //   console.log(`Next session`)
-  // }
+  mutate(`/api/plans/`)
+  console.log(`This should mutate`)
 };
 
 export const setCurrentTemplate = async (planId) => {

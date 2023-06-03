@@ -75,7 +75,8 @@ export default function SessionView() {
        await weeklySessionsHandler(currentTemplate, session);
        mutate()
       } else {
-        alert("You've already saved a session for today");
+       await weeklySessionsHandler(currentTemplate, session)
+        console.log("Next session");
       }
     }
     setIsConfirm(!isConfirm);
