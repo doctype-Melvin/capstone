@@ -11,7 +11,7 @@ const StyledContainer = styled.section`
   width: 100%;
   grid-template-columns: 1fr 1fr 0.5fr;
   font-size: 1.3rem;
-
+  align-items: center;
   padding: 1rem 0.3rem;
 `;
 

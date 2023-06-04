@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { BiHomeAlt2 as Home } from "react-icons/bi";
 import { AiOutlineUnorderedList as AllTemplates } from "react-icons/ai";
 import { MdOutlineDashboardCustomize as Dashboard } from "react-icons/md";
+import { BiHistory as History } from "react-icons/bi"
 import { useAllPlans } from "@/utils/helpers";
 import Loading from "../Loading";
 
@@ -27,6 +28,8 @@ export default function Navigation() {
   const { data: allPlans, isLoading } = useAllPlans();
 
   if (isLoading || !allPlans) return <Loading />;
+
+  const currentPlan = allPlans.find(plan => plan.isCurrent === true)
 
   return (
     <NavBar>
@@ -53,6 +56,11 @@ export default function Navigation() {
           <AllTemplates />
         </NavIconContainer>
       </Link>
+      {currentPlan && <Link href={`/history/${currentPlan._id}`}>
+        <NavIconContainer>
+          <History />
+        </NavIconContainer>
+      </Link>}
     </NavBar>
   );
 }

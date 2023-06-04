@@ -10,7 +10,8 @@ import Link from "next/link";
 import SetCard from "@/components/SetCard";
 import format from "date-fns/format";
 import { TemplateName as DayNumber } from "../dashboard";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { nanoid } from "nanoid";
 
 const PageContent = styled.section`
   min-height: 100vh;
@@ -40,6 +41,7 @@ const StyledLink = styled(Link)`
 
 const SaveSessionButton = styled.button`
   ${SharedButtonStyle}
+  width: 6rem;
   border: none;
   background-color: ${(props) =>
     props.isConfirm ? "var(--soft-green)" : "var(--sand)"};
@@ -58,6 +60,7 @@ export default function SessionView() {
   const router = useRouter();
   const { id, plan } = router.query;
   const [isConfirm, setIsConfirm] = useState(false);
+  const confirmRef = useRef(null)
 
   const { data: currentTemplate, isLoading, mutate } = usePlan(plan);
 
@@ -70,12 +73,30 @@ export default function SessionView() {
         result: activeDaySession,
         dayNumber: activeDay.day,
         dayId: activeDay.id,
+        id: nanoid(5)
       };
       await weeklySessionsHandler(currentTemplate, session);
+      router.push(`/history/${plan}`)
       mutate();
     }
     setIsConfirm(!isConfirm);
   };
+
+  useEffect(() => {
+    const handleWindowClick = (event) => {
+      if (
+        isConfirm &&
+        confirmRef.current &&
+        !confirmRef.current.contains(event.target)
+      ) {
+        setIsConfirm(false)
+      }
+    }
+
+    document.addEventListener("click", handleWindowClick)
+
+    return () => document.removeEventListener("click", handleWindowClick)
+  }, [isConfirm])
 
   if (isLoading || !currentTemplate) return <Loading />;
 
@@ -101,8 +122,9 @@ export default function SessionView() {
           isConfirm={isConfirm}
           type="button"
           onClick={handleSaveClick}
+          ref={confirmRef}
         >
-          {isConfirm ? "Save" : "Save Session"}
+          {isConfirm ? "Confirm" : "Save"}
         </SaveSessionButton>
       </ControlsContainer>
     </PageContent>
