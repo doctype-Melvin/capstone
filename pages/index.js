@@ -22,7 +22,7 @@ const linkStyles = css`
   padding: 0 10px;
   height: 66%;
   opacity: 0.85;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
   transition: 0.2s;
 
   &:active {
@@ -56,17 +56,20 @@ const SharedImageContainerStyles = css`
   padding: 1rem;
   position: relative;
   color: #fff;
+  background-repeat: no-repeat;
 `;
 
 const CreateContainer = styled.div`
   ${SharedImageContainerStyles}
   background-image: url('/barbell.jpg');
+  background-position: right;
 `;
 
 const CurrentContainer = styled.div`
   ${SharedImageContainerStyles}
   background-image: url('/lifting.jpg');
   background-size: cover;
+  background-position: top;
 `;
 
 const ViewAllContainer = styled.div`
@@ -77,7 +80,7 @@ const ViewAllContainer = styled.div`
 
 const ImageCaption = styled.p`
   position: absolute;
-  bottom: 0;
+  top: 0;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: #000;
   font-weight: 600;
@@ -109,12 +112,12 @@ export default function HomePage() {
           }
         >
           <CurrentContainer>
-            <ImageCaption>Go to current Template</ImageCaption>
+            <ImageCaption>Go To Current Session</ImageCaption>
           </CurrentContainer>
         </ToCurrentTemplateLink>
         <AllTemplatesLink href="/viewPlans">
           <ViewAllContainer>
-            <ImageCaption>View all Templates</ImageCaption>
+            <ImageCaption>All Templates</ImageCaption>
           </ViewAllContainer>
         </AllTemplatesLink>
       </HomeScreen>
