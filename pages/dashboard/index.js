@@ -50,13 +50,28 @@ export default function Dashboard() {
     );
   if (isLoading || !currentPlan) return <Loading />;
 
+  let currentWeek = ''
+
+  if (currentPlan.sessions.length === 0) {
+    currentWeek = 1
+  } else if (currentPlan.sessions.length > 0) {
+    const [currentWeekSession] = currentPlan.sessions.slice(-1)
+    if (currentWeekSession.sessions.length === currentPlan.days) {
+      currentWeek = currentWeekSession.nextWeek
+    } else {
+      currentWeek = currentWeekSession.week
+    }
+  }
+
+  
+
   return (
     <ContentContainer>
       <TemplateName>{currentPlan.name}</TemplateName>
       <StyledList>
         {currentPlan.routine.map((day) => (
           <li key={day.id}>
-            <SessionCard day={day} planId={id} />
+            <SessionCard day={day} planId={id} week={currentWeek}/>
           </li>
         ))}
       </StyledList>
