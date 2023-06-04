@@ -11,6 +11,7 @@ import SetCard from "@/components/SetCard";
 import format from "date-fns/format";
 import { TemplateName as DayNumber } from "../dashboard";
 import { useState } from "react";
+import { nanoid } from "nanoid";
 
 const PageContent = styled.section`
   min-height: 100vh;
@@ -70,6 +71,7 @@ export default function SessionView() {
         result: activeDaySession,
         dayNumber: activeDay.day,
         dayId: activeDay.id,
+        id: nanoid(5)
       };
       await weeklySessionsHandler(currentTemplate, session);
       mutate();
