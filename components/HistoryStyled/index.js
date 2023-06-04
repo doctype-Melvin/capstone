@@ -9,7 +9,7 @@ margin: 0;
 export const WeekList = styled.ul`
 ${SharedListStyle}
     & > li > div {
-    background-color: var(--lightest-blue);
+    background-color: var(--sand);
     font-weight: 600;
     font-size: 1.3rem;
     text-align: center;

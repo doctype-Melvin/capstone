@@ -2,7 +2,7 @@ import { BsPencilFill as Edit } from "react-icons/bs";
 import { AiOutlineDelete as Delete } from "react-icons/ai";
 import styled, { css } from "styled-components";
 import { createUpdateDelete, usePlan } from "@/utils/helpers";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { AiOutlineCheck as Checkmark } from "react-icons/ai";
 import { RxCross1 as Cross } from "react-icons/rx";
 
@@ -26,10 +26,11 @@ const SharedButtonStyle = css`
   padding: 0.3rem;
 `;
 
-const DeleteButton = styled.button`
+ 
+  const DeleteButton = styled.button`
   ${SharedButtonStyle}
   background-color: var(--cancel-red);
-  margin: auto 5px;
+  margin: 0 5px;
 `;
 
 const EditButton = styled.button`
@@ -50,6 +51,7 @@ export default function ResultCard({
   const { data, mutate } = usePlan(templateId);
 
   const [isDelete, setIsDelete] = useState(false);
+  const deleteRef = useRef(null)
 
   const handleEditClick = (id) => {
     toggleEditMode((prevState) => !prevState);
@@ -64,6 +66,22 @@ export default function ResultCard({
     createUpdateDelete(templateId, updatedLogs, "isDelete");
     mutate(updatedData, false);
   };
+
+  useEffect(() => {
+    const handleWindowClick = (event) => {
+      if (
+        isDelete &&
+        deleteRef.current &&
+        !deleteRef.current.contains(event.target)
+      ) {
+        setIsDelete(false)
+      }
+    }
+
+    document.addEventListener("click", handleWindowClick)
+
+    return () => document.removeEventListener("click", handleWindowClick)
+  }, [isDelete])
 
   return (
     <>
@@ -87,21 +105,15 @@ export default function ResultCard({
               <Edit />
             </EditButton>
           )}
-          {isDelete ? (
+   
             <DeleteButton
               type="button"
-              onClick={() => setIsDelete((prevState) => !prevState)}
-            >
-              <Cross />
-            </DeleteButton>
-          ) : (
-            <DeleteButton
-              type="button"
-              onClick={() => setIsDelete((prevState) => !prevState)}
-            >
-              <Delete />
-            </DeleteButton>
-          )}
+              isDelete={isDelete}
+              ref={deleteRef}
+              onClick={() => setIsDelete(!isDelete)}
+              >
+              {isDelete ? <Cross /> : <Delete />}
+            </DeleteButton>        
         </ContentContainer>
       )}
     </>

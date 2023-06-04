@@ -20,17 +20,22 @@ const Title = styled.p`
   background-color: var(--light-blue);
   color: var(--lightest-blue);
   padding: 0.5rem 0;
-  margin: 1rem auto;
+  margin: .5rem auto;
 `;
 
 const Preview = styled.div`
-  margin-top: 1rem;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  padding-left: 2rem;
   color: var(--dark-main);
   font-size: 1.25rem;
+  padding: 0 .75rem;
+  & > span:first-child {
+    text-align: justify;
+  }
+  & > span:last-child {
+    text-align: end;
+  }
 `;
 
 const StyledLink = styled(Link)`
