@@ -32,7 +32,7 @@ export default function HistoryPage() {
                                                 {
                                                     session.result.map((set, index) => (
                                                         <li key={set.setId}>
-                                                            <p>{set.exercise}</p>
+                                                            <p>{set.exercise.toUpperCase()}</p>
                                                             <div>
                                                             <span>Set {index+1}</span>
                                                             <span>Reps {set.reps}</span>
