@@ -1,6 +1,10 @@
 import { useRouter } from "next/router";
 import Loading from "@/components/Loading";
-import { usePlan } from "@/utils/helpers";
+import {
+  createUpdateDelete,
+  usePlan,
+  weeklySessionsHandler,
+} from "@/utils/helpers";
 import styled, { css } from "styled-components";
 import Link from "next/link";
 import SetCard from "@/components/SetCard";
@@ -37,7 +41,8 @@ const StyledLink = styled(Link)`
 const SaveSessionButton = styled.button`
   ${SharedButtonStyle}
   border: none;
-  background-color: var(--soft-green);
+  background-color: ${(props) =>
+    props.isConfirm ? "var(--soft-green)" : "var(--sand)"};
   &:hover {
     cursor: pointer;
   }
@@ -52,15 +57,24 @@ const SetCardList = styled.ul`
 export default function SessionView() {
   const router = useRouter();
   const { id, plan } = router.query;
-  const [showModal, setShowModal] = useState(false);
+  const [isConfirm, setIsConfirm] = useState(false);
 
-  const { data: currentTemplate, isLoading } = usePlan(plan);
+  const { data: currentTemplate, isLoading, mutate } = usePlan(plan);
 
-  const handleSaveClick = () => {
-    const session = {
-      sessionDate: format(new Date(), "dd.MM.yy"),
-      result: activeDaySession,
-    };
+  const handleSaveClick = async () => {
+    /* The button for saving the session needs more work
+    Users need to cancel the saving process */
+    if (isConfirm) {
+      const session = {
+        sessionDate: format(new Date(), "dd.MM.yy"),
+        result: activeDaySession,
+        dayNumber: activeDay.day,
+        dayId: activeDay.id,
+      };
+      await weeklySessionsHandler(currentTemplate, session);
+      mutate();
+    }
+    setIsConfirm(!isConfirm);
   };
 
   if (isLoading || !currentTemplate) return <Loading />;
@@ -83,8 +97,12 @@ export default function SessionView() {
       </SetCardList>
       <ControlsContainer>
         <StyledLink href={`/dashboard?id=${plan}`}>Dashboard</StyledLink>
-        <SaveSessionButton type="button" onClick={handleSaveClick}>
-          Save Session
+        <SaveSessionButton
+          isConfirm={isConfirm}
+          type="button"
+          onClick={handleSaveClick}
+        >
+          {isConfirm ? "Save" : "Save Session"}
         </SaveSessionButton>
       </ControlsContainer>
     </PageContent>

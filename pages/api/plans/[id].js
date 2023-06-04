@@ -4,7 +4,8 @@ import Plan from "@/database/models/Plan";
 export default async function handler(request, response) {
   await dbConnect();
 
-  const { isCreate, isEdit, isDelete, id } = request.query;
+  const { isCreate, isEdit, isDelete, saveWeek, saveSession, id } =
+    request.query;
   const currentPlan = await Plan.findById(id);
 
   switch (request.method) {
@@ -47,6 +48,28 @@ export default async function handler(request, response) {
           const updatedLogs = request.body;
           await Plan.findByIdAndUpdate(id, { logs: updatedLogs });
           response.status(200).json({ status: "Set successfully deleted" });
+        } else if (saveWeek) {
+          const newWeek = request.body;
+          const currentWeeks = currentPlan.sessions;
+          const updatedWeeks = [...currentWeeks, newWeek];
+          await Plan.findByIdAndUpdate(id, { sessions: updatedWeeks });
+          response.status(200).json({ status: "Successfully added session" });
+        } else if (saveSession) {
+          const newSession = request.body;
+          const [currentWeek] = currentPlan.sessions.slice(-1);
+          const currentWeekIndex = currentPlan.sessions.findIndex(
+            (week) => week.week === currentWeek.week
+          );
+          const updatedCurrentWeekSessions = [
+            ...currentWeek.sessions,
+            newSession,
+          ];
+          const updatedSessions = currentPlan.sessions;
+          currentWeek.sessions = updatedCurrentWeekSessions;
+          updatedSessions[currentWeekIndex] = currentWeek;
+
+          await Plan.findByIdAndUpdate(id, { sessions: updatedSessions });
+          response.status(200).json({ status: "Successfully updated week" });
         } else {
           const updatedExercise = request.body;
           const updatedRoutine = currentPlan.routine.map((day) => {

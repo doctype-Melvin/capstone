@@ -37,7 +37,7 @@ export default function Dashboard() {
     return (
       <ContentContainer>
         <TemplateName>No current template set</TemplateName>
-        {allPlans.length === undefined ? (
+        {error ? (
           <ButtonContainer>
             <NewTemplateLink href="/createPlan">New Template</NewTemplateLink>
           </ButtonContainer>
@@ -50,13 +50,33 @@ export default function Dashboard() {
     );
   if (isLoading || !currentPlan) return <Loading />;
 
+  let currentWeek = ''
+  let currentDay = ''
+
+  if (currentPlan.sessions.length === 0) {
+    currentWeek = 1
+    currentDay = 1
+  } else if (currentPlan.sessions.length > 0) {
+    const [currentWeekSession] = currentPlan.sessions.slice(-1)
+    if (currentWeekSession.sessions.length === currentPlan.days) {
+      currentWeek = currentWeekSession.nextWeek
+      currentDay = 1
+    } else {
+      currentWeek = currentWeekSession.week
+      const [lastSession] = currentWeekSession.sessions.slice(-1)
+      currentDay = lastSession.dayNumber + 1
+    }
+  }
+
+
+
   return (
     <ContentContainer>
       <TemplateName>{currentPlan.name}</TemplateName>
       <StyledList>
-        {currentPlan.routine.map((day) => (
+        {currentPlan.routine.filter(day => day.day === currentDay).map((day) => (
           <li key={day.id}>
-            <SessionCard day={day} planId={id} />
+            <SessionCard day={day} planId={id} week={currentWeek}/>
           </li>
         ))}
       </StyledList>

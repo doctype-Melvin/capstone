@@ -73,12 +73,53 @@ export const createUpdateDelete = async (planId, data, mode) => {
     isEdit: "isEdit",
     isCreate: "isCreate",
     isDelete: "isDelete",
+    saveWeek: "saveWeek",
+    saveSession: "saveSession",
   };
 
   const url = `/api/plans/${planId}?${modes[mode]}=true&id=${planId}`;
   await sendPatchRequest(url, data);
 
   mutate();
+};
+
+const weekObject = {
+  week: 1,
+  sessions: [],
+  nextWeek: 2,
+};
+
+export const weeklySessionsHandler = async (currentPlan, sessionObject) => {
+  if (currentPlan.sessions.length > 0) {
+    // Session count is greater than 0
+    const [lastWeek] = currentPlan.sessions.slice(-1);
+    const [lastSession] = lastWeek.sessions.slice(-1);
+
+    if (lastSession.dayId === sessionObject.dayId) {
+      // Prevent dupes
+      console.log("Session already saved!");
+      return;
+    }
+    if (lastWeek.sessions.length < currentPlan.days) {
+      await createUpdateDelete(currentPlan._id, sessionObject, "saveSession");
+      await createUpdateDelete(currentPlan._id, [], "isDelete");
+    } else {
+      const newWeek = weekObject;
+      newWeek.sessions = [sessionObject];
+      newWeek.week = lastWeek.nextWeek;
+      newWeek.nextWeek = lastWeek.nextWeek + 1;
+      console.log(`New Week`);
+      await createUpdateDelete(currentPlan._id, newWeek, "saveWeek");
+      await createUpdateDelete(currentPlan._id, [], "isDelete");
+    }
+  } else {
+    const updatedWeek = weekObject;
+    updatedWeek.sessions = [sessionObject];
+    console.log(updatedWeek);
+    await createUpdateDelete(currentPlan._id, updatedWeek, "saveWeek");
+    await createUpdateDelete(currentPlan._id, [], "isDelete");
+  }
+  mutate(`/api/plans/`);
 };
 
 export const setCurrentTemplate = async (planId) => {
