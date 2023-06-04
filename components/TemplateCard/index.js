@@ -10,7 +10,7 @@ import { AiOutlineCheck as Checkmark } from "react-icons/ai";
 const TemplateContainer = styled.section`
   width: 100%;
   display: grid;
-  grid-template-columns: 0.6fr 0.5fr 0.5fr 0.25fr;
+  grid-template-columns: 1fr .75fr .5fr .5fr;
   align-items: center;
   padding: 0.35rem 0.75rem;
   margin-bottom: 0.75rem;
@@ -25,12 +25,11 @@ export const IconContainer = styled.button`
   font-size: 1.75rem;
   display: flex;
   justify-content: center;
-  padding: 0.3rem 0;
   border-radius: 5px;
   border: none;
-  &:hover {
-    cursor: pointer;
-  }
+  width: fit-content;
+  padding: .25rem;
+  justify-self: end;
 `;
 
 const StyledLink = styled(Link)`
@@ -57,10 +56,13 @@ const CurrentIndicator = styled.div`
   font-size: 1rem;
   text-align: center;
   margin: 0 auto;
-  padding: 0 10px;
   background-color: var(--soft-green);
   color: var(--dark-main);
-`;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  justify-self: center;
+  `;
 
 export default function TemplateCard({ templateData }) {
   const [isDelete, setIsDelete] = useState(false);
@@ -97,14 +99,18 @@ export default function TemplateCard({ templateData }) {
 
   return (
     <TemplateContainer>
+      {/* <div>Name</div> */}
       <StyledLink href={`/viewPlans/${templateData._id}`}>
         {templateData.name.toUpperCase()}{" "}
       </StyledLink>
+      {/* <div></div> */}
+      <span>
+      {templateData.days} {templateData.days > 1 ? "Days" : "Day"}
+      </span>
       {templateData.isCurrent ? (
         <CurrentIndicator
           onClick={() => router.push(`/dashboard?id=${templateData._id}`)}
-        >
-          <Checkmark />
+        > Current
         </CurrentIndicator>
       ) : (
         <CurrentButton
@@ -114,9 +120,6 @@ export default function TemplateCard({ templateData }) {
           Select
         </CurrentButton>
       )}
-      <span>
-        {templateData.days} {templateData.days > 1 ? "Days" : "Day"}
-      </span>
       <IconContainer
         type="button"
         style={{
