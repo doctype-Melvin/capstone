@@ -22,7 +22,7 @@ const linkStyles = css`
   padding: 0 10px;
   height: 66%;
   opacity: 0.85;
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   transition: 0.2s;
 
   &:active {
@@ -55,8 +55,8 @@ const SharedImageContainerStyles = css`
   width: 100%;
   padding: 1rem;
   position: relative;
-  color: #fff;
   background-repeat: no-repeat;
+  color: #fff;
 `;
 
 const CreateContainer = styled.div`
@@ -80,10 +80,18 @@ const ViewAllContainer = styled.div`
 
 const ImageCaption = styled.p`
   position: absolute;
+  paint-order: stroke fill;
   top: 0;
-  -webkit-text-stroke-width: 1px;
-  -webkit-text-stroke-color: #000;
+  // -webkit-text-stroke-width: 1px;
+  // -webkit-text-stroke-color: #000;
+  // -webkit-text-fill-color: #fff;
+  text-shadow: 
+  1px 0 0 #000,
+  0 1px 0 #000,
+  -1px 0 0 #000,
+  0 -1px 0 #000;
   font-weight: 600;
+  letter-spacing: .1rem;
 `;
 
 export default function HomePage() {

@@ -102,10 +102,10 @@ export default function PlanForm() {
         <input type="number" id="days" name="days" min={1} max={7} required />
 
         <ButtonContainer>
-          <SaveButton type="submit">Save</SaveButton>
           <BackButton type="button" onClick={() => router.push("/")}>
             Back
           </BackButton>
+          <SaveButton type="submit">Save</SaveButton>
         </ButtonContainer>
       </FormCreatePlan>
     </>

@@ -8,6 +8,17 @@ const PageContent = styled.section`
     padding-bottom: calc(1rem + var(--navbar-height));
 `
 
+const NoSessionsContainer = styled.div`
+    font-size: 1.5rem;
+    position: absolute;
+    top: 25%;
+    left: 11%;
+    background-color: var(--light-blue);
+    color: var(--lightest-blue);
+    padding: 1rem 2rem;
+    border-radius: 3px;
+`
+
 export default function HistoryPage() {
     const router = useRouter()
     const { id } = router.query
@@ -17,7 +28,7 @@ export default function HistoryPage() {
 
     return (
         <PageContent>
-            {sessionHistory.sessions.length < 1 && <div>No sessions found</div>}
+            {sessionHistory.sessions.length < 1 && <NoSessionsContainer>No recorded sessions</NoSessionsContainer>}
             <WeekList>
                 {
                     sessionHistory.sessions.map(week => (
