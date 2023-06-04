@@ -71,14 +71,8 @@ export default function SessionView() {
         dayNumber: activeDay.day,
         dayId: activeDay.id,
       };
-      if (currentTemplate.sessions.length === 0 ) {
-       await weeklySessionsHandler(currentTemplate, session);
-       mutate()
-      } else {
-       await weeklySessionsHandler(currentTemplate, session)
-        console.log("Next session");
-        mutate( )
-      }
+      await weeklySessionsHandler(currentTemplate, session);
+      mutate();
     }
     setIsConfirm(!isConfirm);
   };
